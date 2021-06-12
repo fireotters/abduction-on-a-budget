@@ -10,7 +10,7 @@ public class Plr2Controller : MonoBehaviour
 
     [Header("Mid-air Swing")]
     [SerializeField] private Text textSwingTime;
-    private const float ThrustSwing = 50000, CooldownBetweenSwings = 1.2f, SwingSwapForgiveness = 0.1f;
+    private const float ThrustSwing = 50000, CooldownBetweenSwings = 1.2f, SwingSwapForgiveness = 0.1f, SwingTooFast = 7f;
     private float lastSwingTimer = 0f;
 
     [Header("Rope Pull")]
@@ -37,6 +37,7 @@ public class Plr2Controller : MonoBehaviour
 
     private void Update()
     {
+        print(rb.velocity);
         DebugText();
     }
 
@@ -121,10 +122,16 @@ public class Plr2Controller : MonoBehaviour
     }
 
     // Player is allowed to swing if:
-    // 1. If player is swinging in the same direction as an input, or is moving at a forgiveable opposite speed.
-    // 2. If player has not swung too recently.
+    // - If player isn't moving too fast.
+    // - If player is swinging in the same direction as an input, or is moving at a forgiveable opposite speed.
+    // - If player has not swung too recently.
     private bool CanSwing(string direction)
     {
+        if (rb.velocity[0] > SwingTooFast || rb.velocity[0] < -SwingTooFast)
+            return false;
+        if (rb.velocity[1] > SwingTooFast || rb.velocity[1] < -SwingTooFast)
+            return false;
+
         if (direction == "left" && rb.velocity[0] > SwingSwapForgiveness)
             return false;
         if (direction == "right" && rb.velocity[0] < -SwingSwapForgiveness)
@@ -145,7 +152,10 @@ public class Plr2Controller : MonoBehaviour
         string plr2State = "";
         if (!isGrounded)
         {
-            if (rb.velocity[0] > -SwingSwapForgiveness && rb.velocity[0] < SwingSwapForgiveness)
+            if (rb.velocity[0] > SwingTooFast || rb.velocity[0] < -SwingTooFast || 
+                rb.velocity[1] > SwingTooFast || rb.velocity[1] < -SwingTooFast)
+                plr2State = "Moving too fast to swing!";
+            else if (rb.velocity[0] > -SwingSwapForgiveness && rb.velocity[0] < SwingSwapForgiveness)
                 plr2State = "May press either <-- or -->";
             else if (rb.velocity[0] > 0)
                 plr2State = "Can only press -->";
