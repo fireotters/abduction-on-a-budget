@@ -217,7 +217,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5954864660789358172, guid: 324179f0abc71fd44bedd18fa19e3009, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5954864660789358172, guid: 324179f0abc71fd44bedd18fa19e3009, type: 3}
       propertyPath: m_LocalPosition.x
@@ -549,7 +549,7 @@ Transform:
   m_Children:
   - {fileID: 1813582136}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &453482390
 MonoBehaviour:
@@ -901,7 +901,7 @@ Transform:
   - {fileID: 1120567725}
   - {fileID: 370217312}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &555005121
 GameObject:
@@ -954,7 +954,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5312009148336827611, guid: 0675c397d45667841a053691dd2444a2, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5312009148336827611, guid: 0675c397d45667841a053691dd2444a2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1005,12 +1005,28 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 53091429}
     - target: {fileID: 5312009149737140521, guid: 0675c397d45667841a053691dd2444a2, type: 3}
+      propertyPath: groundedRadius
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 5312009149737140521, guid: 0675c397d45667841a053691dd2444a2, type: 3}
       propertyPath: enableDebugging
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5312009149737140521, guid: 0675c397d45667841a053691dd2444a2, type: 3}
+      propertyPath: whatIsGround.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 5312009149737140521, guid: 0675c397d45667841a053691dd2444a2, type: 3}
+      propertyPath: SlowEnoughToPlatformForgiveness
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5312009149737140527, guid: 0675c397d45667841a053691dd2444a2, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5312009149921317515, guid: 0675c397d45667841a053691dd2444a2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.31
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0675c397d45667841a053691dd2444a2, type: 3}
@@ -1425,7 +1441,7 @@ GameObject:
   - component: {fileID: 849943328}
   - component: {fileID: 849943329}
   - component: {fileID: 849943330}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: WorldTileMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9616,7 +9632,7 @@ GameObject:
   - component: {fileID: 994489373}
   - component: {fileID: 994489372}
   - component: {fileID: 994489374}
-  m_Layer: 4
+  m_Layer: 10
   m_Name: WaterLayerTileMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10705,7 +10721,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1056460244}
   - component: {fileID: 1056460243}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CameraLimits
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10754,7 +10770,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1107387574
 PrefabInstance:
@@ -11356,12 +11372,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1245196853}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.2964206, y: 0.87167567, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4.395074, y: -1.5583241, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 1784259676}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1330323237
 GameObject:
@@ -11377,7 +11393,7 @@ GameObject:
   - component: {fileID: 1330323243}
   - component: {fileID: 1330323242}
   - component: {fileID: 1330323241}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: InstaKillTileMap
   m_TagString: Respawn
   m_Icon: {fileID: 0}
@@ -12182,7 +12198,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8397851548562361112, guid: a87974a0244d5474ab77493b3b79a98e, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8397851548562361112, guid: a87974a0244d5474ab77493b3b79a98e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12453,7 +12469,7 @@ PrefabInstance:
       objectReference: {fileID: 102486631}
     - target: {fileID: 4289802024232675676, guid: 7f344feb751906743b40f453aeddd78a, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4289802024232675676, guid: 7f344feb751906743b40f453aeddd78a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12664,7 +12680,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.0986536, y: 2.4299998, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1245196855}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12835,7 +12852,7 @@ GameObject:
   - component: {fileID: 1846996215}
   - component: {fileID: 1846996214}
   - component: {fileID: 1846996213}
-  m_Layer: 4
+  m_Layer: 11
   m_Name: InstaKillWaterTileMap
   m_TagString: Respawn
   m_Icon: {fileID: 0}
@@ -14154,7 +14171,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2589959582060659130, guid: 567d2a3055c8fcf48b36bea17038b0b0, type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 2589959582060659130, guid: 567d2a3055c8fcf48b36bea17038b0b0, type: 3}
       propertyPath: m_LocalPosition.x

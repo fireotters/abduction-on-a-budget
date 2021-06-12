@@ -18,9 +18,9 @@ TagManager:
   - RopeSegment
   - Player1
   - Player2
-  - 
-  - 
-  - 
+  - Tiles_Ground
+  - Tiles_Water
+  - Tiles_InstantKill
   - 
   - 
   - 
