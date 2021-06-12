@@ -1,0 +1,26 @@
+using UnityEngine;
+
+namespace Editor_Related
+{
+    public class PlayerStart : MonoBehaviour
+    {
+        [SerializeField] private GameObject player = null;
+
+        void Start()
+        {
+            // Spawns a player.
+            if (player != null)
+            {
+                Instantiate(player, gameObject.transform.position, Quaternion.identity);
+            }
+            else // This error shouldn't appear, but it's better to be safe than sorry.
+            {
+                Debug.LogError("You must set the Player prefab in the Inspector!");
+            }
+
+            Destroy(gameObject);
+        }
+    }
+
+}
+
