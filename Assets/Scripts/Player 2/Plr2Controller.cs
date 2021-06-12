@@ -43,6 +43,9 @@ public class Plr2Controller : MonoBehaviour
     {
         if (enableDebugging)
             DebugText();
+        
+        if (!isGrounded)
+            SetAnimations(flying: true);
     }
 
     // Copied from Hold Space to Play's ground check
@@ -50,13 +53,16 @@ public class Plr2Controller : MonoBehaviour
     {
         if (!GameManager.i.gameIsOver)
         {
+            var horizontalInput = Input.GetAxisRaw("P2 Horizontal");
+            var verticalInput = Input.GetAxisRaw("P2 Vertical");
+            
             GroundedCheck();
 
             if (isGrounded)
                 PlatformingMovement();
             else
-                MidairMovement();
-            OtherMovement();
+                MidairMovement(horizontalInput);
+            OtherMovement(verticalInput);
         }
     }
 
@@ -78,61 +84,55 @@ public class Plr2Controller : MonoBehaviour
 
     private void PlatformingMovement()
     {
-        float xForce = Input.GetAxis("P2 Horizontal") * MoveSpeed * Time.deltaTime;
+        var horizontalAxis = Input.GetAxis("P2 Horizontal");
+
+        float xForce = horizontalAxis * MoveSpeed * Time.deltaTime;
         Vector2 force = new Vector2(xForce, 0);
         rb.AddForce(force);
 
-        if(Input.GetAxis("P2 Horizontal") > 0 && (xForce < SlowEnoughToPlatformForgiveness && xForce > -SlowEnoughToPlatformForgiveness))
+        if (horizontalAxis > 0)
         {
-            _anim.SetBool("drag", false);
-            _anim.SetBool("left", false);
-            _anim.SetBool("right", true);
-            _anim.SetBool("flying", false);
-
+            SetAnimations(walkLeft: true);
         }
-        else if (Input.GetAxis("P2 Horizontal") < 0 && (xForce < SlowEnoughToPlatformForgiveness && xForce > -SlowEnoughToPlatformForgiveness))
+        else if (horizontalAxis < 0)
         {
-            _anim.SetBool("drag", false);
-            _anim.SetBool("left", true);
-            _anim.SetBool("right", false);
-            _anim.SetBool("flying", false);
+            SetAnimations(walkRight: true);
         }
-        else if (Input.GetAxis("P2 Horizontal") == 0 && (xForce < SlowEnoughToPlatformForgiveness && xForce > -SlowEnoughToPlatformForgiveness))
+        else if (horizontalAxis == 0 &&
+                 (xForce < SlowEnoughToPlatformForgiveness && xForce > -SlowEnoughToPlatformForgiveness))
         {
-            _anim.SetBool("drag", false);
-            _anim.SetBool("left", false);
-            _anim.SetBool("right", false);
-            _anim.SetBool("flying", false);
+            SetAnimations();
         }
         else
         {
-            _anim.SetBool("drag", true);
-            _anim.SetBool("left", false);
-            _anim.SetBool("right", false);
-            _anim.SetBool("flying", false);
+            SetAnimations(true);
         }
     }
 
-    private void MidairMovement()
+    private void SetAnimations(bool dragAnim = false, bool walkLeft = false, bool walkRight = false,
+        bool flying = false)
+    {
+        _anim.SetBool("drag", dragAnim);
+        _anim.SetBool("left", walkLeft);
+        _anim.SetBool("right", walkRight);
+        _anim.SetBool("flying", flying);
+    }
+
+    private void MidairMovement(float horizontalAxis)
     {
         // Left swing
-        if (Input.GetAxisRaw("P2 Horizontal") == -1 && CanSwing("left"))
+        if (horizontalAxis == -1 && CanSwing("left"))
             rb.AddRelativeForce(transform.right * -ThrustSwing);
 
         // Right swing
-        if (Input.GetAxisRaw("P2 Horizontal") == 1 && CanSwing("right"))
+        if (horizontalAxis == 1 && CanSwing("right"))
             rb.AddRelativeForce(transform.right * ThrustSwing);
-
-        _anim.SetBool("drag", false);
-        _anim.SetBool("left", false);
-        _anim.SetBool("right", false);
-        _anim.SetBool("flying", true);
     }
 
-    private void OtherMovement()
+    private void OtherMovement(float verticalMovement)
     {
         // If rope buttons are held for long enough, reduce cooldown between rope pulls
-        if (Input.GetAxisRaw("P2 Vertical") != 0)
+        if (verticalMovement != 0)
         {
             timeSpentHoldingSameDir += Time.deltaTime;
             if (timeSpentHoldingSameDir >= 1.2f)
@@ -151,12 +151,12 @@ public class Plr2Controller : MonoBehaviour
             lastPullTimer = Time.time;
 
             // Climb rope
-            if (Input.GetAxisRaw("P2 Vertical") == 1)
+            if (verticalMovement == 1)
             {
                 ropeCrank.Rotate(-1);
             }
             // Descend rope
-            else if (Input.GetAxisRaw("P2 Vertical") == -1)
+            else if (verticalMovement == -1)
             {
                 ropeCrank.Rotate(1);
             }
@@ -186,6 +186,7 @@ public class Plr2Controller : MonoBehaviour
                 return true;
             }
         }
+
         return false;
     }
 
@@ -194,7 +195,7 @@ public class Plr2Controller : MonoBehaviour
         string plr2State = "";
         if (!isGrounded)
         {
-            if (rb.velocity[0] > SwingTooFast || rb.velocity[0] < -SwingTooFast || 
+            if (rb.velocity[0] > SwingTooFast || rb.velocity[0] < -SwingTooFast ||
                 rb.velocity[1] > SwingTooFast || rb.velocity[1] < -SwingTooFast)
                 plr2State = "Moving too fast to swing!";
             else if (rb.velocity[0] > -SwingSwapForgiveness && rb.velocity[0] < SwingSwapForgiveness)
@@ -211,7 +212,6 @@ public class Plr2Controller : MonoBehaviour
             else
                 plr2State = "Grounded. Pulled too fast to walk.";
         }
-
 
 
         double swingTimeDisplay = Math.Round(lastSwingTimer + CooldownBetweenSwings - Time.time, 2);
@@ -236,6 +236,7 @@ public class Plr2Controller : MonoBehaviour
                     GameManager.i.keyCount--;
                     lockGate.DestroyLock();
                 }
+
                 break;
             case "Human":
                 var human = other.gameObject.GetComponent<Human>();
