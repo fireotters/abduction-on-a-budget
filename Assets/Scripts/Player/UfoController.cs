@@ -16,6 +16,11 @@ namespace Player
             _anim = GetComponent<Animator>();
         }
 
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            print(collision.gameObject.name);
+        }
+
         private void FixedUpdate()
         {
             if (!GameManager.i.gameIsOver)

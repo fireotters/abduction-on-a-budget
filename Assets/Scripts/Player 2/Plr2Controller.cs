@@ -79,7 +79,6 @@ public class Plr2Controller : MonoBehaviour
         {
             if (colliders[i].gameObject != gameObject)
             {
-                print(colliders[i].gameObject);
                 isGrounded = true;
             }
         }
