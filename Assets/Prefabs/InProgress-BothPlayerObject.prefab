@@ -44,8 +44,8 @@ GameObject:
   - component: {fileID: 5312009149737140521}
   - component: {fileID: 5312009149737140527}
   - component: {fileID: 5312009149737140526}
-  - component: {fileID: 5312009149737140522}
   - component: {fileID: 5312009149737140523}
+  - component: {fileID: 1987283204}
   m_Layer: 8
   m_Name: P2
   m_TagString: Player
@@ -96,7 +96,7 @@ MonoBehaviour:
   platformingVelocity: {x: 0, y: 0}
   slowEnoughToPlatform: 0
   SlowEnoughToPlatformForgiveness: 0.2
-  MoveSpeed: 100000
+  MoveSpeed: 150000
 --- !u!212 &5312009149737140527
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -136,7 +136,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 7
   m_Sprite: {fileID: 21300000, guid: 0ccc508108fa6ed4fa11b4a467d7f609, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -160,7 +160,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 40
+  m_Mass: 20
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 2
@@ -169,32 +169,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &5312009149737140522
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5312009149737140525}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.64, y: 0.64}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.4, y: 0.4}
-  m_EdgeRadius: 0
 --- !u!233 &5312009149737140523
 HingeJoint2D:
   m_ObjectHideFlags: 0
@@ -219,6 +193,22 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
+--- !u!70 &1987283204
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5312009149737140525}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.64, y: 0.64}
+  m_Direction: 0
 --- !u!1 &5312009149921317514
 GameObject:
   m_ObjectHideFlags: 0
@@ -264,6 +254,7 @@ GameObject:
   - component: {fileID: 2689373477752745911}
   - component: {fileID: 7850707244165001792}
   - component: {fileID: 7244218324619061152}
+  - component: {fileID: 171325585}
   m_Layer: 7
   m_Name: P1
   m_TagString: Player
@@ -338,7 +329,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 6
   m_Sprite: {fileID: 588644908422862187, guid: 3429b624ad25abb4097c32ad42e27cc3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -423,6 +414,25 @@ MonoBehaviour:
   _vibrationIntensity: 0.85
   _borderColor: {r: 0, g: 0, b: 0, a: 1}
   _borderThickness: 0.0025
+--- !u!232 &171325585
+DistanceJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5312009150026018568}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 5312009149737140526}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_AutoConfigureDistance: 0
+  m_Distance: 2.7
+  m_MaxDistanceOnly: 1
 --- !u!1001 &4365123624047463533
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -432,12 +442,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8443128771282455981, guid: b1a05058f215f984b89b74204f2ecdc3, type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: -0.116999984
+      value: -0.278
       objectReference: {fileID: 0}
     - target: {fileID: 8443128771282455981, guid: b1a05058f215f984b89b74204f2ecdc3, type: 3}
       propertyPath: m_ConnectedRigidBody
       value: 
       objectReference: {fileID: 5312009150026018570}
+    - target: {fileID: 8443128771672503976, guid: b1a05058f215f984b89b74204f2ecdc3, type: 3}
+      propertyPath: maxLinks
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443128771672503976, guid: b1a05058f215f984b89b74204f2ecdc3, type: 3}
+      propertyPath: minLinks
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8443128771901642040, guid: b1a05058f215f984b89b74204f2ecdc3, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -456,7 +474,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8443128771901642040, guid: b1a05058f215f984b89b74204f2ecdc3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.117
+      value: -0.278
       objectReference: {fileID: 0}
     - target: {fileID: 8443128771901642040, guid: b1a05058f215f984b89b74204f2ecdc3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -502,6 +520,10 @@ PrefabInstance:
       propertyPath: plr2
       value: 
       objectReference: {fileID: 5312009149737140521}
+    - target: {fileID: 8443128771901642043, guid: b1a05058f215f984b89b74204f2ecdc3, type: 3}
+      propertyPath: initialNumOfLinks
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8443128771901642043, guid: b1a05058f215f984b89b74204f2ecdc3, type: 3}
       propertyPath: prefabRopeSegs.Array.size
       value: 1

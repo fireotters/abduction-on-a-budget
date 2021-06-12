@@ -4,28 +4,30 @@ using UnityEngine;
 
 public class RopeCrank : MonoBehaviour
 {
-    public float rotateSpeed = 10f;
+    [Header("Changable Attributes")]
+    public int minLinks = 2, maxLinks = 15;
+
+    [Header("References")]
     private Rope rope;
+
+    [Header("Private Vars")]
     private int numLinks;
-    public int minLinks = 3, maxLinks = 15;
 
     private void Awake()
     {
         rope = transform.parent.GetComponent<Rope>();
-        numLinks = rope.numLinks;
+        numLinks = rope.initialNumOfLinks;
     }
 
     public void Rotate(int direction)
     {
         if (direction > 0 && rope != null && numLinks <= maxLinks)
         {
-            transform.Rotate(0, 0, direction * rotateSpeed);
             rope.AddLink();
             numLinks++;
         }
         else if (direction < 0 && rope != null && numLinks > minLinks)
         {
-            transform.Rotate(0, 0, direction * rotateSpeed);
             rope.RemoveLink();
             numLinks--;
         }

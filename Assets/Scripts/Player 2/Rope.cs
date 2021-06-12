@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class Rope : MonoBehaviour
 {
+    [Header("Changable Attributes")]
+    public int initialNumOfLinks = 5;
+
+    [Header("References")]
     public Rigidbody2D hook;
     public GameObject[] prefabRopeSegs;
-    public int numLinks = 5;
+    public Player.UfoController plr1;
     public Plr2Controller plr2;
-
     public HingeJoint2D top;
 
     private void Start()
@@ -18,8 +21,10 @@ public class Rope : MonoBehaviour
 
     private void GenerateRope()
     {
+        plr1.GetComponent<DistanceJoint2D>().distance = 2.7f;
+
         Rigidbody2D prevBod = hook;
-        for (int i = 0; i < numLinks; i++)
+        for (int i = 0; i < initialNumOfLinks; i++)
         {
             int index = Random.Range(0, prefabRopeSegs.Length);
             GameObject newSeg = Instantiate(prefabRopeSegs[index]);
@@ -36,7 +41,7 @@ public class Rope : MonoBehaviour
                 top = hj;
             }
             // Last rope segment is always attached to Player 2
-            if (i == numLinks - 1)
+            if (i == initialNumOfLinks - 1)
             {
                 plr2.GetComponent<HingeJoint2D>().connectedBody = newSeg.GetComponent<Rigidbody2D>();
             }
@@ -45,6 +50,8 @@ public class Rope : MonoBehaviour
 
     public void AddLink()
     {
+        plr1.GetComponent<DistanceJoint2D>().distance += 0.45f;
+
         int index = Random.Range(0, prefabRopeSegs.Length);
         GameObject newLink = Instantiate(prefabRopeSegs[index]);
         newLink.transform.parent = transform;
@@ -59,6 +66,8 @@ public class Rope : MonoBehaviour
 
     public void RemoveLink()
     {
+        plr1.GetComponent<DistanceJoint2D>().distance -= 0.45f;
+
         HingeJoint2D newTop = top.gameObject.GetComponent<RopeSegment>().connectedBelow.GetComponent<HingeJoint2D>();
         newTop.connectedBody = hook;
         newTop.gameObject.transform.position = hook.gameObject.transform.position;

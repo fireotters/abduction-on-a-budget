@@ -909,27 +909,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1770575533}
   m_CullTransparentMesh: 1
---- !u!1 &1987283201 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5312009149737140525, guid: 0675c397d45667841a053691dd2444a2, type: 3}
-  m_PrefabInstance: {fileID: 5312009149017610748}
-  m_PrefabAsset: {fileID: 0}
---- !u!70 &1987283204
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1987283201}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.64, y: 0.64}
-  m_Direction: 0
 --- !u!1001 &1175382458481847344
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1043,29 +1022,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5312009149737140521, guid: 0675c397d45667841a053691dd2444a2, type: 3}
-      propertyPath: MoveSpeed
-      value: 200000
-      objectReference: {fileID: 0}
-    - target: {fileID: 5312009149737140521, guid: 0675c397d45667841a053691dd2444a2, type: 3}
       propertyPath: textSwingTime
       value: 
       objectReference: {fileID: 1770575535}
-    - target: {fileID: 5312009149737140526, guid: 0675c397d45667841a053691dd2444a2, type: 3}
-      propertyPath: m_Mass
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 5312009149737140526, guid: 0675c397d45667841a053691dd2444a2, type: 3}
-      propertyPath: m_GravityScale
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5312009149737140527, guid: 0675c397d45667841a053691dd2444a2, type: 3}
-      propertyPath: m_SortingOrder
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 5312009150026018571, guid: 0675c397d45667841a053691dd2444a2, type: 3}
-      propertyPath: m_SortingOrder
-      value: 6
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5312009149737140522, guid: 0675c397d45667841a053691dd2444a2, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0675c397d45667841a053691dd2444a2, type: 3}
