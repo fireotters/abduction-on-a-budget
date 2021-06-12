@@ -16,8 +16,8 @@ namespace Player
 
         private void FixedUpdate()
         {
-            var horizontalAxis = Input.GetAxis("Horizontal");
-            var verticalAxis = Input.GetAxis("Vertical");
+            var horizontalAxis = Input.GetAxis("P1 Horizontal");
+            var verticalAxis = Input.GetAxis("P1 Vertical");
 
             if (IsHorizontalAxisInThresholdForSpeedReduction(horizontalAxis) && IsVerticalAxisInThresholdForSpeedReduction(verticalAxis))
             {

@@ -25,19 +25,24 @@ public class Pl2Movement : MonoBehaviour
 
     private void CheckControls()
     {
-        if (Input.GetKeyDown("a") && CanSwing("left"))
+        // Left
+        if (Input.GetAxisRaw("P2 Horizontal") == -1 && CanSwing("left"))
         {
             rb.AddRelativeForce(transform.right * -ThrustSwing);
         }
-        if (Input.GetKeyDown("d") && CanSwing("right"))
+        // Right
+        if (Input.GetAxisRaw("P2 Horizontal") == 1 && CanSwing("right"))
         {
             rb.AddRelativeForce(transform.right * ThrustSwing);
         }
-        if (Input.GetKeyDown("w"))
+
+        // Up
+        if (Input.GetAxisRaw("P2 Vertical") == 1)
         {
 
         }
-        if (Input.GetKeyDown("s"))
+        // Down
+        if (Input.GetAxisRaw("P2 Vertical") == -1)
         {
 
         }

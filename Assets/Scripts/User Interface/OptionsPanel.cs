@@ -56,4 +56,13 @@ public class OptionsPanel : MonoBehaviour
             txtFullscreenToggleBtn.text = "Fullscreen OFF";
         }
     }
+
+    public void ChangeMusicPassToManager(float musVolume)
+    {
+        MusicManager.i.ChangeMusic(musVolume);
+    }
+    public void ChangeSFXPassToManager(float sfxVolume)
+    {
+        MusicManager.i.ChangeSFX(sfxVolume);
+    }
 }
