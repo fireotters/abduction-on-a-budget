@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -11,14 +10,4 @@ public class GameManager : MonoBehaviour
 
     public int keyCount = 0;
     public int humanCount = 0;
-
-    private void Start()
-    {
-        
-    }
-
-    private void Update()
-    {
-        
-    }
 }
