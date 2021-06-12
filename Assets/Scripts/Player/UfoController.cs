@@ -18,18 +18,23 @@ namespace Player
 
         private void FixedUpdate()
         {
-            var horizontalAxis = Input.GetAxis("P1 Horizontal");
-            var verticalAxis = Input.GetAxis("P1 Vertical");
-
-            if (IsHorizontalAxisInThresholdForSpeedReduction(horizontalAxis) && IsVerticalAxisInThresholdForSpeedReduction(verticalAxis))
+            if (!GameManager.i.gameIsOver)
             {
-                horizontalAxis /= SlowdownFactor;
-                verticalAxis /= SlowdownFactor;
+                var horizontalAxis = Input.GetAxis("P1 Horizontal");
+                var verticalAxis = Input.GetAxis("P1 Vertical");
+
+                if (IsHorizontalAxisInThresholdForSpeedReduction(horizontalAxis) && IsVerticalAxisInThresholdForSpeedReduction(verticalAxis))
+                {
+                    horizontalAxis /= SlowdownFactor;
+                    verticalAxis /= SlowdownFactor;
+                }
+
+                var calculatedForce = CalculateForce(horizontalAxis, verticalAxis);
+                
+                SetAnim(calculatedForce);
+
+                _rb2d.MovePosition(_rb2d.position + calculatedForce * Time.fixedDeltaTime);
             }
-
-            SetAnim(CalculateForce(horizontalAxis, verticalAxis));
-
-            _rb2d.MovePosition(_rb2d.position + CalculateForce(horizontalAxis, verticalAxis) * Time.fixedDeltaTime);
         }
 
         private static bool IsHorizontalAxisInThresholdForSpeedReduction(float horizontalAxis)

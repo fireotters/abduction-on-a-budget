@@ -6,6 +6,8 @@ public partial class GameUi : BaseUi
     [Header("Game UI")]
     public GameObject gamePausePanel;
 
+    public GameObject gameOverPanel;
+
     private void Start()
     {
         // Change music track
@@ -15,11 +17,20 @@ public partial class GameUi : BaseUi
         StartCoroutine(UsefulFunctions.FadeScreenBlack("from", fullUiFadeBlack));
     }
 
-    void Update()
+    private void Update()
     {
         CheckKeyInputs();
-        
+        CheckIfPlayerIsDead();
     }
+
+    private void CheckIfPlayerIsDead()
+    {
+        if (GameManager.i.gameIsOver)
+        {
+            PlayerDied();
+        }
+    }
+
     private void CheckKeyInputs()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -40,6 +51,17 @@ public partial class GameUi : BaseUi
 
             MusicManager.i.FindAllSfxAndPlayPause(gameIsPaused: intent);
         }
+    }
+
+    private void PlayerDied()
+    {
+        gameOverPanel.SetActive(true);
+    }
+
+    public void ReloadLevel()
+    {
+        gameOverPanel.SetActive(false);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void ExitGameFromPause()

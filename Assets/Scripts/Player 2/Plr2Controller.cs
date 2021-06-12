@@ -39,7 +39,6 @@ public class Plr2Controller : MonoBehaviour
 
     private void Update()
     {
-        //print(rb.velocity);
         if (enableDebugging)
             DebugText();
     }
@@ -47,13 +46,16 @@ public class Plr2Controller : MonoBehaviour
     // Copied from Hold Space to Play's ground check
     private void FixedUpdate()
     {
-        GroundedCheck();
+        if (!GameManager.i.gameIsOver)
+        {
+            GroundedCheck();
 
-        if (isGrounded)
-            PlatformingMovement();
-        else
-            MidairMovement();
-        OtherMovement();
+            if (isGrounded)
+                PlatformingMovement();
+            else
+                MidairMovement();
+            OtherMovement();
+        }
     }
 
     private void GroundedCheck()
@@ -202,6 +204,9 @@ public class Plr2Controller : MonoBehaviour
                 var human = other.gameObject.GetComponent<Human>();
                 GameManager.i.humanCount++;
                 human.DestroyCollectible();
+                break;
+            case "Respawn":
+                GameManager.i.gameIsOver = true;
                 break;
         }
     }
