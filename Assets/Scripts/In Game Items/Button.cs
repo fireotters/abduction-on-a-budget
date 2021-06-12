@@ -22,6 +22,7 @@ namespace In_Game_Items
             if (_usable && other.CompareTag("Player"))
             {
                 print("I have been triggered!");
+                gameObject.GetComponent<AudioSource>().Play();
                 attachedLock.DestroyLock();
                 _triggerCollider.enabled = false;
                 _usable = false;

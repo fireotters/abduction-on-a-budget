@@ -2,6 +2,7 @@ using System;
 using In_Game_Items;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Plr2Controller : MonoBehaviour
 {
@@ -21,11 +22,17 @@ public class Plr2Controller : MonoBehaviour
     private float timeSpentHoldingSameDir = 0f, currentCooldownBetweenPulls, lastPullTimer = 0f;
 
     [Header("Platforming - Ground Check")]
+    private AudioSource _audioSource;
     public bool isGrounded = false;
+    [SerializeField] private AudioClip[] groundedSound;
+    [SerializeField] private AudioClip[] meEveryday;
+    [SerializeField] private AudioClip keySound;
+    [SerializeField] private AudioClip unlockSound;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private float groundedRadius = 0f;
     [SerializeField] private Vector2 platformingVelocity = new Vector2();
+
 
     [Header("Platforming - Movement")]
     public bool slowEnoughToPlatform = false;
@@ -35,6 +42,7 @@ public class Plr2Controller : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();  
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -70,8 +78,16 @@ public class Plr2Controller : MonoBehaviour
             if (colliders[i].gameObject != gameObject)
             {
                 isGrounded = true;
+
             }
         }
+    }
+    
+    
+    private void PlayGroundSound()
+    {
+        _audioSource.clip = groundedSound[Random.Range(0, groundedSound.Length)];
+        _audioSource.Play();
     }
 
     private void PlatformingMovement()
@@ -191,6 +207,8 @@ public class Plr2Controller : MonoBehaviour
                 var key = other.gameObject.GetComponent<Key>();
                 GameManager.i.keyCount++;
                 key.DestroyCollectible();
+                _audioSource.clip = keySound;
+                _audioSource.Play();
                 break;
             case "Lock":
                 var lockGate = other.gameObject.GetComponent<LockedGate>();
@@ -198,12 +216,16 @@ public class Plr2Controller : MonoBehaviour
                 {
                     GameManager.i.keyCount--;
                     lockGate.DestroyLock();
+                    _audioSource.clip = unlockSound;
+                    _audioSource.Play();
                 }
                 break;
             case "Human":
                 var human = other.gameObject.GetComponent<Human>();
                 GameManager.i.humanCount++;
                 human.DestroyCollectible();
+                _audioSource.clip = meEveryday[Random.Range(0, meEveryday.Length)];
+                _audioSource.Play();
                 break;
             case "Respawn":
                 GameManager.i.gameIsOver = true;

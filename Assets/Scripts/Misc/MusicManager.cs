@@ -1,18 +1,27 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Serialization;
 
 public class MusicManager : MonoBehaviour
     {
 
     public AudioMixer mixer;
-    public AudioSource sfxDemo, currentMusicPlayer;
+    [FormerlySerializedAs("sfxDemo")] public AudioSource sfxPlayer;
+    public AudioSource currentMusicPlayer;
     public AudioClip musicMainMenu, musicGameplay;
+    public AudioClip hoverSound;
+    public AudioClip selectSound;
+    public AudioClip startGameSound;
+    public AudioClip backSound;
+    
     private int lastTrackRequested = -1; // When first created, pick the scene's chosen song
 
     public static MusicManager i;
     private void Awake()
     {
+        
         if (i != null)
         {
             Destroy(gameObject);
@@ -23,6 +32,7 @@ public class MusicManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
     }
+
     public void ChangeMusic(float sliderValue) {
         mixer.SetFloat("MusicVolume", Mathf.Log10(sliderValue) * 20);
         PlayerPrefs.SetFloat("Music", sliderValue);
@@ -33,8 +43,8 @@ public class MusicManager : MonoBehaviour
         mixer.SetFloat("SfxVolume", Mathf.Log10(sliderValue) * 20);
         PlayerPrefs.SetFloat("SFX", sliderValue);
         PlayerPrefs.Save();
-        if (!sfxDemo.isPlaying) {
-            sfxDemo.Play();
+        if (!sfxPlayer.isPlaying) {
+            sfxPlayer.Play();
         }
     }
 
@@ -90,5 +100,30 @@ public class MusicManager : MonoBehaviour
             currentMusicPlayer.Play();
             lastTrackRequested = index;
         }
+    }
+
+    public void PlaySound(string sound)
+    {
+        sfxPlayer.enabled = true;
+        switch (sound)
+        {
+            case "hover":
+                sfxPlayer.clip = hoverSound;
+                break;
+
+            case "select":
+                sfxPlayer.clip = selectSound;
+                Debug.Log("Select sound");
+                break;
+
+            case "back":
+                sfxPlayer.clip = backSound;
+                break;
+
+            case "start":
+                sfxPlayer.clip = startGameSound;
+                break;
+        }
+        sfxPlayer.Play();
     }
 }

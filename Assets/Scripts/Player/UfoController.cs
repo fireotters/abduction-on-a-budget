@@ -1,4 +1,8 @@
+using System;
+using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Player
 {
@@ -6,12 +10,17 @@ namespace Player
     {
         private Rigidbody2D _rb2d;
         private static Animator _anim;
+        private AudioSource _audioSource;
         [SerializeField] private float velocityFactor = 6f;
+        [SerializeField] private AudioClip[] collisionSound;
+        [SerializeField] private AudioClip moveSound;
+        //[SerializeField] private AudioClip[] collisionUnderwaterSound;
         private const float MultiAxisThreshold = 0.1f;
         private const float SlowdownFactor = 1.5f;
 
         private void Start()
         {
+            _audioSource = GetComponent<AudioSource>();
             _rb2d = GetComponent<Rigidbody2D>();
             _anim = GetComponent<Animator>();
         }
@@ -37,6 +46,22 @@ namespace Player
             }
         }
 
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            PlayCollisionSound();
+        }
+
+        private void PlayCollisionSound()
+        {
+            _audioSource.clip = collisionSound[Random.Range(0, collisionSound.Length)];
+            _audioSource.Play();
+        }
+        private void PlayMoveSound()
+        {
+            _audioSource.clip = moveSound;
+            _audioSource.Play();
+        }
+        
         private static bool IsHorizontalAxisInThresholdForSpeedReduction(float horizontalAxis)
         {
             return horizontalAxis > MultiAxisThreshold || horizontalAxis < -MultiAxisThreshold;
