@@ -54,13 +54,13 @@ namespace Player
             return newPos * velocityFactor;
         }
 
-        void OnTriggerEnter(Collision collision)
+        void OnTriggerEnter(Collider collision)
         {
             if (collision.gameObject.name == "WaterLayerTileMap")
                 _anim.SetBool("water", true);
         }
 
-        void OnTriggerExit(Collision collision)
+        void OnTriggerExit(Collider collision)
         {
             if (collision.gameObject.name == "WaterLayerTileMap")
                 _anim.SetBool("water", false);

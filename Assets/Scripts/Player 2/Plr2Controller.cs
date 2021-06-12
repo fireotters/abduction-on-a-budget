@@ -82,7 +82,7 @@ public class Plr2Controller : MonoBehaviour
         Vector2 force = new Vector2(xForce, 0);
         rb.AddForce(force);
 
-        if(Input.GetAxis("P2 Horizontal") == 1 && (xForce < SlowEnoughToPlatformForgiveness && xForce > -SlowEnoughToPlatformForgiveness))
+        if(Input.GetAxis("P2 Horizontal") > 0 && (xForce < SlowEnoughToPlatformForgiveness && xForce > -SlowEnoughToPlatformForgiveness))
         {
             _anim.SetBool("drag", false);
             _anim.SetBool("left", false);
@@ -90,7 +90,7 @@ public class Plr2Controller : MonoBehaviour
             _anim.SetBool("flying", false);
 
         }
-        else if (Input.GetAxis("P2 Horizontal") == -1 && (xForce < SlowEnoughToPlatformForgiveness && xForce > -SlowEnoughToPlatformForgiveness))
+        else if (Input.GetAxis("P2 Horizontal") < 0 && (xForce < SlowEnoughToPlatformForgiveness && xForce > -SlowEnoughToPlatformForgiveness))
         {
             _anim.SetBool("drag", false);
             _anim.SetBool("left", true);
