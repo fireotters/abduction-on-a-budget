@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Plr2Controller : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private Animator _anim;
 
     [Header("Only enable if textSwingTime is assigned")]
     public bool enableDebugging = false;
@@ -34,7 +35,8 @@ public class Plr2Controller : MonoBehaviour
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();  
+        rb = GetComponent<Rigidbody2D>();
+        _anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -79,6 +81,36 @@ public class Plr2Controller : MonoBehaviour
         float xForce = Input.GetAxis("P2 Horizontal") * MoveSpeed * Time.deltaTime;
         Vector2 force = new Vector2(xForce, 0);
         rb.AddForce(force);
+
+        if(Input.GetAxis("P2 Horizontal") == 1 && (xForce < SlowEnoughToPlatformForgiveness && xForce > -SlowEnoughToPlatformForgiveness))
+        {
+            _anim.SetBool("drag", false);
+            _anim.SetBool("left", false);
+            _anim.SetBool("right", true);
+            _anim.SetBool("flying", false);
+
+        }
+        else if (Input.GetAxis("P2 Horizontal") == -1 && (xForce < SlowEnoughToPlatformForgiveness && xForce > -SlowEnoughToPlatformForgiveness))
+        {
+            _anim.SetBool("drag", false);
+            _anim.SetBool("left", true);
+            _anim.SetBool("right", false);
+            _anim.SetBool("flying", false);
+        }
+        else if (Input.GetAxis("P2 Horizontal") == 0 && (xForce < SlowEnoughToPlatformForgiveness && xForce > -SlowEnoughToPlatformForgiveness))
+        {
+            _anim.SetBool("drag", false);
+            _anim.SetBool("left", false);
+            _anim.SetBool("right", false);
+            _anim.SetBool("flying", false);
+        }
+        else
+        {
+            _anim.SetBool("drag", true);
+            _anim.SetBool("left", false);
+            _anim.SetBool("right", false);
+            _anim.SetBool("flying", false);
+        }
     }
 
     private void MidairMovement()
@@ -90,6 +122,11 @@ public class Plr2Controller : MonoBehaviour
         // Right swing
         if (Input.GetAxisRaw("P2 Horizontal") == 1 && CanSwing("right"))
             rb.AddRelativeForce(transform.right * ThrustSwing);
+
+        _anim.SetBool("drag", false);
+        _anim.SetBool("left", false);
+        _anim.SetBool("right", false);
+        _anim.SetBool("flying", true);
     }
 
     private void OtherMovement()

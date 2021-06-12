@@ -54,58 +54,70 @@ namespace Player
             return newPos * velocityFactor;
         }
 
+        void OnTriggerEnter(Collision collision)
+        {
+            if (collision.gameObject.name == "WaterLayerTileMap")
+                _anim.SetBool("water", true);
+        }
+
+        void OnTriggerExit(Collision collision)
+        {
+            if (collision.gameObject.name == "WaterLayerTileMap")
+                _anim.SetBool("water", false);
+        }
+
         private static void SetAnim(Vector2 force)
         {
-            if (force.x == 0 && force.y > 0) //Goes up
+            if (Input.GetAxis("P1 Horizontal") == 0 && Input.GetAxis("P1 Vertical") > 0) //Goes up
             {
                 _anim.SetBool("up", true);
                 _anim.SetBool("down", false);
                 _anim.SetBool("left", false);
                 _anim.SetBool("right", false);
             }
-            else if (force.x == 0 && force.y < 0) //Goes down
+            else if (Input.GetAxis("P1 Horizontal") == 0 && Input.GetAxis("P1 Vertical") < 0) //Goes down
             {
                 _anim.SetBool("up", false);
                 _anim.SetBool("down", true);
                 _anim.SetBool("left", false);
                 _anim.SetBool("right", false);
             }
-            else if (force.x > 0 && force.y == 0) //Goes right
+            else if (Input.GetAxis("P1 Horizontal") > 0 && Input.GetAxis("P1 Vertical") == 0) //Goes right
             {
                 _anim.SetBool("up", false);
                 _anim.SetBool("down", false);
                 _anim.SetBool("left", false);
                 _anim.SetBool("right", true);
             }
-            else if (force.x < 0 && force.y == 0) //Goes left
+            else if (Input.GetAxis("P1 Horizontal") < 0 && Input.GetAxis("P1 Vertical") == 0) //Goes left
             {
                 _anim.SetBool("up", false);
                 _anim.SetBool("down", false);
                 _anim.SetBool("left", true);
                 _anim.SetBool("right", false);
             }
-            else if (force.x < 0 && force.y > 0) //Goes up left
+            else if (Input.GetAxis("P1 Horizontal") < 0 && Input.GetAxis("P1 Vertical") > 0) //Goes up left
             {
                 _anim.SetBool("up", true);
                 _anim.SetBool("down", false);
                 _anim.SetBool("left", true);
                 _anim.SetBool("right", false);
             }
-            else if (force.x < 0 && force.y < 0) //Goes down left
+            else if (Input.GetAxis("P1 Horizontal") < 0 && Input.GetAxis("P1 Vertical") < 0) //Goes down left
             {
                 _anim.SetBool("up", false);
                 _anim.SetBool("down", true);
                 _anim.SetBool("left", true);
                 _anim.SetBool("right", false);
             }
-            else if (force.x > 0 && force.y > 0) //Goes up right
+            else if (Input.GetAxis("P1 Horizontal") > 0 && Input.GetAxis("P1 Vertical") > 0) //Goes up right
             {
                 _anim.SetBool("up", true);
                 _anim.SetBool("down", false);
                 _anim.SetBool("left", false);
                 _anim.SetBool("right", true);
             }
-            else if (force.x > 0 && force.y < 0) //Goes down right
+            else if (Input.GetAxis("P1 Horizontal") > 0 && Input.GetAxis("P1 Vertical") < 0) //Goes down right
             {
                 _anim.SetBool("up", false);
                 _anim.SetBool("down", true);
