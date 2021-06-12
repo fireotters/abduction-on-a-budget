@@ -8,9 +8,12 @@ public class Plr2Controller : MonoBehaviour
 {
     private Rigidbody2D rb;
 
-    [Header("Mid-air Swing")]
+    [Header("Only enable if textSwingTime is assigned")]
+    public bool enableDebugging = false;
     [SerializeField] private Text textSwingTime;
-    [SerializeField] private const float ThrustSwing = 50000, CooldownBetweenSwings = 1.2f, SwingSwapForgiveness = 0.1f, SwingTooFast = 7f;
+
+    [Header("Mid-air Swing")]
+    [SerializeField] private float ThrustSwing = 50000, CooldownBetweenSwings = 1.2f, SwingSwapForgiveness = 0.1f, SwingTooFast = 7f;
     private float lastSwingTimer = 0f;
 
     [Header("Rope Pull")]
@@ -38,7 +41,8 @@ public class Plr2Controller : MonoBehaviour
     private void Update()
     {
         //print(rb.velocity);
-        DebugText();
+        if (enableDebugging)
+            DebugText();
     }
 
     // Copied from Hold Space to Play's ground check
