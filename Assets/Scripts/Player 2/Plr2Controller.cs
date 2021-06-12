@@ -10,8 +10,13 @@ public class Plr2Controller : MonoBehaviour
 
     [Header("Mid-air Swing")]
     [SerializeField] private Text textSwingTime;
-    [SerializeField] private float ThrustSwing = 500, CooldownBetweenSwings = 1.2f, SwingSwapForgiveness = 0.1f;
+    private const float ThrustSwing = 50000, CooldownBetweenSwings = 1.2f, SwingSwapForgiveness = 0.1f;
     private float lastSwingTimer = 0f;
+
+    [Header("Rope Pull")]
+    [SerializeField] private RopeCrank ropeCrank;
+    private const float CooldownBetweenPullsDefault = 0.5f;
+    private float timeSpentHoldingSameDir = 0f, currentCooldownBetweenPulls, lastPullTimer = 0f;
 
     [Header("Platforming - Ground Check")]
     public bool isGrounded = false;
@@ -44,6 +49,7 @@ public class Plr2Controller : MonoBehaviour
             PlatformingMovement();
         else
             MidairMovement();
+        OtherMovement();
     }
 
     private void GroundedCheck()
@@ -65,7 +71,6 @@ public class Plr2Controller : MonoBehaviour
     private void PlatformingMovement()
     {
         float xForce = Input.GetAxis("P2 Horizontal") * MoveSpeed * Time.deltaTime;
-        print(xForce);
         Vector2 force = new Vector2(xForce, 0);
         rb.AddForce(force);
     }
@@ -79,16 +84,39 @@ public class Plr2Controller : MonoBehaviour
         // Right swing
         if (Input.GetAxisRaw("P2 Horizontal") == 1 && CanSwing("right"))
             rb.AddRelativeForce(transform.right * ThrustSwing);
+    }
 
-        // Up (unimplemented)
-        if (Input.GetAxisRaw("P2 Vertical") == 1)
+    private void OtherMovement()
+    {
+        // If rope buttons are held for long enough, reduce cooldown between rope pulls
+        if (Input.GetAxisRaw("P2 Vertical") != 0)
         {
-
+            timeSpentHoldingSameDir += Time.deltaTime;
+            if (timeSpentHoldingSameDir >= 1.2f)
+            {
+                currentCooldownBetweenPulls = CooldownBetweenPullsDefault / 3f;
+            }
         }
-        // Down (unimplemented)
-        if (Input.GetAxisRaw("P2 Vertical") == -1)
+        else
         {
+            currentCooldownBetweenPulls = CooldownBetweenPullsDefault;
+        }
 
+        // Rope ascend/descend
+        if (Time.time > lastPullTimer + currentCooldownBetweenPulls)
+        {
+            lastPullTimer = Time.time;
+
+            // Climb rope
+            if (Input.GetAxisRaw("P2 Vertical") == 1)
+            {
+                ropeCrank.Rotate(-1);
+            }
+            // Descend rope
+            else if (Input.GetAxisRaw("P2 Vertical") == -1)
+            {
+                ropeCrank.Rotate(1);
+            }
         }
     }
 
