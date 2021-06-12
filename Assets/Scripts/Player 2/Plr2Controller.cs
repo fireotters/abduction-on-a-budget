@@ -13,7 +13,8 @@ public class Plr2Controller : MonoBehaviour
     [SerializeField] private Text textSwingTime;
 
     [Header("Mid-air Swing")]
-    [SerializeField] private float ThrustSwing = 50000, CooldownBetweenSwings = 1.2f, SwingSwapForgiveness = 0.1f, SwingTooFast = 7f;
+    [SerializeField] private float ThrustSwing = 50000;
+    [SerializeField] private float CooldownBetweenSwings = 1.2f, SwingSwapForgiveness = 0.1f, SwingTooFast = 7f;
     private float lastSwingTimer = 0f;
 
     [Header("Rope Pull")]
@@ -30,7 +31,7 @@ public class Plr2Controller : MonoBehaviour
 
     [Header("Platforming - Movement")]
     public bool slowEnoughToPlatform = false;
-    [SerializeField] private float SlowEnoughToPlatformForgiveness = 0.2f, MoveSpeed = 1000f;
+    [SerializeField] private float SlowEnoughToPlatformForgiveness = 1f, MoveSpeed = 1000f;
 
 
     private void Start()
@@ -70,6 +71,7 @@ public class Plr2Controller : MonoBehaviour
     {
         isGrounded = false;
 
+
         // The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
         // This can be done using layers instead but Sample Assets will not overwrite your project settings.
         Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, groundedRadius, whatIsGround);
@@ -84,28 +86,31 @@ public class Plr2Controller : MonoBehaviour
 
     private void PlatformingMovement()
     {
-        var horizontalAxis = Input.GetAxis("P2 Horizontal");
+        if (rb.velocity[0] < SlowEnoughToPlatformForgiveness && rb.velocity[0] > -SlowEnoughToPlatformForgiveness)
+        {
+            var horizontalAxis = Input.GetAxis("P2 Horizontal");
 
-        float xForce = horizontalAxis * MoveSpeed * Time.deltaTime;
-        Vector2 force = new Vector2(xForce, 0);
-        rb.AddForce(force);
+            float xForce = horizontalAxis * MoveSpeed * Time.deltaTime;
+            Vector2 force = new Vector2(xForce, 0);
+            rb.AddForce(force);
 
-        if (horizontalAxis > 0)
-        {
-            SetAnimations(walkLeft: true);
-        }
-        else if (horizontalAxis < 0)
-        {
-            SetAnimations(walkRight: true);
-        }
-        else if (horizontalAxis == 0 &&
-                 (xForce < SlowEnoughToPlatformForgiveness && xForce > -SlowEnoughToPlatformForgiveness))
-        {
-            SetAnimations();
+            if (horizontalAxis > 0)
+            {
+                SetAnimations(walkLeft: true);
+            }
+            else if (horizontalAxis < 0)
+            {
+                SetAnimations(walkRight: true);
+            }
+            else if (horizontalAxis == 0 &&
+                     (xForce < SlowEnoughToPlatformForgiveness && xForce > -SlowEnoughToPlatformForgiveness))
+            {
+                SetAnimations();
+            }
         }
         else
         {
-            SetAnimations(true);
+            SetAnimations(dragAnim: true);
         }
     }
 
