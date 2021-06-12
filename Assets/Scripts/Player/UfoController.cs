@@ -6,11 +6,6 @@ namespace Player
     {
         private Rigidbody2D _rb2d;
         private static Animator _anim;
-        public Material _mat;
-        public Texture2D _mainTexture;
-        public float _vibrationIntensity = 3f;
-        public Color _borderColor;
-        public float _borderThickness = 0.01f;
         [SerializeField] private float velocityFactor = 6f;
         private const float MultiAxisThreshold = 0.1f;
         private const float SlowdownFactor = 1.5f;
@@ -19,10 +14,6 @@ namespace Player
         {
             _rb2d = GetComponent<Rigidbody2D>();
             _anim = GetComponent<Animator>();
-            _mat.SetTexture("Texture2D_3c01c3ce242341a781b39a6abb8e7cab", _mainTexture);
-            _mat.SetFloat("Vector1_61d4bf80d40f40efb005708b991807fa", _vibrationIntensity);
-            _mat.SetColor("Color_4a10e2379d244746a98ee648a335658d", _borderColor);
-            _mat.SetFloat("Vector1_aad1dfb20c0d4c9f811619471f7664b4", _borderThickness);
         }
 
         private void FixedUpdate()
