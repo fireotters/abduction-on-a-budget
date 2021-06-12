@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Key
   - Lock
+  - Button
   layers:
   - Default
   - TransparentFX
