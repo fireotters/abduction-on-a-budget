@@ -915,5 +915,17 @@ PrefabInstance:
       propertyPath: textSwingTime
       value: 
       objectReference: {fileID: 1770575535}
+    - target: {fileID: 5312009149737140523, guid: 0675c397d45667841a053691dd2444a2, type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: -0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5312009149737140526, guid: 0675c397d45667841a053691dd2444a2, type: 3}
+      propertyPath: m_Mass
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5312009149737140526, guid: 0675c397d45667841a053691dd2444a2, type: 3}
+      propertyPath: m_GravityScale
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0675c397d45667841a053691dd2444a2, type: 3}

@@ -10,7 +10,7 @@ public class Plr2Controller : MonoBehaviour
 
     [Header("Mid-air Swing")]
     [SerializeField] private Text textSwingTime;
-    private const float ThrustSwing = 50000, CooldownBetweenSwings = 1.2f, SwingSwapForgiveness = 0.1f, SwingTooFast = 7f;
+    [SerializeField] private const float ThrustSwing = 50000, CooldownBetweenSwings = 1.2f, SwingSwapForgiveness = 0.1f, SwingTooFast = 7f;
     private float lastSwingTimer = 0f;
 
     [Header("Rope Pull")]
@@ -37,7 +37,7 @@ public class Plr2Controller : MonoBehaviour
 
     private void Update()
     {
-        print(rb.velocity);
+        //print(rb.velocity);
         DebugText();
     }
 

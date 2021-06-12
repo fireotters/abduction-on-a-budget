@@ -61,7 +61,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5312009149737140525}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.1, z: 0}
+  m_LocalPosition: {x: 0, y: -0.53, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5312009149921317515}
@@ -253,9 +253,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5312009150026018564}
+  - component: {fileID: 5312009150026018565}
   - component: {fileID: 5312009150026018571}
   - component: {fileID: 5312009150026018570}
-  - component: {fileID: 5312009150026018565}
+  - component: {fileID: 2689373477752745911}
+  - component: {fileID: 7850707244165001792}
+  - component: {fileID: 7244218324619061152}
   m_Layer: 7
   m_Name: P1
   m_TagString: Untagged
@@ -278,6 +281,19 @@ Transform:
   m_Father: {fileID: 5312009148336827611}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5312009150026018565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5312009150026018568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c88121bcae410d64087af28f5fc02492, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocityFactor: 6
 --- !u!212 &5312009150026018571
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -297,7 +313,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: b929b05ef73d55a42b523f4f47ccb093, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -317,13 +333,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: f082e69f825d0aa44b687e592731c0a8, type: 3}
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 588644908422862187, guid: 3429b624ad25abb4097c32ad42e27cc3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.024, y: 1.024}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -350,7 +366,42 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &5312009150026018565
+--- !u!58 &2689373477752745911
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5312009150026018568}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.512
+--- !u!95 &7850707244165001792
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5312009150026018568}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 45ad13c1258ba2d4794b310ea4123aa0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7244218324619061152
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -359,10 +410,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 5312009150026018568}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c88121bcae410d64087af28f5fc02492, type: 3}
+  m_Script: {fileID: 11500000, guid: ca81e718ceb115343972c98a9d25bb0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocityFactor: 6
+  _mat: {fileID: 2100000, guid: b929b05ef73d55a42b523f4f47ccb093, type: 2}
+  _mainTexture: {fileID: 2800000, guid: 3429b624ad25abb4097c32ad42e27cc3, type: 3}
+  _vibrationIntensity: 0.85
+  _borderColor: {r: 0, g: 0, b: 0, a: 1}
+  _borderThickness: 0.0025
 --- !u!1001 &4365123624047463533
 PrefabInstance:
   m_ObjectHideFlags: 0
