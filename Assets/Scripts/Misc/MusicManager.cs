@@ -1,20 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.Serialization;
 
 public class MusicManager : MonoBehaviour
-    {
+{
 
     public AudioMixer mixer;
-    [FormerlySerializedAs("sfxDemo")] public AudioSource sfxPlayer;
-    public AudioSource currentMusicPlayer;
+    public AudioSource sfxDemo, currentMusicPlayer;
     public AudioClip musicMainMenu, musicGameplay;
-    public AudioClip hoverSound;
-    public AudioClip selectSound;
-    public AudioClip startGameSound;
-    public AudioClip backSound;
+    public AudioClip selectSound, startGameSound, backSound;
     
     private int lastTrackRequested = -1; // When first created, pick the scene's chosen song
 
@@ -43,34 +36,34 @@ public class MusicManager : MonoBehaviour
         mixer.SetFloat("SfxVolume", Mathf.Log10(sliderValue) * 20);
         PlayerPrefs.SetFloat("SFX", sliderValue);
         PlayerPrefs.Save();
-        if (!sfxPlayer.isPlaying) {
-            sfxPlayer.Play();
+        if (!sfxDemo.isPlaying) {
+            sfxDemo.Play();
         }
     }
 
     // TODO see if this requires to be rewritten. Cam has a version that searches for Unity tags instead.
     public void FindAllSfxAndPlayPause(bool gameIsPaused)
     {
-        AudioSource[] listOfSfxObjects = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
-
-        if (gameIsPaused == true) // Pause
+        if (FindObjectsOfType(typeof(AudioSource)) is AudioSource[] listOfSfxObjects)
         {
-            foreach (AudioSource sfxObject in listOfSfxObjects)
+            if (gameIsPaused) // Pause
             {
-                if (sfxObject.isPlaying)
+                foreach (var sfxObject in listOfSfxObjects)
                 {
-                    sfxObject.Pause();
+                    if (sfxObject.isPlaying)
+                        sfxObject.Pause();
+                }
+            }
+            else // Resume
+            {
+                foreach (var sfxObject in listOfSfxObjects)
+                {
+                    if (!sfxObject.isPlaying)
+                        sfxObject.UnPause();
                 }
             }
         }
-        if (gameIsPaused == false) // Resume
-        {
-            foreach (AudioSource sfxObject in listOfSfxObjects)
-            {
-                if (!sfxObject.isPlaying)
-                    sfxObject.UnPause();
-            }
-        }
+
     }
 
     public void ChangeMusicTrack(int index)
@@ -104,26 +97,20 @@ public class MusicManager : MonoBehaviour
 
     public void PlaySound(string sound)
     {
-        sfxPlayer.enabled = true;
+        sfxDemo.enabled = true;
         switch (sound)
         {
-            case "hover":
-                sfxPlayer.clip = hoverSound;
-                break;
-
             case "select":
-                sfxPlayer.clip = selectSound;
+                sfxDemo.clip = selectSound;
                 Debug.Log("Select sound");
                 break;
-
             case "back":
-                sfxPlayer.clip = backSound;
+                sfxDemo.clip = backSound;
                 break;
-
             case "start":
-                sfxPlayer.clip = startGameSound;
+                sfxDemo.clip = startGameSound;
                 break;
         }
-        sfxPlayer.Play();
+        sfxDemo.Play();
     }
 }
