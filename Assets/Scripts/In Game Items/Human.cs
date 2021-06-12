@@ -2,7 +2,7 @@
 
 namespace In_Game_Items
 {
-    public class Key : Collectible
+    public class Human : Collectible
     {
         
     }

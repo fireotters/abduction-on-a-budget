@@ -7,6 +7,7 @@ TagManager:
   - Key
   - Lock
   - Button
+  - Human
   layers:
   - Default
   - TransparentFX

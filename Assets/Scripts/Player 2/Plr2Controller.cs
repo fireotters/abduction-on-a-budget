@@ -1,6 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using In_Game_Items;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -180,5 +179,30 @@ public class Plr2Controller : MonoBehaviour
         if (swingTimeDisplay < 0)
             swingTimeDisplay = 0;
         textSwingTime.text = "Swing timer: " + swingTimeDisplay.ToString() + "\n" + plr2State;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        switch (other.tag)
+        {
+            case "Key":
+                var key = other.gameObject.GetComponent<Key>();
+                GameManager.i.keyCount++;
+                key.DestroyCollectible();
+                break;
+            case "Lock":
+                var lockGate = other.gameObject.GetComponent<LockedGate>();
+                if (GameManager.i.keyCount > 0 && lockGate.unlockable)
+                {
+                    GameManager.i.keyCount--;
+                    lockGate.DestroyLock();
+                }
+                break;
+            case "Human":
+                var human = other.gameObject.GetComponent<Human>();
+                GameManager.i.humanCount++;
+                human.DestroyCollectible();
+                break;
+        }
     }
 }

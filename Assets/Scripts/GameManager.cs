@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
     private static GameManager _i;
     public static GameManager i { get { if (_i == null) _i = FindObjectOfType<GameManager>(); return _i; } }
 
+    public int keyCount = 0;
+    public int humanCount = 0;
+
     private void Start()
     {
         
