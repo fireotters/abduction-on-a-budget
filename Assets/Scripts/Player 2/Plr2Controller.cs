@@ -28,6 +28,8 @@ public class Plr2Controller : MonoBehaviour
     public bool isFloatingOnWater = false, isSwimmingInWater = false;
     [SerializeField] private Transform groundCheck, deepUnderwaterCheck;
     [SerializeField] private LayerMask whatIsGround, whatIsWater;
+
+    private bool lastFrameWasGrounded = false, lastFrameWasFloating = false;
     private bool justLanded = false, justSplashed = false;
 
 
@@ -36,15 +38,19 @@ public class Plr2Controller : MonoBehaviour
     public bool slowEnoughToPlatform = false;
     [SerializeField] private float SlowEnoughToPlatformForgiveness = 1f, MoveSpeed = 1000f;
 
-    [Header("Other")]
-    private AudioSource _audioSource;
+    [Header("Sound Effects")]
+    [SerializeField] private AttachedSoundEffect _sfxLand;
+    [SerializeField] private AttachedSoundEffect _sfxSplash, _sfxScream, _sfxWalk, _sfxDragged;
+    private float lastWalkSfx, lastDragSfx;
+    private const float WalkSfxCooldown = 0.5f, DragSfxCooldown = 0.15f;
 
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         _anim = GetComponent<Animator>();
-        _audioSource = GetComponent<AudioSource>();
+
+
     }
 
     private void Update()
@@ -55,15 +61,23 @@ public class Plr2Controller : MonoBehaviour
 
         if (!isGrounded)
             SetAnimations(flying: true);
-        else
-        {
-            CheckForFirstTimeLandWaterContact();
-        }
+
+        CheckForFirstTimeLandWaterContact();
     }
 
     private void CheckForFirstTimeLandWaterContact()
     {
+        if (isGrounded && !lastFrameWasGrounded)
+        {
+            _sfxLand.PlaySound();
+        }
+        lastFrameWasGrounded = isGrounded;
 
+        if (isFloatingOnWater && !lastFrameWasFloating)
+        {
+            _sfxSplash.PlaySound();
+        }
+        lastFrameWasFloating = isFloatingOnWater;
     }
 
     // Copied from Hold Space to Play's ground check
@@ -97,6 +111,7 @@ public class Plr2Controller : MonoBehaviour
             if (colliders2[i].gameObject != gameObject)
             {
                 isFloatingOnWater = true;
+                break;
             }
         }
 
@@ -110,6 +125,7 @@ public class Plr2Controller : MonoBehaviour
                 {
                     isSwimmingInWater = true;
                     isFloatingOnWater = false;
+                    break;
                 }
             }
         }
@@ -121,6 +137,7 @@ public class Plr2Controller : MonoBehaviour
             if (colliders[i].gameObject != gameObject)
             {
                 isGrounded = true;
+                break;
             }
         }
     }
@@ -135,6 +152,7 @@ public class Plr2Controller : MonoBehaviour
             Vector2 force = new Vector2(xForce, 0);
             rb.AddForce(force);
 
+            // Walking anims
             if (horizontalAxis > 0)
             {
                 SetAnimations(walkLeft: true);
@@ -148,10 +166,23 @@ public class Plr2Controller : MonoBehaviour
             {
                 SetAnimations();
             }
+
+            // Walking sfx
+            if (horizontalAxis != 0 && Time.time > lastWalkSfx + WalkSfxCooldown)
+            {
+                _sfxWalk.PlaySound();
+                lastWalkSfx = Time.time;
+            }
         }
         else
         {
             SetAnimations(dragAnim: true);
+            // Dragging sfx
+            if (Time.time > lastDragSfx + DragSfxCooldown)
+            {
+                _sfxDragged.PlaySound();
+                lastDragSfx = Time.time;
+            }
         }
     }
 
