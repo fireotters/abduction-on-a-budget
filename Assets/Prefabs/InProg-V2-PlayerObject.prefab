@@ -1669,7 +1669,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c6d890cd6d765b4cb2545b1cedcffd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundsToChooseFrom: []
+  soundsToChooseFrom:
+  - {fileID: 8300000, guid: 3e697c9421b0bea42be2bd6292dc754c, type: 3}
 --- !u!1 &5516460276915310077
 GameObject:
   m_ObjectHideFlags: 0
@@ -2038,6 +2039,10 @@ PrefabInstance:
     - target: {fileID: 8443128771901642043, guid: b1a05058f215f984b89b74204f2ecdc3, type: 3}
       propertyPath: initialNumOfLinks
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443128771901642043, guid: b1a05058f215f984b89b74204f2ecdc3, type: 3}
+      propertyPath: AddedUfoDistPerSegment
+      value: 0.28
       objectReference: {fileID: 0}
     - target: {fileID: 8443128771901642043, guid: b1a05058f215f984b89b74204f2ecdc3, type: 3}
       propertyPath: prefabRopeSegs.Array.size
