@@ -23,15 +23,16 @@ public class Plr2Controller : MonoBehaviour
     private const float CooldownBetweenPullsDefault = 0.2f;
     private float timeSpentHoldingSameDir = 0f, currentCooldownBetweenPulls, lastPullTimer = 0f;
 
-    [Header("Platforming - Ground Check")]
+    [Header("Platforming - Ground & Water Check")]
     public bool isGrounded = false;
-    [SerializeField] private Transform groundCheck;
-    [SerializeField] private LayerMask whatIsGround;
-    [SerializeField] private float groundedRadius = 0f;
-    [SerializeField] private Vector2 platformingVelocity = new Vector2();
+    public bool isFloatingOnWater = false, isSwimmingInWater = false;
+    [SerializeField] private Transform groundCheck, deepUnderwaterCheck;
+    [SerializeField] private LayerMask whatIsGround, whatIsWater;
+    private bool justLanded = false, justSplashed = false;
 
 
     [Header("Platforming - Movement")]
+    [SerializeField] private Vector2 platformingVelocity = new Vector2();
     public bool slowEnoughToPlatform = false;
     [SerializeField] private float SlowEnoughToPlatformForgiveness = 1f, MoveSpeed = 1000f;
 
@@ -51,8 +52,18 @@ public class Plr2Controller : MonoBehaviour
         if (enableDebugging)
             DebugText();
         
+
         if (!isGrounded)
             SetAnimations(flying: true);
+        else
+        {
+            CheckForFirstTimeLandWaterContact();
+        }
+    }
+
+    private void CheckForFirstTimeLandWaterContact()
+    {
+
     }
 
     // Copied from Hold Space to Play's ground check
@@ -63,9 +74,9 @@ public class Plr2Controller : MonoBehaviour
             var horizontalInput = Input.GetAxisRaw("P2 Horizontal");
             var verticalInput = Input.GetAxisRaw("P2 Vertical");
             
-            GroundedCheck();
+            GroundedOrWaterCheck();
 
-            if (isGrounded)
+            if (isGrounded && !isFloatingOnWater)
                 PlatformingMovement();
             else
                 MidairMovement(horizontalInput);
@@ -73,14 +84,38 @@ public class Plr2Controller : MonoBehaviour
         }
     }
 
-    private void GroundedCheck()
+    private void GroundedOrWaterCheck()
     {
         isGrounded = false;
+        isFloatingOnWater = false;
+        isSwimmingInWater = false;
 
+        // The player is touching water if a circlecast to the groundcheck position hits anything designated as water
+        Collider2D[] colliders2 = Physics2D.OverlapCircleAll(groundCheck.position, 0.2f, whatIsWater); // Radius bumped up, alien bobs in the water
+        for (int i = 0; i < colliders2.Length; i++)
+        {
+            if (colliders2[i].gameObject != gameObject)
+            {
+                isFloatingOnWater = true;
+            }
+        }
+
+        if (isFloatingOnWater)
+        {
+            // The player is under the water if a circlecast to the deep underwater check position hits anything designated as water
+            Collider2D[] colliders3 = Physics2D.OverlapCircleAll(deepUnderwaterCheck.position, 0.05f, whatIsWater); // Radius bumped up, alien bobs in the water
+            for (int i = 0; i < colliders3.Length; i++)
+            {
+                if (colliders3[i].gameObject != gameObject)
+                {
+                    isSwimmingInWater = true;
+                    isFloatingOnWater = false;
+                }
+            }
+        }
 
         // The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
-        // This can be done using layers instead but Sample Assets will not overwrite your project settings.
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, groundedRadius, whatIsGround);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, 0.05f, whatIsGround);
         for (int i = 0; i < colliders.Length; i++)
         {
             if (colliders[i].gameObject != gameObject)
@@ -88,13 +123,6 @@ public class Plr2Controller : MonoBehaviour
                 isGrounded = true;
             }
         }
-    }
-    
-    
-    private void PlayGroundSound()
-    {
-        //_audioSource.clip = groundedSound[Random.Range(0, groundedSound.Length)];
-        _audioSource.Play();
     }
 
     private void PlatformingMovement()
@@ -211,7 +239,11 @@ public class Plr2Controller : MonoBehaviour
     private void DebugText()
     {
         string plr2State = "";
-        if (!isGrounded)
+        if (isFloatingOnWater)
+        {
+            plr2State = "Swimming. Can launch <-- or -->";
+        }
+        else if (!isGrounded)
         {
             if (rb.velocity[0] > SwingTooFast || rb.velocity[0] < -SwingTooFast ||
                 rb.velocity[1] > SwingTooFast || rb.velocity[1] < -SwingTooFast)
