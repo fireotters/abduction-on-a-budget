@@ -8,15 +8,15 @@ namespace Player
     {
         private Rigidbody2D _rb2d;
         private static Animator _anim;
-        private AudioSource _audioSource;
         [SerializeField] private float velocityFactor = 6f;
-        [SerializeField] private AudioClip[] collisionSound;
         [SerializeField] private AudioClip moveSound;
+        [SerializeField] private GameObject collisionSoundPrefab;
+        [SerializeField] private GameObject underWaterColSoundPrefab;
         [SerializeField] private ParticleSystem sparkParticles;
+        private AudioSource _audioSource;
         //[SerializeField] private AudioClip[] collisionUnderwaterSound;
         private const float MultiAxisThreshold = 0.1f;
         private const float SlowdownFactor = 1.5f;
-        private Vector2 calculatedForce = new Vector2();
 
         private void Start()
         {
@@ -25,36 +25,34 @@ namespace Player
             _anim = GetComponent<Animator>();
         }
 
-        private void Update()
-        {
-            var horizontalAxis = Input.GetAxis("P1 Horizontal");
-            var verticalAxis = Input.GetAxis("P1 Vertical");
-
-            if (IsHorizontalAxisInThresholdForSpeedReduction(horizontalAxis) && IsVerticalAxisInThresholdForSpeedReduction(verticalAxis))
-            {
-                horizontalAxis /= SlowdownFactor;
-                verticalAxis /= SlowdownFactor;
-            }
-
-            calculatedForce = CalculateForce(horizontalAxis, verticalAxis);
-
-            // Disallow input if game is over, or level only just started
-            if (GameManager.i.gameIsOver || Time.timeSinceLevelLoad < 1f)
-            {
-                calculatedForce = new Vector2(0, 0);
-            }
-
-            SetAnim(calculatedForce.x, calculatedForce.y);
-        }
-
         private void FixedUpdate()
         {
-            _rb2d.MovePosition(_rb2d.position + calculatedForce * Time.fixedDeltaTime);
+            if (!GameManager.i.gameIsOver)
+            {
+                var horizontalAxis = Input.GetAxis("P1 Horizontal");
+                var verticalAxis = Input.GetAxis("P1 Vertical");
+
+                if (IsHorizontalAxisInThresholdForSpeedReduction(horizontalAxis) && IsVerticalAxisInThresholdForSpeedReduction(verticalAxis))
+                {
+                    horizontalAxis /= SlowdownFactor;
+                    verticalAxis /= SlowdownFactor;
+                }
+
+                var calculatedForce = CalculateForce(horizontalAxis, verticalAxis);
+                
+                SetAnim(calculatedForce.x, calculatedForce.y);
+
+                _rb2d.MovePosition(_rb2d.position + calculatedForce * Time.fixedDeltaTime);
+            }
         }
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            PlayCollisionSound();
+            if (_anim.GetBool("water"))
+                Instantiate(underWaterColSoundPrefab);
+            else
+                Instantiate(collisionSoundPrefab);
+
             Instantiate(sparkParticles, other.contacts[0].point, Quaternion.identity);
         }
 
@@ -63,11 +61,7 @@ namespace Player
             Instantiate(sparkParticles, other.contacts[0].point, Quaternion.identity);
         }
 
-        private void PlayCollisionSound()
-        {
-            _audioSource.clip = collisionSound[Random.Range(0, collisionSound.Length)];
-            _audioSource.Play();
-        }
+
         private void PlayMoveSound()
         {
             _audioSource.clip = moveSound;
@@ -93,7 +87,7 @@ namespace Player
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject.name == "WaterLayerTileMap")
+            if (collision.gameObject.name == "WaterLayerTileMap") {}
                 _anim.SetBool("water", true);
         }
 
