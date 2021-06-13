@@ -7,14 +7,15 @@ public partial class HelpUi : BaseUi
     public Button toCredits;
     public Button toHelp;
     public GameObject credits;
-        
+
+    public Animator _levelTransitionOverlay;
+
     private void Start()
     {
         // Change music track
         MusicManager.i.ChangeMusicTrack(0);
 
-        // Fade in the screen
-        StartCoroutine(UsefulFunctions.FadeScreenBlack("from", fullUiFadeBlack));
+
     }
 
     void Update()
@@ -31,6 +32,12 @@ public partial class HelpUi : BaseUi
     }
 
     public void ExitHelp()
+    {
+        _levelTransitionOverlay.SetBool("levelEndedOrDead", true);
+        Invoke(nameof(ActuallyExit), 2);
+    }
+
+    private void ActuallyExit()
     {
         SceneManager.LoadScene("MainMenu");
     }
