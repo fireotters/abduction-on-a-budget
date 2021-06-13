@@ -55,6 +55,6 @@ public class GameManager : MonoBehaviour
 
     private void PlDied2()
     {
-        _gameUi.PlayLevelTransition(1);
+        _gameUi.PlayLevelTransition(0);
     }
 }
