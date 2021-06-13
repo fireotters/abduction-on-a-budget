@@ -16,6 +16,7 @@ namespace Player
         //[SerializeField] private AudioClip[] collisionUnderwaterSound;
         private const float MultiAxisThreshold = 0.1f;
         private const float SlowdownFactor = 1.5f;
+        private Vector2 calculatedForce = new Vector2();
 
         private void Start()
         {
@@ -24,25 +25,31 @@ namespace Player
             _anim = GetComponent<Animator>();
         }
 
+        private void Update()
+        {
+            var horizontalAxis = Input.GetAxis("P1 Horizontal");
+            var verticalAxis = Input.GetAxis("P1 Vertical");
+
+            if (IsHorizontalAxisInThresholdForSpeedReduction(horizontalAxis) && IsVerticalAxisInThresholdForSpeedReduction(verticalAxis))
+            {
+                horizontalAxis /= SlowdownFactor;
+                verticalAxis /= SlowdownFactor;
+            }
+
+            calculatedForce = CalculateForce(horizontalAxis, verticalAxis);
+
+            // Disallow input if game is over, or level only just started
+            if (GameManager.i.gameIsOver || Time.timeSinceLevelLoad < 1f)
+            {
+                calculatedForce = new Vector2(0, 0);
+            }
+
+            SetAnim(calculatedForce.x, calculatedForce.y);
+        }
+
         private void FixedUpdate()
         {
-            if (!GameManager.i.gameIsOver)
-            {
-                var horizontalAxis = Input.GetAxis("P1 Horizontal");
-                var verticalAxis = Input.GetAxis("P1 Vertical");
-
-                if (IsHorizontalAxisInThresholdForSpeedReduction(horizontalAxis) && IsVerticalAxisInThresholdForSpeedReduction(verticalAxis))
-                {
-                    horizontalAxis /= SlowdownFactor;
-                    verticalAxis /= SlowdownFactor;
-                }
-
-                var calculatedForce = CalculateForce(horizontalAxis, verticalAxis);
-                
-                SetAnim(calculatedForce.x, calculatedForce.y);
-
-                _rb2d.MovePosition(_rb2d.position + calculatedForce * Time.fixedDeltaTime);
-            }
+            _rb2d.MovePosition(_rb2d.position + calculatedForce * Time.fixedDeltaTime);
         }
 
         private void OnCollisionEnter2D(Collision2D other)

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RopeSegment : MonoBehaviour
 {
+    // Part of a Unity Rope tutorial by juul1a on YT https://www.youtube.com/channel/UCs2DJ9xpGic1pQkWNMwAUHw
     public GameObject connectedAbove, connectedBelow;
 
     private void Start()

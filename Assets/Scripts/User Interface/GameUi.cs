@@ -6,29 +6,18 @@ public partial class GameUi : BaseUi
     [Header("Game UI")]
     public GameObject gamePausePanel;
 
-    public GameObject gameOverPanel;
+    public Animator _levelTransitionOverlay;
 
     private void Start()
     {
+        _levelTransitionOverlay.gameObject.SetActive(true);
         // Change music track
         MusicManager.i.ChangeMusicTrack(1);
-
-        // Fade in the level
-        StartCoroutine(UsefulFunctions.FadeScreenBlack("from", fullUiFadeBlack));
     }
 
     private void Update()
     {
         CheckKeyInputs();
-        CheckIfPlayerIsDead();
-    }
-
-    private void CheckIfPlayerIsDead()
-    {
-        if (GameManager.i.gameIsOver)
-        {
-            PlayerDied();
-        }
     }
 
     private void CheckKeyInputs()
@@ -53,15 +42,26 @@ public partial class GameUi : BaseUi
         }
     }
 
-    private void PlayerDied()
+    public void PlayLevelTransition(bool didPlayerDie)
     {
-        gameOverPanel.SetActive(true);
+        _levelTransitionOverlay.SetBool("levelEndedOrDead", true);
+        if (didPlayerDie)
+            Invoke(nameof(ReloadLevel), 2f);
+        else
+            NextLevel();
     }
 
     public void ReloadLevel()
     {
-        gameOverPanel.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void NextLevel()
+    {
+        int lvlNo = GameManager.i.levelNo;
+        // If lvlNo less than 9, append a 0.
+        string levelStr = lvlNo < 10 ? "0" + lvlNo.ToString() : lvlNo.ToString();
+        SceneManager.LoadScene("Level" + levelStr);
     }
 
     public void ExitGameFromPause()
