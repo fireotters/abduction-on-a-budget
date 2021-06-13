@@ -13,6 +13,7 @@ namespace Player
         [SerializeField] private GameObject collisionSoundPrefab;
         [SerializeField] private GameObject underWaterColSoundPrefab;
         [SerializeField] private ParticleSystem sparkParticles;
+        [SerializeField] private AudioLowPassFilter lowPass;
         private AudioSource _audioSource;
         //[SerializeField] private AudioClip[] collisionUnderwaterSound;
         private const float MultiAxisThreshold = 0.1f;
@@ -50,9 +51,10 @@ namespace Player
         {
             if (_anim.GetBool("water"))
                 Instantiate(underWaterColSoundPrefab);
+                
             else
                 Instantiate(collisionSoundPrefab);
-
+                
             Instantiate(sparkParticles, other.contacts[0].point, Quaternion.identity);
         }
 
@@ -87,14 +89,20 @@ namespace Player
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject.name == "WaterLayerTileMap") {}
+            if (collision.gameObject.name == "WaterLayerTileMap")
+            {
+                lowPass.gameObject.SetActive(true);
                 _anim.SetBool("water", true);
+            }
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
             if (collision.gameObject.name == "WaterLayerTileMap")
+            {
+                lowPass.gameObject.SetActive(false);
                 _anim.SetBool("water", false);
+            }
         }
 
         private void SetAnim(float horizontalInput, float verticalInput)
