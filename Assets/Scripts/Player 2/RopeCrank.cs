@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RopeCrank : MonoBehaviour
 {
+    // Part of a Unity Rope tutorial by juul1a on YT https://www.youtube.com/channel/UCs2DJ9xpGic1pQkWNMwAUHw
     [Header("Changable Attributes")]
     public int minLinks = 2, maxLinks = 15;
 

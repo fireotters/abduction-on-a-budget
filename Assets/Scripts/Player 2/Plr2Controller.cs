@@ -61,6 +61,12 @@ public class Plr2Controller : MonoBehaviour
             SetAnimations(flying: true);
 
         CheckForFirstTimeLandWaterContact();
+
+        // Keep in panic animation if the game is over
+        if (GameManager.i.gameIsOver)
+        {
+            _anim.SetBool("flying", true);
+        }
     }
 
     private void CheckForFirstTimeLandWaterContact()
@@ -323,7 +329,7 @@ public class Plr2Controller : MonoBehaviour
                 human.DestroyCollectible();
                 break;
             case "Respawn":
-                GameManager.i.gameIsOver = true;
+                GameManager.i.PlayerDied();
                 break;
         }
     }

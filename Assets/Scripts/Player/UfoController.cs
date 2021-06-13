@@ -24,23 +24,26 @@ namespace Player
 
         private void FixedUpdate()
         {
-            if (!GameManager.i.gameIsOver)
+            var horizontalAxis = Input.GetAxis("P1 Horizontal");
+            var verticalAxis = Input.GetAxis("P1 Vertical");
+
+            if (GameManager.i.gameIsOver)
             {
-                var horizontalAxis = Input.GetAxis("P1 Horizontal");
-                var verticalAxis = Input.GetAxis("P1 Vertical");
-
-                if (IsHorizontalAxisInThresholdForSpeedReduction(horizontalAxis) && IsVerticalAxisInThresholdForSpeedReduction(verticalAxis))
-                {
-                    horizontalAxis /= SlowdownFactor;
-                    verticalAxis /= SlowdownFactor;
-                }
-
-                var calculatedForce = CalculateForce(horizontalAxis, verticalAxis);
-                
-                SetAnim(calculatedForce.x, calculatedForce.y);
-
-                _rb2d.MovePosition(_rb2d.position + calculatedForce * Time.fixedDeltaTime);
+                horizontalAxis = 0f;
+                verticalAxis = 0f;
             }
+
+            if (IsHorizontalAxisInThresholdForSpeedReduction(horizontalAxis) && IsVerticalAxisInThresholdForSpeedReduction(verticalAxis))
+            {
+                horizontalAxis /= SlowdownFactor;
+                verticalAxis /= SlowdownFactor;
+            }
+
+            var calculatedForce = CalculateForce(horizontalAxis, verticalAxis);
+                
+            SetAnim(calculatedForce.x, calculatedForce.y);
+
+            _rb2d.MovePosition(_rb2d.position + calculatedForce * Time.fixedDeltaTime);
         }
 
         private void OnCollisionEnter2D(Collision2D other)

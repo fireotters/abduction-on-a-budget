@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Rope : MonoBehaviour
 {
+    // Part of a Unity Rope tutorial by juul1a on YT https://www.youtube.com/channel/UCs2DJ9xpGic1pQkWNMwAUHw
     [Header("Changable Attributes")]
     public int initialNumOfLinks = 5;
-    private const float InitialDistFromUfo = 1.75f, AddedUfoDistPerSegment = 0.21f;
+    [SerializeField] private float InitialDistFromUfo = 1.9f, AddedUfoDistPerSegment = 0.21f;
 
     [Header("References")]
     public Rigidbody2D hook;
@@ -62,7 +63,6 @@ public class Rope : MonoBehaviour
         GameObject newLink = Instantiate(prefabRopeSegs[index]);
         newLink.transform.parent = transform;
         newLink.transform.position = transform.position;
-        print(newLink.transform.position);
         HingeJoint2D hj = newLink.GetComponent<HingeJoint2D>();
         hj.connectedBody = hook;
         newLink.GetComponent<RopeSegment>().connectedBelow = top.gameObject;
