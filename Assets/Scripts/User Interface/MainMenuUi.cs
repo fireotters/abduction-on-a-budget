@@ -5,56 +5,54 @@ using UnityEngine.Audio;
 using TMPro;
 using System;
 
-public partial class MainMenuUi : BaseUi
+public class MainMenuUi : BaseUi
 {
     [Header("Main Menu UI")]
     [SerializeField] private OptionsPanel optionsPanel;
-
+    
     // High Score display
     [SerializeField] private TextMeshProUGUI highScoreNum, highScoreName;
 
+    public Animator _levelTransitionOverlay;
+
     // Audio
     public AudioMixer mixer;
+
+    //Sign anim
+    public Animator _animSign;
 
     void Start()
     {
         // Find SFX Slider & tell MusicManager where it is
         MusicManager.i.sfxDemo = optionsPanel.optionSFXSlider.GetComponent<AudioSource>();
-
+        
         // Set up PlayerPrefs when game is first ever loaded
         if (!PlayerPrefs.HasKey("Music"))
         {
             PlayerPrefs.SetFloat("Music", 0.8f);
             PlayerPrefs.SetFloat("SFX", 0.8f);
-            //PlayerPrefs.SetInt("HighscoreNum", 0);
-            //PlayerPrefs.SetString("HighscoreName", "No Highscore Yet");
         }
 
         // Change music track & set volume
         MusicManager.i.ChangeMusicTrack(0);
-
-
-        // Fill in high score section and fade in from black
-        //FillHighScoreArea(); TODO unimplemented
-        StartCoroutine(UsefulFunctions.FadeScreenBlack("from", fullUiFadeBlack));
-
     }
 
-    private void FillHighScoreArea()
+    public void Transition(int b)
     {
-        highScoreNum.text = "(Score: " + PlayerPrefs.GetInt("HighscoreNum") + ")";
-        highScoreName.text = PlayerPrefs.GetString("HighscoreName");
+        _levelTransitionOverlay.SetBool("levelEndedOrDead", true);
+        if (b == 0)
+        {
+            Invoke(nameof(OpenHelp), 2);
+        }
+        else if (b == 1)
+        {
+            Invoke(nameof(ActuallyGame), 2);
+        }
     }
-
-    // Other functions
-    public void OpenGame()
+    
+    public void ActuallyGame()
     {
-        StartCoroutine(UsefulFunctions.FadeScreenBlack("to", fullUiFadeBlack));
-        Invoke(nameof(OpenGame2), 1f);
-    }
-    public void OpenGame2()
-    {
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("ComicAnim");
     }
 
     public void OpenHelp()
@@ -65,5 +63,13 @@ public partial class MainMenuUi : BaseUi
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    private void Update()
+    {
+        if(Time.timeSinceLevelLoad >= 5)
+        {
+            _animSign.SetBool("go", true);
+        }
     }
 }

@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Key
+  - Lock
+  - Button
+  - Human
   layers:
   - Default
   - TransparentFX
@@ -11,12 +15,12 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - RopeSegment
+  - Player1
+  - Player2
+  - Tiles_Ground
+  - Tiles_Water
+  - Tiles_InstantKill
   - 
   - 
   - 
