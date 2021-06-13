@@ -9,6 +9,7 @@ namespace Player
         private Rigidbody2D _rb2d;
         private static Animator _anim;
         private AudioSource _audioSource;
+        private Collider2D _col;
         [SerializeField] private float velocityFactor = 6f;
         [SerializeField] private AudioClip[] collisionSound;
         [SerializeField] private AudioClip moveSound;
@@ -17,12 +18,14 @@ namespace Player
         private const float MultiAxisThreshold = 0.1f;
         private const float SlowdownFactor = 1.5f;
         private Vector2 calculatedForce = new Vector2();
+        public bool levelOverFlyRight = false;
 
         private void Start()
         {
             _audioSource = GetComponent<AudioSource>();
             _rb2d = GetComponent<Rigidbody2D>();
             _anim = GetComponent<Animator>();
+            _col = GetComponent<Collider2D>();
         }
 
         private void Update()
@@ -43,8 +46,19 @@ namespace Player
             {
                 calculatedForce = new Vector2(0, 0);
             }
+            if (levelOverFlyRight)
+            {
+                _col.enabled = false;
+                calculatedForce = new Vector2(5, 0);
+                Invoke(nameof(DestroyUfoLevelEnd), 4f);
+            }
 
             SetAnim(calculatedForce.x, calculatedForce.y);
+        }
+
+        private void DestroyUfoLevelEnd()
+        {
+            Destroy(transform.parent.gameObject);
         }
 
         private void FixedUpdate()

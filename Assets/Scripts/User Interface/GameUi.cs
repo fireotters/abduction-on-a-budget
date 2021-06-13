@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public partial class GameUi : BaseUi
 {
     [Header("Game UI")]
-    public GameObject gamePausePanel;
+    public GameObject gamePausePanel, gameEndPanel;
 
     public Animator _levelTransitionOverlay;
 
@@ -28,6 +28,11 @@ public partial class GameUi : BaseUi
             GameIsPaused(!gamePausePanel.activeInHierarchy);
         }
 
+    }
+
+    public void ShowEndLevelScreen()
+    {
+        gameEndPanel.SetActive(true);
     }
 
     public void GameIsPaused(bool intent)

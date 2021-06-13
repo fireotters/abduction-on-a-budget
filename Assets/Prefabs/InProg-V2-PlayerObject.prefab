@@ -1682,7 +1682,6 @@ GameObject:
   - component: {fileID: 5516460276915310078}
   - component: {fileID: 5516460276915310072}
   - component: {fileID: 5516460276915310079}
-  - component: {fileID: 5516460276915310073}
   m_Layer: 8
   m_Name: Landing
   m_TagString: Untagged
@@ -1817,19 +1816,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 109be021bf2adff40b2f6631df7a6055, type: 3}
   - {fileID: 8300000, guid: 6fb5b987c6fc05546bce5197cf362658, type: 3}
   - {fileID: 8300000, guid: a5920e478874c964ca92ace7e653bbf5, type: 3}
---- !u!114 &5516460276915310073
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5516460276915310077}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c6d890cd6d765b4cb2545b1cedcffd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  soundsToChooseFrom: []
 --- !u!1 &5516460276949402901
 GameObject:
   m_ObjectHideFlags: 0

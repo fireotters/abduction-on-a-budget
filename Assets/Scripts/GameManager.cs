@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public bool gameIsOver = false;
     [SerializeField] private GameUi _gameUi;
+    private Player.UfoController _ufo;
     public int levelNo;
 
     private static GameManager _i;
@@ -20,6 +21,12 @@ public class GameManager : MonoBehaviour
     {
         var allHumansInCurrentLevel = FindObjectsOfType<Human>();
         _totalCountOfHumans = allHumansInCurrentLevel.Length;
+        Invoke(nameof(FindUfo), 0.5f);
+    }
+
+    private void FindUfo()
+    {
+        _ufo = FindObjectOfType<Player.UfoController>();
     }
 
     private void Update()
@@ -42,7 +49,8 @@ public class GameManager : MonoBehaviour
 
     public void LevelFinished()
     {
-        _gameUi.PlayLevelTransition(didPlayerDie: false);
+        _ufo.levelOverFlyRight = true;
+        _gameUi.ShowEndLevelScreen();
     }
 
     private void PlDied2()
