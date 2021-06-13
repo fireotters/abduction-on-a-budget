@@ -1140,6 +1140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocityFactor: 6
   moveSound: {fileID: 8300000, guid: cd156b3999570a5468dcdf27817ec596, type: 3}
+  underwaterMoveSound: {fileID: 8300000, guid: 5288cb4d1b0cc9f458557595cd458db5, type: 3}
   collisionSoundPrefab: {fileID: 239404625884421294, guid: 9801a26e82498fe40ac425ada1a6967d, type: 3}
   underWaterColSoundPrefab: {fileID: 239404625884421294, guid: 760a8deee9315174d9badfcaa82888b4, type: 3}
   sparkParticles: {fileID: 2464748055486295547, guid: b6138a2f9d328fd4f8429157cd66a633, type: 3}
@@ -1298,11 +1299,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 8826929825325648479, guid: ec709d4542700394598e5a2902a45b20, type: 2}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_audioClip: {fileID: 8300000, guid: cd156b3999570a5468dcdf27817ec596, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.5
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
