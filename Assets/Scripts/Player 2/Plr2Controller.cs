@@ -15,37 +15,40 @@ public class Plr2Controller : MonoBehaviour
 
     [Header("Mid-air Swing")]
     [SerializeField] private float ThrustSwing = 50000;
-    [SerializeField] private float CooldownBetweenSwings = 1.2f, SwingSwapForgiveness = 0.1f, SwingTooFast = 7f;
+    [SerializeField] private float CooldownBetweenSwings = 1.2f, SwingNeutralForgiveness = 5f, SwingTooFast = 7f;
     private float lastSwingTimer = 0f;
 
     [Header("Rope Pull")]
     [SerializeField] private RopeCrank ropeCrank;
-    private const float CooldownBetweenPullsDefault = 0.5f;
+    private const float CooldownBetweenPullsDefault = 0.2f;
     private float timeSpentHoldingSameDir = 0f, currentCooldownBetweenPulls, lastPullTimer = 0f;
 
-    [Header("Platforming - Ground Check")]
-    private AudioSource _audioSource;
+    [Header("Platforming - Ground & Water Check")]
     public bool isGrounded = false;
-    [SerializeField] private AudioClip[] groundedSound;
-    [SerializeField] private AudioClip[] meEveryday;
-    [SerializeField] private AudioClip keySound;
-    [SerializeField] private AudioClip unlockSound;
-    [SerializeField] private Transform groundCheck;
-    [SerializeField] private LayerMask whatIsGround;
-    [SerializeField] private float groundedRadius = 0f;
-    [SerializeField] private Vector2 platformingVelocity = new Vector2();
+    public bool isFloatingOnWater = false, isSwimmingInWater = false;
+    [SerializeField] private Transform groundCheck, deepUnderwaterCheck;
+    [SerializeField] private LayerMask whatIsGround, whatIsWater;
 
+    private bool lastFrameWasGrounded = false, lastFrameWasFloating = false;
 
     [Header("Platforming - Movement")]
+    [SerializeField] private Vector2 platformingVelocity = new Vector2();
     public bool slowEnoughToPlatform = false;
-    [SerializeField] private float SlowEnoughToPlatformForgiveness = 1f, MoveSpeed = 1000f;
+    [SerializeField] private float SlowEnoughToPlatformForgiveness = 0.5f, MoveSpeed = 1000f;
+
+    [Header("Sound Effects")]
+    [SerializeField] private AttachedSoundEffect _sfxLand;
+    [SerializeField] private AttachedSoundEffect _sfxSplash, _sfxScream, _sfxWalk, _sfxDragged;
+    private float lastWalkSfx, lastDragSfx;
+    private const float WalkSfxCooldown = 0.5f, DragSfxCooldown = 0.15f;
 
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         _anim = GetComponent<Animator>();
-        _audioSource = GetComponent<AudioSource>();
+
+
     }
 
     private void Update()
@@ -53,8 +56,26 @@ public class Plr2Controller : MonoBehaviour
         if (enableDebugging)
             DebugText();
         
+
         if (!isGrounded)
             SetAnimations(flying: true);
+
+        CheckForFirstTimeLandWaterContact();
+    }
+
+    private void CheckForFirstTimeLandWaterContact()
+    {
+        if (isGrounded && !lastFrameWasGrounded)
+        {
+            _sfxLand.PlaySound();
+        }
+        lastFrameWasGrounded = isGrounded;
+
+        if (isFloatingOnWater && !lastFrameWasFloating)
+        {
+            _sfxSplash.PlaySound();
+        }
+        lastFrameWasFloating = isFloatingOnWater;
     }
 
     // Copied from Hold Space to Play's ground check
@@ -65,9 +86,9 @@ public class Plr2Controller : MonoBehaviour
             var horizontalInput = Input.GetAxisRaw("P2 Horizontal");
             var verticalInput = Input.GetAxisRaw("P2 Vertical");
             
-            GroundedCheck();
+            GroundedOrWaterCheck();
 
-            if (isGrounded)
+            if (isGrounded && !isFloatingOnWater)
                 PlatformingMovement();
             else
                 MidairMovement(horizontalInput);
@@ -75,28 +96,48 @@ public class Plr2Controller : MonoBehaviour
         }
     }
 
-    private void GroundedCheck()
+    private void GroundedOrWaterCheck()
     {
         isGrounded = false;
+        isFloatingOnWater = false;
+        isSwimmingInWater = false;
 
+        // The player is touching water if a circlecast to the groundcheck position hits anything designated as water
+        Collider2D[] colliders2 = Physics2D.OverlapCircleAll(groundCheck.position, 0.2f, whatIsWater); // Radius bumped up, alien bobs in the water
+        for (int i = 0; i < colliders2.Length; i++)
+        {
+            if (colliders2[i].gameObject != gameObject)
+            {
+                isFloatingOnWater = true;
+                break;
+            }
+        }
+
+        if (isFloatingOnWater)
+        {
+            // The player is under the water if a circlecast to the deep underwater check position hits anything designated as water
+            Collider2D[] colliders3 = Physics2D.OverlapCircleAll(deepUnderwaterCheck.position, 0.05f, whatIsWater); // Radius bumped up, alien bobs in the water
+            for (int i = 0; i < colliders3.Length; i++)
+            {
+                if (colliders3[i].gameObject != gameObject)
+                {
+                    isSwimmingInWater = true;
+                    isFloatingOnWater = false;
+                    break;
+                }
+            }
+        }
 
         // The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
-        // This can be done using layers instead but Sample Assets will not overwrite your project settings.
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, groundedRadius, whatIsGround);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, 0.05f, whatIsGround);
         for (int i = 0; i < colliders.Length; i++)
         {
             if (colliders[i].gameObject != gameObject)
             {
                 isGrounded = true;
+                break;
             }
         }
-    }
-    
-    
-    private void PlayGroundSound()
-    {
-        _audioSource.clip = groundedSound[Random.Range(0, groundedSound.Length)];
-        _audioSource.Play();
     }
 
     private void PlatformingMovement()
@@ -109,6 +150,7 @@ public class Plr2Controller : MonoBehaviour
             Vector2 force = new Vector2(xForce, 0);
             rb.AddForce(force);
 
+            // Walking anims
             if (horizontalAxis > 0)
             {
                 SetAnimations(walkLeft: true);
@@ -122,10 +164,23 @@ public class Plr2Controller : MonoBehaviour
             {
                 SetAnimations();
             }
+
+            // Walking sfx
+            if (horizontalAxis != 0 && Time.time > lastWalkSfx + WalkSfxCooldown)
+            {
+                _sfxWalk.PlaySound();
+                lastWalkSfx = Time.time;
+            }
         }
         else
         {
             SetAnimations(dragAnim: true);
+            // Dragging sfx
+            if (Time.time > lastDragSfx + DragSfxCooldown)
+            {
+                _sfxDragged.PlaySound();
+                lastDragSfx = Time.time;
+            }
         }
     }
 
@@ -194,9 +249,9 @@ public class Plr2Controller : MonoBehaviour
         if (rb.velocity[1] > SwingTooFast || rb.velocity[1] < -SwingTooFast)
             return false;
 
-        if (direction == "left" && rb.velocity[0] > SwingSwapForgiveness)
+        if (direction == "left" && rb.velocity[0] > SwingNeutralForgiveness)
             return false;
-        if (direction == "right" && rb.velocity[0] < -SwingSwapForgiveness)
+        if (direction == "right" && rb.velocity[0] < -SwingNeutralForgiveness)
             return false;
 
         if (Time.time > lastSwingTimer + CooldownBetweenSwings)
@@ -213,12 +268,16 @@ public class Plr2Controller : MonoBehaviour
     private void DebugText()
     {
         string plr2State = "";
-        if (!isGrounded)
+        if (isFloatingOnWater)
+        {
+            plr2State = "Swimming. Can launch <-- or -->";
+        }
+        else if (!isGrounded)
         {
             if (rb.velocity[0] > SwingTooFast || rb.velocity[0] < -SwingTooFast ||
                 rb.velocity[1] > SwingTooFast || rb.velocity[1] < -SwingTooFast)
                 plr2State = "Moving too fast to swing!";
-            else if (rb.velocity[0] > -SwingSwapForgiveness && rb.velocity[0] < SwingSwapForgiveness)
+            else if (rb.velocity[0] > -SwingNeutralForgiveness && rb.velocity[0] < SwingNeutralForgiveness)
                 plr2State = "May press either <-- or -->";
             else if (rb.velocity[0] > 0)
                 plr2State = "Can only press -->";
@@ -248,8 +307,6 @@ public class Plr2Controller : MonoBehaviour
                 var key = other.gameObject.GetComponent<Key>();
                 GameManager.i.keyCount++;
                 key.DestroyCollectible();
-                _audioSource.clip = keySound;
-                _audioSource.Play();
                 break;
             case "Lock":
                 var lockGate = other.gameObject.GetComponent<LockedGate>();
@@ -257,8 +314,6 @@ public class Plr2Controller : MonoBehaviour
                 {
                     GameManager.i.keyCount--;
                     lockGate.DestroyLock();
-                    _audioSource.clip = unlockSound;
-                    _audioSource.Play();
                 }
 
                 break;
@@ -266,8 +321,6 @@ public class Plr2Controller : MonoBehaviour
                 var human = other.gameObject.GetComponent<Human>();
                 GameManager.i.humanCount++;
                 human.DestroyCollectible();
-                _audioSource.clip = meEveryday[Random.Range(0, meEveryday.Length)];
-                _audioSource.Play();
                 break;
             case "Respawn":
                 GameManager.i.gameIsOver = true;
