@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -11,6 +12,7 @@ namespace Player
         [SerializeField] private float velocityFactor = 6f;
         [SerializeField] private AudioClip[] collisionSound;
         [SerializeField] private AudioClip moveSound;
+        [SerializeField] private ParticleSystem sparkParticles;
         //[SerializeField] private AudioClip[] collisionUnderwaterSound;
         private const float MultiAxisThreshold = 0.1f;
         private const float SlowdownFactor = 1.5f;
@@ -46,6 +48,12 @@ namespace Player
         private void OnCollisionEnter2D(Collision2D other)
         {
             PlayCollisionSound();
+            Instantiate(sparkParticles, other.contacts[0].point, Quaternion.identity);
+        }
+
+        private void OnCollisionStay2D(Collision2D other)
+        {
+            Instantiate(sparkParticles, other.contacts[0].point, Quaternion.identity);
         }
 
         private void PlayCollisionSound()
@@ -76,13 +84,13 @@ namespace Player
             return newPos * velocityFactor;
         }
 
-        void OnTriggerEnter2D(Collider2D collision)
+        private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject.name == "WaterLayerTileMap")
                 _anim.SetBool("water", true);
         }
 
-        void OnTriggerExit2D(Collider2D collision)
+        private void OnTriggerExit2D(Collider2D collision)
         {
             if (collision.gameObject.name == "WaterLayerTileMap")
                 _anim.SetBool("water", false);
@@ -128,7 +136,7 @@ namespace Player
             }
         }
 
-        private void SetAnimatorValues(bool up = false, bool down = false, bool left = false, bool right = false)
+        private static void SetAnimatorValues(bool up = false, bool down = false, bool left = false, bool right = false)
         {
             _anim.SetBool("up", up);
             _anim.SetBool("down", down);

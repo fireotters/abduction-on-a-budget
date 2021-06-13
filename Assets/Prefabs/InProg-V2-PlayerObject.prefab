@@ -1144,6 +1144,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a149d94b8312bcf4881a6041fd8d2632, type: 3}
   - {fileID: 8300000, guid: 38a1b5c262dd4be48a14c309ec452d12, type: 3}
   moveSound: {fileID: 8300000, guid: cd156b3999570a5468dcdf27817ec596, type: 3}
+  sparkParticles: {fileID: 2464748055486295547, guid: b6138a2f9d328fd4f8429157cd66a633, type: 3}
 --- !u!212 &5516460276760476533
 SpriteRenderer:
   m_ObjectHideFlags: 0
