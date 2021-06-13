@@ -838,9 +838,29 @@ PrefabInstance:
       value: -0.27799988
       objectReference: {fileID: 0}
     - target: {fileID: 5312009149737140521, guid: 0675c397d45667841a053691dd2444a2, type: 3}
+      propertyPath: _sfxLand
+      value: 
+      objectReference: {fileID: 989657682805511240, guid: d00eb37954c0945448c5f3321825ff84, type: 3}
+    - target: {fileID: 5312009149737140521, guid: 0675c397d45667841a053691dd2444a2, type: 3}
+      propertyPath: _sfxWalk
+      value: 
+      objectReference: {fileID: 989657682805511240, guid: bade9acc73df7304d98a406b4637e3a9, type: 3}
+    - target: {fileID: 5312009149737140521, guid: 0675c397d45667841a053691dd2444a2, type: 3}
       propertyPath: keySound
       value: 
       objectReference: {fileID: 8300000, guid: aa4a21ec9d333794a9b3acc991465f1b, type: 3}
+    - target: {fileID: 5312009149737140521, guid: 0675c397d45667841a053691dd2444a2, type: 3}
+      propertyPath: _sfxScream
+      value: 
+      objectReference: {fileID: 989657682805511240, guid: 583bcca530fc31c40aa57f910c8d5575, type: 3}
+    - target: {fileID: 5312009149737140521, guid: 0675c397d45667841a053691dd2444a2, type: 3}
+      propertyPath: _sfxSplash
+      value: 
+      objectReference: {fileID: 989657682805511240, guid: 8281b79ab812e9540ae6ce44b121559e, type: 3}
+    - target: {fileID: 5312009149737140521, guid: 0675c397d45667841a053691dd2444a2, type: 3}
+      propertyPath: _sfxDragged
+      value: 
+      objectReference: {fileID: 989657682805511240, guid: edae0ef074a1fdd49a32617f4fa4c194, type: 3}
     - target: {fileID: 5312009149737140521, guid: 0675c397d45667841a053691dd2444a2, type: 3}
       propertyPath: unlockSound
       value: 
@@ -898,9 +918,41 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: cd156b3999570a5468dcdf27817ec596, type: 3}
     - target: {fileID: 5312009150026018565, guid: 0675c397d45667841a053691dd2444a2, type: 3}
+      propertyPath: sparkParticles
+      value: 
+      objectReference: {fileID: 1635447787}
+    - target: {fileID: 5312009150026018565, guid: 0675c397d45667841a053691dd2444a2, type: 3}
+      propertyPath: collisionPrefab
+      value: 
+      objectReference: {fileID: 239404625884421294, guid: 9801a26e82498fe40ac425ada1a6967d, type: 3}
+    - target: {fileID: 5312009150026018565, guid: 0675c397d45667841a053691dd2444a2, type: 3}
+      propertyPath: collisionPrefab2
+      value: 
+      objectReference: {fileID: 675663020877176220, guid: 72b334ceb235ef34db0ff13401192bb1, type: 3}
+    - target: {fileID: 5312009150026018565, guid: 0675c397d45667841a053691dd2444a2, type: 3}
+      propertyPath: collisionPrefab3
+      value: 
+      objectReference: {fileID: 989657682805511240, guid: a8a7ed83964258a469970f870d94b459, type: 3}
+    - target: {fileID: 5312009150026018565, guid: 0675c397d45667841a053691dd2444a2, type: 3}
       propertyPath: sounds.Array.size
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 5312009150026018565, guid: 0675c397d45667841a053691dd2444a2, type: 3}
+      propertyPath: collisionSoundPrefab
+      value: 
+      objectReference: {fileID: 239404625884421294, guid: 9801a26e82498fe40ac425ada1a6967d, type: 3}
+    - target: {fileID: 5312009150026018565, guid: 0675c397d45667841a053691dd2444a2, type: 3}
+      propertyPath: collisionSoundPrefab2
+      value: 
+      objectReference: {fileID: 675663020877176220, guid: 72b334ceb235ef34db0ff13401192bb1, type: 3}
+    - target: {fileID: 5312009150026018565, guid: 0675c397d45667841a053691dd2444a2, type: 3}
+      propertyPath: collisionSoundPrefab3
+      value: 
+      objectReference: {fileID: 989657682805511240, guid: a8a7ed83964258a469970f870d94b459, type: 3}
+    - target: {fileID: 5312009150026018565, guid: 0675c397d45667841a053691dd2444a2, type: 3}
+      propertyPath: underWaterColSoundPrefab
+      value: 
+      objectReference: {fileID: 239404625884421294, guid: 760a8deee9315174d9badfcaa82888b4, type: 3}
     - target: {fileID: 5312009150026018565, guid: 0675c397d45667841a053691dd2444a2, type: 3}
       propertyPath: collisionSound.Array.size
       value: 3
@@ -6653,6 +6705,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameIsOver: 0
+  _gameUi: {fileID: 0}
+  levelNo: 0
+  keyCountText: {fileID: 0}
+  humanCountText: {fileID: 0}
   keyCount: 0
   humanCount: 0
 --- !u!114 &1513432023 stripped
@@ -6666,6 +6722,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 159bbd772b613084397709ac6e450180, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!198 &1635447787 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2464748055486295547, guid: b6138a2f9d328fd4f8429157cd66a633, type: 3}
+  m_PrefabInstance: {fileID: 2464748055310110669}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1651330950
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6806,7 +6867,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1784259673}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.0424373, y: 4.616065, z: -10}
+  m_LocalPosition: {x: 1.2441251, y: 4.6160645, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -7338,6 +7399,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fullUiFadeBlack: {fileID: 2040261775}
   gamePausePanel: {fileID: 476100337}
+  _levelTransitionOverlay: {fileID: 0}
 --- !u!4 &2041734727
 Transform:
   m_ObjectHideFlags: 0

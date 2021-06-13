@@ -11,9 +11,12 @@ namespace Player
         private AudioSource _audioSource;
         private Collider2D _col;
         [SerializeField] private float velocityFactor = 6f;
-        [SerializeField] private AudioClip[] collisionSound;
         [SerializeField] private AudioClip moveSound;
+        [SerializeField] private GameObject collisionSoundPrefab;
+        [SerializeField] private GameObject underWaterColSoundPrefab;
         [SerializeField] private ParticleSystem sparkParticles;
+        [SerializeField] private AudioLowPassFilter lowPass;
+        private AudioSource _audioSource;
         //[SerializeField] private AudioClip[] collisionUnderwaterSound;
         private const float MultiAxisThreshold = 0.1f;
         private const float SlowdownFactor = 1.5f;
@@ -28,18 +31,18 @@ namespace Player
             _col = GetComponent<Collider2D>();
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
-            var horizontalAxis = Input.GetAxis("P1 Horizontal");
-            var verticalAxis = Input.GetAxis("P1 Vertical");
-
-            if (IsHorizontalAxisInThresholdForSpeedReduction(horizontalAxis) && IsVerticalAxisInThresholdForSpeedReduction(verticalAxis))
+            if (!GameManager.i.gameIsOver)
             {
-                horizontalAxis /= SlowdownFactor;
-                verticalAxis /= SlowdownFactor;
-            }
+                var horizontalAxis = Input.GetAxis("P1 Horizontal");
+                var verticalAxis = Input.GetAxis("P1 Vertical");
 
-            calculatedForce = CalculateForce(horizontalAxis, verticalAxis);
+                if (IsHorizontalAxisInThresholdForSpeedReduction(horizontalAxis) && IsVerticalAxisInThresholdForSpeedReduction(verticalAxis))
+                {
+                    horizontalAxis /= SlowdownFactor;
+                    verticalAxis /= SlowdownFactor;
+                }
 
             // Disallow input if game is over, or level only just started
             if (GameManager.i.gameIsOver || Time.timeSinceLevelLoad < 1f)
@@ -68,7 +71,12 @@ namespace Player
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            PlayCollisionSound();
+            if (_anim.GetBool("water"))
+                Instantiate(underWaterColSoundPrefab);
+                
+            else
+                Instantiate(collisionSoundPrefab);
+                
             Instantiate(sparkParticles, other.contacts[0].point, Quaternion.identity);
         }
 
@@ -77,11 +85,7 @@ namespace Player
             Instantiate(sparkParticles, other.contacts[0].point, Quaternion.identity);
         }
 
-        private void PlayCollisionSound()
-        {
-            _audioSource.clip = collisionSound[Random.Range(0, collisionSound.Length)];
-            _audioSource.Play();
-        }
+
         private void PlayMoveSound()
         {
             _audioSource.clip = moveSound;
@@ -108,13 +112,19 @@ namespace Player
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject.name == "WaterLayerTileMap")
+            {
+                lowPass.gameObject.SetActive(true);
                 _anim.SetBool("water", true);
+            }
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
             if (collision.gameObject.name == "WaterLayerTileMap")
+            {
+                lowPass.gameObject.SetActive(false);
                 _anim.SetBool("water", false);
+            }
         }
 
         private void SetAnim(float horizontalInput, float verticalInput)
