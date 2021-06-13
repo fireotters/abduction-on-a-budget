@@ -748,7 +748,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: '<b>TeslaSP2</b>
 
-    (Sprites)
+    (Sprites, Art)
 
     <u>teslasp2.itch.io</u>'
   m_isRightToLeft: 0
@@ -1049,7 +1049,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: '<b>Darelt</b>
 
-    (Music, Art)
+    (Music)
 
     <u>darelt.itch.io</u>'
   m_isRightToLeft: 0
@@ -1650,7 +1650,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: '<b>CrossfireCam</b>
 
-    (UI, Code, v1.1 Code)
+    (Code)
 
     <u>crossfirecam.itch.io</u>'
   m_isRightToLeft: 0
