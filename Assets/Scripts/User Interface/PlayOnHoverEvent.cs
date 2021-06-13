@@ -8,7 +8,7 @@ public class PlayOnHoverEvent : MonoBehaviour, IPointerEnterHandler
 
     private void Start()
     {
-        _audioSource = MusicManager.i.sfxDemo;
+        _audioSource = GetComponent<AudioSource>();
     }
     
     public void OnPointerEnter(PointerEventData eventData)

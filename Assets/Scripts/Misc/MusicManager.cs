@@ -5,7 +5,7 @@ public class MusicManager : MonoBehaviour
 {
 
     public AudioMixer mixer;
-    public AudioSource sfxDemo, currentMusicPlayer;
+    public AudioSource sfxDemo, currentMusicPlayer; // SFX Slider in Options, & playing music
     public AudioClip musicMainMenu, musicGameplay;
     public AudioClip selectSound, startGameSound, backSound;
     
@@ -39,6 +39,7 @@ public class MusicManager : MonoBehaviour
         if (!sfxDemo.isPlaying) {
             sfxDemo.Play();
         }
+        print(PlayerPrefs.GetFloat("SFX"));
     }
 
     // TODO see if this requires to be rewritten. Cam has a version that searches for Unity tags instead.
@@ -95,22 +96,21 @@ public class MusicManager : MonoBehaviour
         }
     }
 
-    public void PlaySound(string sound)
-    {
-        sfxDemo.enabled = true;
-        switch (sound)
-        {
-            case "select":
-                sfxDemo.clip = selectSound;
-                Debug.Log("Select sound");
-                break;
-            case "back":
-                sfxDemo.clip = backSound;
-                break;
-            case "start":
-                sfxDemo.clip = startGameSound;
-                break;
-        }
-        sfxDemo.Play();
-    }
+    //public void PlayUiSound(string sound)
+    //{
+    //    switch (sound)
+    //    {
+    //        case "select":
+    //            sfxDemo.clip = selectSound;
+    //Debug.Log("Select sound");
+    //            break;
+    //        case "back":
+    //            sfxDemo.clip = backSound;
+    //            break;
+    //        case "start":
+    //            sfxDemo.clip = startGameSound;
+    //            break;
+    //    }
+    //    sfxDemo.Play();
+    //}
 }
