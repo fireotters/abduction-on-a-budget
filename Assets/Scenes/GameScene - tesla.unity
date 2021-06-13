@@ -1697,19 +1697,29 @@ MonoBehaviour:
   textSwingTime: {fileID: 0}
   ThrustSwing: 75000
   CooldownBetweenSwings: 1.2
-  SwingSwapForgiveness: 0.1
+  SwingNeutralForgiveness: 5
   SwingTooFast: 7
   ropeCrank: {fileID: 980377119}
   isGrounded: 0
+  isFloatingOnWater: 0
+  isSwimmingInWater: 0
   groundCheck: {fileID: 1345530954}
+  deepUnderwaterCheck: {fileID: 0}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 1
-  groundedRadius: 0.1
+  whatIsWater:
+    serializedVersion: 2
+    m_Bits: 0
   platformingVelocity: {x: 0, y: 0}
   slowEnoughToPlatform: 0
   SlowEnoughToPlatformForgiveness: 0.2
   MoveSpeed: 150000
+  _sfxLand: {fileID: 0}
+  _sfxSplash: {fileID: 0}
+  _sfxScream: {fileID: 0}
+  _sfxWalk: {fileID: 0}
+  _sfxDragged: {fileID: 0}
 --- !u!4 &743458408
 Transform:
   m_ObjectHideFlags: 0
@@ -6299,7 +6309,7 @@ TilemapRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
-  m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
+  m_ChunkCullingBounds: {x: 0.0029411912, y: 0.0029411912, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 0
