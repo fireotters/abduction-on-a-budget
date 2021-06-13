@@ -21,6 +21,7 @@ namespace Player
         private const float SlowdownFactor = 1.5f;
         private Vector2 calculatedForce = new Vector2();
         public bool levelOverFlyRight = false;
+        private bool isLaunchingSound;
 
         private void Start()
         {
@@ -87,8 +88,13 @@ namespace Player
 
         private void PlayMoveSound()
         {
-            _audioSource.clip = moveSound;
-            _audioSource.Play();
+            if (isLaunchingSound)
+            {
+                _audioSource.clip = moveSound;
+                _audioSource.loop = true;
+                _audioSource.Play();
+                isLaunchingSound = false;
+            }
         }
         
         private static bool IsHorizontalAxisInThresholdForSpeedReduction(float horizontalAxis)
