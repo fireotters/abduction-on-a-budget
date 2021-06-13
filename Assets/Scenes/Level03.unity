@@ -13506,6 +13506,7 @@ MonoBehaviour:
   fullUiFadeBlack: {fileID: 0}
   gamePausePanel: {fileID: 476100337}
   gameEndPanel: {fileID: 1267874928}
+  levelGo: MainMenu
   keyCountText: {fileID: 1914620420}
   humanCountText: {fileID: 1095130095}
   endLevelHumans: {fileID: 473770859}
@@ -13856,6 +13857,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2041734726}
+    - target: {fileID: 3635552379994498694, guid: 307402b8b66fd874da756d16fb448561, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3635552380285543010, guid: 307402b8b66fd874da756d16fb448561, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
