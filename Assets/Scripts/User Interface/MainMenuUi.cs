@@ -16,6 +16,9 @@ public class MainMenuUi : BaseUi
     // Audio
     public AudioMixer mixer;
 
+    //Sign anim
+    public Animator _animSign;
+
     void Start()
     {
         // Find SFX Slider & tell MusicManager where it is
@@ -54,5 +57,12 @@ public class MainMenuUi : BaseUi
     {
         Application.Quit();
     }
-    
+
+    private void Update()
+    {
+        if(Time.timeSinceLevelLoad >= 5)
+        {
+            _animSign.SetBool("go", true);
+        }
+    }
 }
