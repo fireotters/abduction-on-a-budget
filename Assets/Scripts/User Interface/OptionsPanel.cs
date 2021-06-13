@@ -8,7 +8,8 @@ public class OptionsPanel : MonoBehaviour
     [Header("Option Panel")]
     [SerializeField] private Slider optionMusicSlider;
     public Slider optionSFXSlider;
-    [SerializeField] private TextMeshProUGUI txtFullscreenToggleBtn;
+    [SerializeField] private Image FullscreenOn;
+    [SerializeField] private Image FullscreenOff;
 
     // Functions related to Options menu
     public void OptionsOpen()
@@ -49,11 +50,13 @@ public class OptionsPanel : MonoBehaviour
     {
         if (Screen.fullScreen)
         {
-            txtFullscreenToggleBtn.text = "Fullscreen ON";
+            FullscreenOn.enabled = true;
+            FullscreenOff.enabled = false;
         }
         else
         {
-            txtFullscreenToggleBtn.text = "Fullscreen OFF";
+            FullscreenOn.enabled = false;
+            FullscreenOff.enabled = true;
         }
     }
 

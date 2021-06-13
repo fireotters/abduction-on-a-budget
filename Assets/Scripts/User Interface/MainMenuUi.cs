@@ -42,7 +42,7 @@ public class MainMenuUi : BaseUi
     
     public void OpenGame2()
     {
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("ComicAnim");
     }
 
     public void OpenHelp()
