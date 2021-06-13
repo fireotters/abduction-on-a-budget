@@ -4,24 +4,26 @@ namespace In_Game_Items
 {
     public abstract class Collectible : MonoBehaviour
     {
-        private SpriteRenderer _keySprite;
+        private SpriteRenderer _sprite;
         private Collider2D _triggerCollider;
-        
+        private AttachedSoundEffect _sfx;
+
         private void Awake()
         {
-            _keySprite = GetComponent<SpriteRenderer>();
+            _sprite = GetComponent<SpriteRenderer>();
             _triggerCollider = GetComponent<Collider2D>();
+            _sfx = GetComponent<AttachedSoundEffect>();
         }
 
         public void DestroyCollectible()
         {
-            _keySprite.enabled = false;
+            _sprite.enabled = false;
             _triggerCollider.enabled = false;
-            // TODO: insert sfx maybe?
-            Invoke(nameof(Die), 1f);
+            _sfx.PlaySound();
+            Invoke(nameof(CompleteDestructionAfterSound), 5f);
         }
 
-        private void Die()
+        private void CompleteDestructionAfterSound()
         {
             Destroy(gameObject);
         }
