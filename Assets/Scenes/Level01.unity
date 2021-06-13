@@ -12952,7 +12952,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 11
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0.0029411912, y: 0.0029411912, z: 0}
   m_MaxChunkCount: 16
@@ -14194,7 +14194,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 995724645}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.1116066, y: 2.6896892, z: -10}
+  m_LocalPosition: {x: -5.1172085, y: 2.6911018, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2082612319}
@@ -17343,6 +17343,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fullUiFadeBlack: {fileID: 0}
   gamePausePanel: {fileID: 0}
+  gameEndPanel: {fileID: 0}
   _levelTransitionOverlay: {fileID: 201345491}
 --- !u!4 &2041734727
 Transform:

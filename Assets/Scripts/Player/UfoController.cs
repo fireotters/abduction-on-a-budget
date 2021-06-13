@@ -8,43 +8,64 @@ namespace Player
     {
         private Rigidbody2D _rb2d;
         private static Animator _anim;
+        private AudioSource _audioSource;
+        private Collider2D _col;
         [SerializeField] private float velocityFactor = 6f;
         [SerializeField] private AudioClip moveSound;
         [SerializeField] private GameObject collisionSoundPrefab;
         [SerializeField] private GameObject underWaterColSoundPrefab;
         [SerializeField] private ParticleSystem sparkParticles;
         [SerializeField] private AudioLowPassFilter lowPass;
-        private AudioSource _audioSource;
         //[SerializeField] private AudioClip[] collisionUnderwaterSound;
         private const float MultiAxisThreshold = 0.1f;
         private const float SlowdownFactor = 1.5f;
+        private Vector2 calculatedForce = new Vector2();
+        public bool levelOverFlyRight = false;
 
         private void Start()
         {
             _audioSource = GetComponent<AudioSource>();
             _rb2d = GetComponent<Rigidbody2D>();
             _anim = GetComponent<Animator>();
+            _col = GetComponent<Collider2D>();
+        }
+
+        private void Update()
+        {
+            var horizontalAxis = Input.GetAxis("P1 Horizontal");
+            var verticalAxis = Input.GetAxis("P1 Vertical");
+
+            if (IsHorizontalAxisInThresholdForSpeedReduction(horizontalAxis) && IsVerticalAxisInThresholdForSpeedReduction(verticalAxis))
+            {
+                horizontalAxis /= SlowdownFactor;
+                verticalAxis /= SlowdownFactor;
+            }
+
+            calculatedForce = CalculateForce(horizontalAxis, verticalAxis);
+
+            // Disallow input if game is over, or level only just started
+            if (GameManager.i.gameIsOver || Time.timeSinceLevelLoad < 1f)
+            {
+                calculatedForce = new Vector2(0, 0);
+            }
+            if (levelOverFlyRight)
+            {
+                _col.enabled = false;
+                calculatedForce = new Vector2(5, 0);
+                Invoke(nameof(DestroyUfoLevelEnd), 4f);
+            }
+
+            SetAnim(calculatedForce.x, calculatedForce.y);
+        }
+
+        private void DestroyUfoLevelEnd()
+        {
+            Destroy(transform.parent.gameObject);
         }
 
         private void FixedUpdate()
         {
-            if (!GameManager.i.gameIsOver)
-            {
-                var horizontalAxis = Input.GetAxis("P1 Horizontal");
-                var verticalAxis = Input.GetAxis("P1 Vertical");
-
-                if (IsHorizontalAxisInThresholdForSpeedReduction(horizontalAxis) && IsVerticalAxisInThresholdForSpeedReduction(verticalAxis))
-                {
-                    horizontalAxis /= SlowdownFactor;
-                    verticalAxis /= SlowdownFactor;
-                }
-
-                var calculatedForce = CalculateForce(horizontalAxis, verticalAxis);
-                
-                SetAnim(calculatedForce.x, calculatedForce.y);
-
-                _rb2d.MovePosition(_rb2d.position + calculatedForce * Time.fixedDeltaTime);
-            }
+            _rb2d.MovePosition(_rb2d.position + calculatedForce * Time.fixedDeltaTime);
         }
 
         private void OnCollisionEnter2D(Collision2D other)
@@ -91,7 +112,7 @@ namespace Player
         {
             if (collision.gameObject.name == "WaterLayerTileMap")
             {
-                lowPass.gameObject.SetActive(true);
+                MusicManager.i.audLowPass.enabled = true;
                 _anim.SetBool("water", true);
             }
         }
@@ -100,7 +121,7 @@ namespace Player
         {
             if (collision.gameObject.name == "WaterLayerTileMap")
             {
-                lowPass.gameObject.SetActive(false);
+                MusicManager.i.audLowPass.enabled = false;
                 _anim.SetBool("water", false);
             }
         }
