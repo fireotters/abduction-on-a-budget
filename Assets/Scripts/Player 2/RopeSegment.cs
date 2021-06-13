@@ -18,8 +18,8 @@ public class RopeSegment : MonoBehaviour
         if (aboveSegment != null)
         {
             aboveSegment.connectedBelow = gameObject;
-            // Connect anchor 90% of the way up a segment, to avoid gaps in texture when rope flies around
-            float spriteBottom = connectedAbove.GetComponent<SpriteRenderer>().bounds.size.y *.9f;
+            // Connect anchor 80% of the way up a segment, to avoid gaps in texture when rope flies around
+            float spriteBottom = connectedAbove.GetComponent<SpriteRenderer>().bounds.size.y *1.6f;
             GetComponent<HingeJoint2D>().connectedAnchor = new Vector2(0, spriteBottom * -1);
         }
         else

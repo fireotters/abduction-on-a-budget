@@ -20,7 +20,7 @@ public class Plr2Controller : MonoBehaviour
 
     [Header("Rope Pull")]
     [SerializeField] private RopeCrank ropeCrank;
-    private const float CooldownBetweenPullsDefault = 0.5f;
+    private const float CooldownBetweenPullsDefault = 0.2f;
     private float timeSpentHoldingSameDir = 0f, currentCooldownBetweenPulls, lastPullTimer = 0f;
 
     [Header("Platforming - Ground Check")]
