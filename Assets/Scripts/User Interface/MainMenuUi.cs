@@ -13,6 +13,8 @@ public class MainMenuUi : BaseUi
     // High Score display
     [SerializeField] private TextMeshProUGUI highScoreNum, highScoreName;
 
+    public Animator _levelTransitionOverlay;
+
     // Audio
     public AudioMixer mixer;
 
@@ -33,17 +35,22 @@ public class MainMenuUi : BaseUi
 
         // Change music track & set volume
         MusicManager.i.ChangeMusicTrack(0);
-        StartCoroutine(UsefulFunctions.FadeScreenBlack("from", fullUiFadeBlack));
     }
 
-    // Other functions
-    public void OpenGame()
+    public void Transition(int b)
     {
-        StartCoroutine(UsefulFunctions.FadeScreenBlack("to", fullUiFadeBlack));
-        Invoke(nameof(OpenGame2), 1f);
+        _levelTransitionOverlay.SetBool("levelEndedOrDead", true);
+        if (b == 0)
+        {
+            Invoke(nameof(OpenHelp), 2);
+        }
+        else if (b == 1)
+        {
+            Invoke(nameof(ActuallyGame), 2);
+        }
     }
     
-    public void OpenGame2()
+    public void ActuallyGame()
     {
         SceneManager.LoadScene("ComicAnim");
     }
