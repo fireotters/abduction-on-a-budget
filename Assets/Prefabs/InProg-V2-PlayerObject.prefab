@@ -722,7 +722,7 @@ MonoBehaviour:
   platformingVelocity: {x: 0, y: 0}
   slowEnoughToPlatform: 0
   SlowEnoughToPlatformForgiveness: 4
-  MoveSpeed: 83000
+  MoveSpeed: 100000
   _sfxLand: {fileID: 5516460276915310079}
   _sfxSplash: {fileID: 5516460276207974895}
   _sfxScream: {fileID: 5516460276885490103}
