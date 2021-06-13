@@ -750,7 +750,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 453482387}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.0986533, y: 2.4299998, z: -10}
+  m_LocalPosition: {x: 5.64, y: 2.4299998, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1813582136}
@@ -8123,7 +8123,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 995724645}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.0986533, y: 2.4299998, z: -10}
+  m_LocalPosition: {x: 5.64, y: 2.4299998, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2082612319}
@@ -8377,7 +8377,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab2f5c66f5863a7428fc5351a663b378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 995724645}
   parallaxEffect: 1
 --- !u!1 &1185538038
 GameObject:
@@ -9286,7 +9285,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab2f5c66f5863a7428fc5351a663b378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 995724645}
   parallaxEffect: 0
 --- !u!1 &1433603210
 GameObject:
@@ -9653,6 +9651,7 @@ MonoBehaviour:
   gameIsOver: 0
   _gameUi: {fileID: 2041734726}
   levelNo: 0
+  keyCountText: {fileID: 0}
   keyCount: 0
   humanCount: 0
 --- !u!1001 &1517304093
@@ -10030,7 +10029,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab2f5c66f5863a7428fc5351a663b378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 995724645}
   parallaxEffect: 0.3
 --- !u!1 &1730871028
 GameObject:
@@ -10078,7 +10076,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab2f5c66f5863a7428fc5351a663b378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 995724645}
   parallaxEffect: 0.7
 --- !u!4 &1743008278 stripped
 Transform:
@@ -10213,7 +10210,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab2f5c66f5863a7428fc5351a663b378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 995724645}
   parallaxEffect: 0.5
 --- !u!1 &1813582135
 GameObject:
@@ -11348,6 +11344,18 @@ PrefabInstance:
       propertyPath: textSwingTime
       value: 
       objectReference: {fileID: 53091429}
+    - target: {fileID: 5516460276885490103, guid: d2fa5a1940c922042abc85a931b08a8e, type: 3}
+      propertyPath: soundsToChooseFrom.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516460276885490103, guid: d2fa5a1940c922042abc85a931b08a8e, type: 3}
+      propertyPath: soundsToChooseFrom.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 3e697c9421b0bea42be2bd6292dc754c, type: 3}
+    - target: {fileID: 5516460276885490103, guid: d2fa5a1940c922042abc85a931b08a8e, type: 3}
+      propertyPath: soundsToChooseFrom.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5516460276997025182, guid: d2fa5a1940c922042abc85a931b08a8e, type: 3}
       propertyPath: m_Name
       value: InProg-V2-PlayerObject
@@ -11405,6 +11413,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1448198710}
     m_Modifications:
+    - target: {fileID: 7279521830278618057, guid: a4f553e1bf653774fbae2b56fdb718dd, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ebf57b3ff00a12c4e9940dc606de708a, type: 3}
     - target: {fileID: 7279521830278618059, guid: a4f553e1bf653774fbae2b56fdb718dd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -11435,11 +11447,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7279521830278618059, guid: a4f553e1bf653774fbae2b56fdb718dd, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 23
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 7279521830278618059, guid: a4f553e1bf653774fbae2b56fdb718dd, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 27.1979
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7279521830278618059, guid: a4f553e1bf653774fbae2b56fdb718dd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11492,6 +11504,22 @@ PrefabInstance:
     - target: {fileID: 7279521830278618060, guid: a4f553e1bf653774fbae2b56fdb718dd, type: 3}
       propertyPath: m_Name
       value: AlienDeathOverlay
+      objectReference: {fileID: 0}
+    - target: {fileID: 7279521830278618060, guid: a4f553e1bf653774fbae2b56fdb718dd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7279521830825762413, guid: a4f553e1bf653774fbae2b56fdb718dd, type: 3}
+      propertyPath: m_Color.b
+      value: 0.40784317
+      objectReference: {fileID: 0}
+    - target: {fileID: 7279521830825762413, guid: a4f553e1bf653774fbae2b56fdb718dd, type: 3}
+      propertyPath: m_Color.g
+      value: 0.7568628
+      objectReference: {fileID: 0}
+    - target: {fileID: 7279521830825762413, guid: a4f553e1bf653774fbae2b56fdb718dd, type: 3}
+      propertyPath: m_Color.r
+      value: 0.40784317
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4f553e1bf653774fbae2b56fdb718dd, type: 3}

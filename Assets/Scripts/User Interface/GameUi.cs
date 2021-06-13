@@ -10,6 +10,7 @@ public partial class GameUi : BaseUi
 
     private void Start()
     {
+        _levelTransitionOverlay.gameObject.SetActive(true);
         // Change music track
         MusicManager.i.ChangeMusicTrack(1);
     }

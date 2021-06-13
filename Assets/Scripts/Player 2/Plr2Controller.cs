@@ -335,7 +335,11 @@ public class Plr2Controller : MonoBehaviour
                 human.DestroyCollectible();
                 break;
             case "Respawn":
-                GameManager.i.PlayerDied();
+                if (!GameManager.i.gameIsOver)
+                {
+                    GameManager.i.PlayerDied();
+                    _sfxScream.PlaySound();
+                }
                 break;
         }
     }

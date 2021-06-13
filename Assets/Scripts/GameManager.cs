@@ -26,11 +26,17 @@ public class GameManager : MonoBehaviour
 
     public void PlayerDied()
     {
-        _gameUi.PlayLevelTransition(didPlayerDie: true);
+        gameIsOver = true;
+        Invoke(nameof(PlDied2), 0.8f);
     }
 
     public void LevelFinished()
     {
         _gameUi.PlayLevelTransition(didPlayerDie: false);
+    }
+
+    private void PlDied2()
+    {
+        _gameUi.PlayLevelTransition(didPlayerDie: true);
     }
 }
