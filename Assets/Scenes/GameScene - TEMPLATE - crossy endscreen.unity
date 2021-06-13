@@ -9061,14 +9061,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1448198710}
     m_Modifications:
-    - target: {fileID: 7279521830092971679, guid: a4f553e1bf653774fbae2b56fdb718dd, type: 3}
-      propertyPath: m_RaycastTarget
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7279521830278618057, guid: a4f553e1bf653774fbae2b56fdb718dd, type: 3}
-      propertyPath: m_RaycastTarget
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7279521830278618059, guid: a4f553e1bf653774fbae2b56fdb718dd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -9079,7 +9071,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7279521830278618059, guid: a4f553e1bf653774fbae2b56fdb718dd, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7279521830278618059, guid: a4f553e1bf653774fbae2b56fdb718dd, type: 3}
       propertyPath: m_AnchorMax.x
@@ -9156,10 +9148,6 @@ PrefabInstance:
     - target: {fileID: 7279521830278618060, guid: a4f553e1bf653774fbae2b56fdb718dd, type: 3}
       propertyPath: m_Name
       value: AlienDeathOverlay
-      objectReference: {fileID: 0}
-    - target: {fileID: 7279521830825762413, guid: a4f553e1bf653774fbae2b56fdb718dd, type: 3}
-      propertyPath: m_RaycastTarget
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4f553e1bf653774fbae2b56fdb718dd, type: 3}
