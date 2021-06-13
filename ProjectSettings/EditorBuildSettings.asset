@@ -7,11 +7,17 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    guid: 70b74c7d79fda3b4a83ed71e382ffce4
+  - enabled: 1
+    path: Assets/Scenes/HelpMenu.unity
+    guid: 31663bf9261b818429cadaa103278fc3
+  - enabled: 1
+    path: Assets/Scenes/Level01.unity
+    guid: 89c7d4ccf3979914589f03bbd0d2bad8
+  - enabled: 1
+    path: Assets/Scenes/ComicAnim.unity
+    guid: 415e32dfc402f344a9d7ac6794cc697b
   - enabled: 1
     path: Assets/Scenes/GameScene.unity
     guid: 934f9b7a33cd72f4e8eae95088496071
-  - enabled: 1
-    path: Assets/Scenes/HelpMenu.unity
-    guid: 6fe29173568d47542abd0889b3de331a
   m_configObjects: {}

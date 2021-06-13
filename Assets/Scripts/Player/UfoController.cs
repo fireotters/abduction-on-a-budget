@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -11,16 +12,19 @@ namespace Player
         private AudioSource _audioSource;
         private Collider2D _col;
         [SerializeField] private float velocityFactor = 6f;
-        [SerializeField] private AudioClip moveSound;
+        [SerializeField] private AudioClip moveSound, underwaterMoveSound;
         [SerializeField] private GameObject collisionSoundPrefab;
         [SerializeField] private GameObject underWaterColSoundPrefab;
         [SerializeField] private ParticleSystem sparkParticles;
         [SerializeField] private AudioLowPassFilter lowPass;
-        //[SerializeField] private AudioClip[] collisionUnderwaterSound;
         private const float MultiAxisThreshold = 0.1f;
         private const float SlowdownFactor = 1.5f;
         private Vector2 calculatedForce = new Vector2();
         public bool levelOverFlyRight = false;
+        private bool isLaunchingSound;
+
+        private bool lastFrameStartedFlying = false, currentlyFlying = false;
+        private Vector2 compareZero = new Vector2(0, 0);
 
         private void Start()
         {
@@ -52,11 +56,56 @@ namespace Player
             {
                 _col.enabled = false;
                 calculatedForce = new Vector2(5, 0);
-                Invoke(nameof(DestroyUfoLevelEnd), 4f);
+                Invoke(nameof(DestroyUfoLevelEnd), 1f);
+                horizontalAxis = 1f; // bodge to make below work
             }
+
+            if (horizontalAxis != 0f || verticalAxis != 0f)
+            {
+                currentlyFlying = true;
+            }
+            else
+            {
+                currentlyFlying = false;
+                //StartCoroutine(ChangeVolumeUfo(true));
+                _audioSource.Pause();
+            }
+            CheckForFirstTimeTakeoff();
 
             SetAnim(calculatedForce.x, calculatedForce.y);
         }
+
+        private void CheckForFirstTimeTakeoff()
+        {
+            if (currentlyFlying && !lastFrameStartedFlying)
+            {
+                _audioSource.Play();
+                //StartCoroutine(ChangeVolumeUfo(true));
+            }
+            lastFrameStartedFlying = currentlyFlying;
+        }
+
+
+        //private float maxVolume = 0.8f, timeToFade = 0.2f;
+        //private IEnumerator ChangeVolumeUfo(bool upOrDown)
+        //{
+        //    if (upOrDown == true)
+        //    {
+        //        for (int i = 0; i <= 100; i++)
+        //        {
+        //            _audioSource.volume = maxVolume * (i / 100);
+        //            yield return new WaitForSeconds(timeToFade / 100f);
+        //        }
+        //    }
+        //    else if (upOrDown == false)
+        //    {
+        //        for (int i = 100; i >= 0; i--)
+        //        {
+        //            _audioSource.volume = maxVolume * (i / 100);
+        //            yield return new WaitForSeconds(timeToFade / 100f);
+        //        }
+        //    }
+        //}
 
         private void DestroyUfoLevelEnd()
         {
@@ -83,13 +132,6 @@ namespace Player
         {
             Instantiate(sparkParticles, other.contacts[0].point, Quaternion.identity);
         }
-
-
-        private void PlayMoveSound()
-        {
-            _audioSource.clip = moveSound;
-            _audioSource.Play();
-        }
         
         private static bool IsHorizontalAxisInThresholdForSpeedReduction(float horizontalAxis)
         {
@@ -113,6 +155,15 @@ namespace Player
             if (collision.gameObject.name == "WaterLayerTileMap")
             {
                 MusicManager.i.audLowPass.enabled = true;
+                if (_audioSource.isPlaying)
+                {
+                    _audioSource.clip = underwaterMoveSound;
+                    _audioSource.Play();
+                }
+                else
+                {
+                    _audioSource.clip = underwaterMoveSound;
+                }
                 _anim.SetBool("water", true);
             }
         }
@@ -122,6 +173,15 @@ namespace Player
             if (collision.gameObject.name == "WaterLayerTileMap")
             {
                 MusicManager.i.audLowPass.enabled = false;
+                if (_audioSource.isPlaying)
+                {
+                    _audioSource.clip = moveSound;
+                    _audioSource.Play();
+                }
+                else
+                {
+                    _audioSource.clip = moveSound;
+                }
                 _anim.SetBool("water", false);
             }
         }

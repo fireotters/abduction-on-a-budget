@@ -48,11 +48,12 @@ MonoBehaviour:
   mixer: {fileID: 24100000, guid: ec709d4542700394598e5a2902a45b20, type: 2}
   sfxDemo: {fileID: 0}
   currentMusicPlayer: {fileID: -446397885300833493}
-  musicMainMenu: {fileID: 8300000, guid: d6d9f06b1d082334e9c26d8805843b81, type: 3}
-  musicGameplay: {fileID: 8300000, guid: ac8d82c0f3c22a34e96e9dfd40a23aba, type: 3}
+  musicMainMenu: {fileID: 8300000, guid: 5369c1709e0bb1a4e970cd21242ee65f, type: 3}
+  musicGameplay: {fileID: 8300000, guid: 05bd75e198d7a694d9ac4eafb866b832, type: 3}
   selectSound: {fileID: 0}
   startGameSound: {fileID: 0}
   backSound: {fileID: 0}
+  audLowPass: {fileID: 0}
 --- !u!82 &-446397885300833493
 AudioSource:
   m_ObjectHideFlags: 0
