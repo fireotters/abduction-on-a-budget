@@ -670,8 +670,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enableDebugging: 0
   textSwingTime: {fileID: 0}
-  ThrustSwing: 75000
-  CooldownBetweenSwings: 1.2
+  ThrustSwing: 400
+  CooldownBetweenSwings: 0
   SwingNeutralForgiveness: 5
   SwingTooFast: 7
   ropeCrank: {fileID: 4152991236645354677}

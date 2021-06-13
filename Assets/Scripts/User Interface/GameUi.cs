@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public partial class GameUi : BaseUi
 {
     [Header("Game UI")]
     public GameObject gamePausePanel, gameEndPanel;
+
+    [SerializeField] private TextMeshProUGUI keyCountText, humanCountText, endLevelHumans;
 
     public Animator _levelTransitionOverlay;
 
@@ -18,6 +21,9 @@ public partial class GameUi : BaseUi
     private void Update()
     {
         CheckKeyInputs();
+
+        keyCountText.text = $"{GameManager.i.keyCount}";
+        humanCountText.text = $"{GameManager.i.humanCount}/{GameManager.i.totalCountOfHumans}";
     }
 
     private void CheckKeyInputs()
@@ -33,11 +39,13 @@ public partial class GameUi : BaseUi
     public void ShowEndLevelScreen()
     {
         gameEndPanel.SetActive(true);
+        endLevelHumans.text = GameManager.i.humanCount.ToString();
+
     }
 
     public void GameIsPaused(bool intent)
     {
-        if (!GameManager.i.gameIsOver)
+        if (!GameManager.i.gameIsOver && !gameEndPanel.activeInHierarchy)
         {
             // Show or hide pause panel and set timescale
             gamePausePanel.SetActive(intent);
