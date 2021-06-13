@@ -15,7 +15,7 @@ public class Plr2Controller : MonoBehaviour
 
     [Header("Mid-air Swing")]
     [SerializeField] private float ThrustSwing = 50000;
-    [SerializeField] private float CooldownBetweenSwings = 1.2f, SwingNeutralForgiveness = 5f, SwingTooFast = 7f;
+    [SerializeField] private float CooldownBetweenSwings = 0.5f, SwingNeutralForgiveness = 5f, SwingTooFast = 7f;
     private float lastSwingTimer = 0f;
 
     [Header("Rope Pull")]
@@ -255,10 +255,10 @@ public class Plr2Controller : MonoBehaviour
         if (rb.velocity[1] > SwingTooFast || rb.velocity[1] < -SwingTooFast)
             return false;
 
-        if (direction == "left" && rb.velocity[0] > SwingNeutralForgiveness)
-            return false;
-        if (direction == "right" && rb.velocity[0] < -SwingNeutralForgiveness)
-            return false;
+        //if (direction == "left" && rb.velocity[0] > SwingNeutralForgiveness)
+        //    return false;
+        //if (direction == "right" && rb.velocity[0] < -SwingNeutralForgiveness)
+        //    return false;
 
         if (Time.time > lastSwingTimer + CooldownBetweenSwings)
         {
@@ -338,6 +338,7 @@ public class Plr2Controller : MonoBehaviour
                 if (!GameManager.i.gameIsOver)
                 {
                     GameManager.i.PlayerDied();
+                    _anim.SetBool("fear", true);
                     _sfxScream.PlaySound();
                 }
                 break;
