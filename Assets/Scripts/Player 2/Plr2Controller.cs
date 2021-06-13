@@ -15,7 +15,7 @@ public class Plr2Controller : MonoBehaviour
 
     [Header("Mid-air Swing")]
     [SerializeField] private float ThrustSwing = 50000;
-    [SerializeField] private float CooldownBetweenSwings = 1.2f, SwingSwapForgiveness = 0.1f, SwingTooFast = 7f;
+    [SerializeField] private float CooldownBetweenSwings = 1.2f, SwingNeutralForgiveness = 5f, SwingTooFast = 7f;
     private float lastSwingTimer = 0f;
 
     [Header("Rope Pull")]
@@ -30,13 +30,11 @@ public class Plr2Controller : MonoBehaviour
     [SerializeField] private LayerMask whatIsGround, whatIsWater;
 
     private bool lastFrameWasGrounded = false, lastFrameWasFloating = false;
-    private bool justLanded = false, justSplashed = false;
-
 
     [Header("Platforming - Movement")]
     [SerializeField] private Vector2 platformingVelocity = new Vector2();
     public bool slowEnoughToPlatform = false;
-    [SerializeField] private float SlowEnoughToPlatformForgiveness = 1f, MoveSpeed = 1000f;
+    [SerializeField] private float SlowEnoughToPlatformForgiveness = 0.5f, MoveSpeed = 1000f;
 
     [Header("Sound Effects")]
     [SerializeField] private AttachedSoundEffect _sfxLand;
@@ -251,9 +249,9 @@ public class Plr2Controller : MonoBehaviour
         if (rb.velocity[1] > SwingTooFast || rb.velocity[1] < -SwingTooFast)
             return false;
 
-        if (direction == "left" && rb.velocity[0] > SwingSwapForgiveness)
+        if (direction == "left" && rb.velocity[0] > SwingNeutralForgiveness)
             return false;
-        if (direction == "right" && rb.velocity[0] < -SwingSwapForgiveness)
+        if (direction == "right" && rb.velocity[0] < -SwingNeutralForgiveness)
             return false;
 
         if (Time.time > lastSwingTimer + CooldownBetweenSwings)
@@ -279,7 +277,7 @@ public class Plr2Controller : MonoBehaviour
             if (rb.velocity[0] > SwingTooFast || rb.velocity[0] < -SwingTooFast ||
                 rb.velocity[1] > SwingTooFast || rb.velocity[1] < -SwingTooFast)
                 plr2State = "Moving too fast to swing!";
-            else if (rb.velocity[0] > -SwingSwapForgiveness && rb.velocity[0] < SwingSwapForgiveness)
+            else if (rb.velocity[0] > -SwingNeutralForgiveness && rb.velocity[0] < SwingNeutralForgiveness)
                 plr2State = "May press either <-- or -->";
             else if (rb.velocity[0] > 0)
                 plr2State = "Can only press -->";

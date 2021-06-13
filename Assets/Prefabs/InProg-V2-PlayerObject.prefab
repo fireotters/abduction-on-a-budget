@@ -672,7 +672,7 @@ MonoBehaviour:
   textSwingTime: {fileID: 0}
   ThrustSwing: 75000
   CooldownBetweenSwings: 1.2
-  SwingSwapForgiveness: 0.1
+  SwingNeutralForgiveness: 5
   SwingTooFast: 7
   ropeCrank: {fileID: 4152991236645354677}
   isGrounded: 0
@@ -1285,7 +1285,7 @@ DistanceJoint2D:
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 0
-  m_Distance: 1.75
+  m_Distance: 1.9
   m_MaxDistanceOnly: 1
 --- !u!82 &5516460276760476543
 AudioSource:
@@ -1933,7 +1933,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5516460276997025182}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.64, y: -0.55, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

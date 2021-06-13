@@ -26,10 +26,10 @@ namespace In_Game_Items
                 spriteRenderer.enabled = false;
             }
             unlockable = false;
-            Invoke(nameof(Die), 0.2f);
+            Invoke(nameof(CompleteDestructionAfterSound), 0.2f);
         }
 
-        private void Die()
+        private void CompleteDestructionAfterSound()
         {
             Destroy(gameObject);
         }

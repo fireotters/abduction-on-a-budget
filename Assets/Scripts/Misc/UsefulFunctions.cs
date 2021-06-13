@@ -43,4 +43,22 @@ public class UsefulFunctions : MonoBehaviour
             fadingInterrupted = false;
         }
     }
+
+    /// <summary>
+    /// Fade a group of objects. Only supports fading out.<br/>
+    /// </summary>
+    /// <param name="sprites">Which Renderer objects to fade.</param>
+    /// <param name="secondsToFade">Time to fade.</param>
+    public static IEnumerator FadeRenderers(SpriteRenderer[] sprites, float secondsToFade)
+    {
+        for (int fadeTick = 100; fadeTick >= 0f; fadeTick -= 5)
+        {
+            foreach (SpriteRenderer spr in sprites)
+            {
+                Color origColor = spr.color;
+                spr.color = new Color(origColor.r, origColor.g, origColor.b, fadeTick/100f);
+            }
+            yield return new WaitForSeconds(secondsToFade / 20f);
+        }
+    }
 }
