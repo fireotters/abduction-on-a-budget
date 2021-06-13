@@ -60,6 +60,9 @@ public class MainMenuUi : BaseUi
 
     private void Update()
     {
-        
+        if(Time.timeSinceLevelLoad >= 5)
+        {
+            _animSign.SetBool("go", true);
+        }
     }
 }
