@@ -25,8 +25,8 @@ public class Plr2Controller : MonoBehaviour
 
     [Header("Platforming - Ground & Water Check")]
     public bool isGrounded = false;
-    public bool isFloatingOnWater = false, isSwimmingInWater = false;
-    [SerializeField] private Transform groundCheck, deepUnderwaterCheck;
+    public bool isFloatingOnWater = false, isSwimmingInWater = false, isTouchingCeiling = false;
+    [SerializeField] private Transform groundCheck, deepUnderwaterCheck, ceilingCheck;
     [SerializeField] private LayerMask whatIsGround, whatIsWater;
 
     private bool lastFrameWasGrounded = false, lastFrameWasFloating = false;
@@ -105,6 +105,7 @@ public class Plr2Controller : MonoBehaviour
     private void GroundedOrWaterCheck()
     {
         isGrounded = false;
+        isTouchingCeiling = false;
         isFloatingOnWater = false;
         isSwimmingInWater = false;
 
@@ -141,6 +142,16 @@ public class Plr2Controller : MonoBehaviour
             if (colliders[i].gameObject != gameObject)
             {
                 isGrounded = true;
+                break;
+            }
+        }
+        // The player is touching ceiling if a circlecast to the ceilingcheck position hits anything designated as ground
+        Collider2D[] colliders4 = Physics2D.OverlapCircleAll(ceilingCheck.position, 0.05f, whatIsGround);
+        for (int i = 0; i < colliders4.Length; i++)
+        {
+            if (colliders4[i].gameObject != gameObject)
+            {
+                isTouchingCeiling = true;
                 break;
             }
         }
@@ -231,8 +242,8 @@ public class Plr2Controller : MonoBehaviour
         {
             lastPullTimer = Time.time;
 
-            // Climb rope
-            if (verticalMovement == 1)
+            // Climb rope. Disallow when touching ceiling
+            if (verticalMovement == 1 && !isTouchingCeiling)
             {
                 ropeCrank.Rotate(-1);
             }
