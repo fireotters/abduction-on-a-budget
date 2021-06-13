@@ -6,6 +6,7 @@ public partial class GameUi : BaseUi
 {
     [Header("Game UI")]
     public GameObject gamePausePanel, gameEndPanel;
+    public string levelGo;
 
     [SerializeField] private TextMeshProUGUI keyCountText, humanCountText, endLevelHumans;
 
@@ -77,7 +78,8 @@ public partial class GameUi : BaseUi
         int lvlNo = GameManager.i.levelNo;
         // If lvlNo less than 9, append a 0.
         string levelStr = lvlNo < 10 ? "0" + lvlNo.ToString() : lvlNo.ToString();
-        SceneManager.LoadScene("Level" + levelStr);
+        SceneManager.LoadScene(levelGo);
+        //SceneManager.LoadScene("Level" + levelStr);
     }
 
     public void ExitGameFromPause()
