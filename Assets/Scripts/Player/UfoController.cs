@@ -16,7 +16,6 @@ namespace Player
         [SerializeField] private GameObject underWaterColSoundPrefab;
         [SerializeField] private ParticleSystem sparkParticles;
         [SerializeField] private AudioLowPassFilter lowPass;
-        private AudioSource _audioSource;
         //[SerializeField] private AudioClip[] collisionUnderwaterSound;
         private const float MultiAxisThreshold = 0.1f;
         private const float SlowdownFactor = 1.5f;
@@ -31,18 +30,18 @@ namespace Player
             _col = GetComponent<Collider2D>();
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
-            if (!GameManager.i.gameIsOver)
-            {
-                var horizontalAxis = Input.GetAxis("P1 Horizontal");
-                var verticalAxis = Input.GetAxis("P1 Vertical");
+            var horizontalAxis = Input.GetAxis("P1 Horizontal");
+            var verticalAxis = Input.GetAxis("P1 Vertical");
 
-                if (IsHorizontalAxisInThresholdForSpeedReduction(horizontalAxis) && IsVerticalAxisInThresholdForSpeedReduction(verticalAxis))
-                {
-                    horizontalAxis /= SlowdownFactor;
-                    verticalAxis /= SlowdownFactor;
-                }
+            if (IsHorizontalAxisInThresholdForSpeedReduction(horizontalAxis) && IsVerticalAxisInThresholdForSpeedReduction(verticalAxis))
+            {
+                horizontalAxis /= SlowdownFactor;
+                verticalAxis /= SlowdownFactor;
+            }
+
+            calculatedForce = CalculateForce(horizontalAxis, verticalAxis);
 
             // Disallow input if game is over, or level only just started
             if (GameManager.i.gameIsOver || Time.timeSinceLevelLoad < 1f)
@@ -113,7 +112,7 @@ namespace Player
         {
             if (collision.gameObject.name == "WaterLayerTileMap")
             {
-                lowPass.gameObject.SetActive(true);
+                MusicManager.i.audLowPass.enabled = true;
                 _anim.SetBool("water", true);
             }
         }
@@ -122,7 +121,7 @@ namespace Player
         {
             if (collision.gameObject.name == "WaterLayerTileMap")
             {
-                lowPass.gameObject.SetActive(false);
+                MusicManager.i.audLowPass.enabled = false;
                 _anim.SetBool("water", false);
             }
         }

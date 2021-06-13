@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4858026100033030224}
   - component: {fileID: 2244115648213070940}
   - component: {fileID: -446397885300833493}
+  - component: {fileID: 1229952595}
   m_Layer: 0
   m_Name: MusicManager
   m_TagString: Untagged
@@ -49,7 +50,9 @@ MonoBehaviour:
   currentMusicPlayer: {fileID: -446397885300833493}
   musicMainMenu: {fileID: 8300000, guid: d6d9f06b1d082334e9c26d8805843b81, type: 3}
   musicGameplay: {fileID: 8300000, guid: ac8d82c0f3c22a34e96e9dfd40a23aba, type: 3}
-  musicHelp: {fileID: 8300000, guid: c2422223ffd8b3949846a8ceacab2f96, type: 3}
+  selectSound: {fileID: 0}
+  startGameSound: {fileID: 0}
+  backSound: {fileID: 0}
 --- !u!82 &-446397885300833493
 AudioSource:
   m_ObjectHideFlags: 0
@@ -137,6 +140,31 @@ AudioSource:
     - serializedVersion: 3
       time: 0
       value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!169 &1229952595
+AudioLowPassFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 662835352751630062}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_LowpassResonanceQ: 1
+  lowpassLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.013187813
       inSlope: 0
       outSlope: 0
       tangentMode: 0

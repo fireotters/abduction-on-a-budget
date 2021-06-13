@@ -47,13 +47,16 @@ public partial class GameUi : BaseUi
         }
     }
 
-    public void PlayLevelTransition(bool didPlayerDie)
+    private const int transitionTime = 2;
+    public void PlayLevelTransition(int intent)
     {
         _levelTransitionOverlay.SetBool("levelEndedOrDead", true);
-        if (didPlayerDie)
-            Invoke(nameof(ReloadLevel), 2f);
+        if (intent == 0)
+            Invoke(nameof(ReloadLevel), transitionTime);
+        else if (intent == 1)
+            Invoker.InvokeDelayed(ExitGameFromPause, transitionTime);
         else
-            NextLevel();
+            Invoke(nameof(NextLevel), transitionTime);
     }
 
     public void ReloadLevel()

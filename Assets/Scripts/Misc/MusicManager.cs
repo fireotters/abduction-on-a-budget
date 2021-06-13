@@ -8,6 +8,7 @@ public class MusicManager : MonoBehaviour
     public AudioSource sfxDemo, currentMusicPlayer; // SFX Slider in Options, & playing music
     public AudioClip musicMainMenu, musicGameplay;
     public AudioClip selectSound, startGameSound, backSound;
+    public AudioLowPassFilter audLowPass;
     
     private int lastTrackRequested = -1; // When first created, pick the scene's chosen song
 
@@ -24,6 +25,7 @@ public class MusicManager : MonoBehaviour
             i = this;
             DontDestroyOnLoad(gameObject);
         }
+        audLowPass = GetComponent<AudioLowPassFilter>();
     }
 
     public void ChangeMusic(float sliderValue) {
