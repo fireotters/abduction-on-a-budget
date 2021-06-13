@@ -305,6 +305,21 @@ public class Plr2Controller : MonoBehaviour
         textSwingTime.text = "Swing timer: " + swingTimeDisplay.ToString() + "\n" + plr2State;
     }
 
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        switch (other.transform.tag)
+        {
+            case "Lock":
+                var lockGate = other.gameObject.GetComponent<LockedGate>();
+                if (GameManager.i.keyCount > 0 && lockGate.unlockable)
+                {
+                    GameManager.i.keyCount--;
+                    lockGate.DestroyLock();
+                }
+                break;
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         switch (other.tag)
@@ -313,15 +328,6 @@ public class Plr2Controller : MonoBehaviour
                 var key = other.gameObject.GetComponent<Key>();
                 GameManager.i.keyCount++;
                 key.DestroyCollectible();
-                break;
-            case "Lock":
-                var lockGate = other.gameObject.GetComponent<LockedGate>();
-                if (GameManager.i.keyCount > 0 && lockGate.unlockable)
-                {
-                    GameManager.i.keyCount--;
-                    lockGate.DestroyLock();
-                }
-
                 break;
             case "Human":
                 var human = other.gameObject.GetComponent<Human>();

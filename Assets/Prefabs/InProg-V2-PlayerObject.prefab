@@ -641,7 +641,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5516460276228965351}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.5413465, y: 1.4499999, z: 0}
+  m_LocalPosition: {x: 0, y: 1.4499999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5516460276295922339}
@@ -668,7 +668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a462aae72dec945806b431936fcde6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableDebugging: 1
+  enableDebugging: 0
   textSwingTime: {fileID: 0}
   ThrustSwing: 75000
   CooldownBetweenSwings: 1.2
@@ -1120,7 +1120,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5516460276760476542}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.5413465, y: 2.9799998, z: 0}
+  m_LocalPosition: {x: 0, y: 2.9799998, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 5516460276997025183}
@@ -1144,6 +1144,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a149d94b8312bcf4881a6041fd8d2632, type: 3}
   - {fileID: 8300000, guid: 38a1b5c262dd4be48a14c309ec452d12, type: 3}
   moveSound: {fileID: 8300000, guid: cd156b3999570a5468dcdf27817ec596, type: 3}
+  sparkParticles: {fileID: 2464748055486295547, guid: b6138a2f9d328fd4f8429157cd66a633, type: 3}
 --- !u!212 &5516460276760476533
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1934,7 +1935,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5516460276997025182}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.64, y: -0.55, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5516460276760476535}
@@ -1984,7 +1985,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8443128771901642040, guid: b1a05058f215f984b89b74204f2ecdc3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.5413465
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8443128771901642040, guid: b1a05058f215f984b89b74204f2ecdc3, type: 3}
       propertyPath: m_LocalPosition.y
