@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 97890090}
   - component: {fileID: 97890089}
   m_Layer: 5
-  m_Name: shit
+  m_Name: Text-PressAnyKey
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -371,7 +371,7 @@ GameObject:
   - component: {fileID: 889936827}
   - component: {fileID: 889936828}
   m_Layer: 0
-  m_Name: comic-bg
+  m_Name: Comic Art
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

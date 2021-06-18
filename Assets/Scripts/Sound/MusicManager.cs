@@ -44,7 +44,7 @@ public class MusicManager : MonoBehaviour
         print(PlayerPrefs.GetFloat("SFX"));
     }
 
-    // TODO see if this requires to be rewritten. Cam has a version that searches for Unity tags instead.
+    // TODO Consider rewriting. Cam has a version that searches for Unity tags instead.
     public void FindAllSfxAndPlayPause(bool gameIsPaused)
     {
         if (FindObjectsOfType(typeof(AudioSource)) is AudioSource[] listOfSfxObjects)
@@ -97,22 +97,4 @@ public class MusicManager : MonoBehaviour
             lastTrackRequested = index;
         }
     }
-
-    //public void PlayUiSound(string sound)
-    //{
-    //    switch (sound)
-    //    {
-    //        case "select":
-    //            sfxDemo.clip = selectSound;
-    //Debug.Log("Select sound");
-    //            break;
-    //        case "back":
-    //            sfxDemo.clip = backSound;
-    //            break;
-    //        case "start":
-    //            sfxDemo.clip = startGameSound;
-    //            break;
-    //    }
-    //    sfxDemo.Play();
-    //}
 }

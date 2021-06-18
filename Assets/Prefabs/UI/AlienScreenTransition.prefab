@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 7279521830278618058}
   - component: {fileID: 7279521830278618055}
   m_Layer: 5
-  m_Name: AlienDeathOverlay
+  m_Name: AlienScreenTransition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
