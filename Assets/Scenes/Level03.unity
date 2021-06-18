@@ -11071,7 +11071,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 995724645}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.289252, y: 1.4036098, z: -10}
+  m_LocalPosition: {x: -6.2892528, y: 1.403583, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2082612319}
@@ -15144,8 +15144,8 @@ MonoBehaviour:
   levelGo: MainMenu
   keyCountText: {fileID: 1914620420}
   humanCountText: {fileID: 1095130095}
-  endLevelHumans: {fileID: 0}
-  _levelTransitionOverlay: {fileID: 2076186051}
+  endLevelHumans: {fileID: 3635552380189495416}
+  levelTransitionOverlay: {fileID: 2076186051}
 --- !u!4 &2041734727
 Transform:
   m_ObjectHideFlags: 0
@@ -15606,3 +15606,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 307402b8b66fd874da756d16fb448561, type: 3}
+--- !u!114 &3635552380189495416 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6731168417764365439, guid: 307402b8b66fd874da756d16fb448561, type: 3}
+  m_PrefabInstance: {fileID: 3635552380189495415}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
