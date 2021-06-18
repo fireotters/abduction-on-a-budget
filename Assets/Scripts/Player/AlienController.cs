@@ -183,38 +183,41 @@ namespace Player
 
         private void RopeMovement(float verticalMovement)
         {
-            // If rope buttons are held for long enough, reduce cooldown between rope pulls
             if (verticalMovement != 0)
             {
+                // Invert controls if underwater
+                if (isSwimmingInWater)
+                    verticalMovement = verticalMovement == 1 ? -1 : 1;
+
+                // If rope buttons are held for long enough, reduce cooldown between rope pulls
                 timeSpentHoldingSameDir += Time.deltaTime;
                 if (timeSpentHoldingSameDir >= 1.2f)
-                {
                     currentCooldownBetweenPulls = CooldownBetweenPullsDefault / 3f;
+
+                // Rope retreact/release
+                if (Time.time > lastPullTimer + currentCooldownBetweenPulls)
+                {
+                    lastPullTimer = Time.time;
+
+                    // Retract rope. Disallow when touching ceiling while above water, or when touching ground while below water
+                    if (verticalMovement == 1)
+                    {
+                        if (!isSwimmingInWater && !isTouchingCeiling)
+                            ropeCrank.Rotate(-1);
+                        else if (isSwimmingInWater && !isTouchingGround)
+                            ropeCrank.Rotate(-1);
+                    }
+                    // Release rope. Allow at all times
+                    else if (verticalMovement == -1)
+                    {
+                        ropeCrank.Rotate(1);
+                    }
                 }
             }
             else
             {
+                // Reset rope pulling speed when no input is detected
                 currentCooldownBetweenPulls = CooldownBetweenPullsDefault;
-            }
-
-            // Rope ascend/descend
-            if (Time.time > lastPullTimer + currentCooldownBetweenPulls)
-            {
-                lastPullTimer = Time.time;
-
-                // Pull rope. Disallow when touching ceiling while above water, or when touching ground while below water
-                if (verticalMovement == 1)
-                {
-                    if (!isSwimmingInWater && !isTouchingCeiling)
-                        ropeCrank.Rotate(-1);
-                    else if (isSwimmingInWater && !isTouchingGround)
-                        ropeCrank.Rotate(-1);
-                }
-                // Release rope. Allow at all times
-                else if (verticalMovement == -1)
-                {
-                    ropeCrank.Rotate(1);
-                }
             }
         }
 
