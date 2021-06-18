@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6245439b5afd06c4b9ab3ae0296877fa
+guid: 42b7c8a41c229a54caea88732e20ef9b
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Homemade Apple
+  - Indie Flower
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
