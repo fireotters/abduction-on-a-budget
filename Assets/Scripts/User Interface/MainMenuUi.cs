@@ -31,6 +31,7 @@ public class MainMenuUi : BaseUi
         {
             PlayerPrefs.SetFloat("Music", 0.8f);
             PlayerPrefs.SetFloat("SFX", 0.8f);
+            PlayerPrefs.SetInt("RopeInvert", 1);
         }
 
         // Change music track & set volume
