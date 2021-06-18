@@ -9,6 +9,7 @@ namespace Player
     {
         private Rigidbody2D rb;
         private Animator _anim;
+        private Transform _ufoTransform;
 
         [Header("Mid-air Swing")]
         [SerializeField] private float ThrustSwing = 50000;
@@ -41,8 +42,7 @@ namespace Player
         {
             rb = GetComponent<Rigidbody2D>();
             _anim = GetComponent<Animator>();
-
-
+            _ufoTransform = transform.parent.Find("Ufo").transform;
         }
 
         private void Update()
@@ -186,7 +186,7 @@ namespace Player
             if (verticalMovement != 0)
             {
                 // Invert controls if underwater
-                if (isSwimmingInWater)
+                if (transform.position.y >= _ufoTransform.position.y)
                     verticalMovement = verticalMovement == 1 ? -1 : 1;
 
                 // If rope buttons are held for long enough, reduce cooldown between rope pulls
