@@ -16,6 +16,7 @@ namespace Player
 
         [Header("Rope Pull")]
         [SerializeField] private RopeCrank ropeCrank;
+        private bool _isRopeInvertOn;
         private const float CooldownBetweenPullsDefault = 0.2f;
         private float timeSpentHoldingSameDir = 0f, currentCooldownBetweenPulls = 0f, lastPullTimer = 0f;
 
@@ -43,6 +44,7 @@ namespace Player
             rb = GetComponent<Rigidbody2D>();
             _anim = GetComponent<Animator>();
             _ufoTransform = transform.parent.Find("Ufo").transform;
+            _isRopeInvertOn = PlayerPrefs.GetInt("RopeInvert") == 1 ? true : false;
         }
 
         private void Update()
@@ -185,8 +187,8 @@ namespace Player
         {
             if (verticalMovement != 0)
             {
-                // Invert controls if underwater
-                if (transform.position.y >= _ufoTransform.position.y)
+                // Invert controls if rope invert is enabled, and alien is above UFO for any reason
+                if (_isRopeInvertOn && transform.position.y >= _ufoTransform.position.y)
                     verticalMovement = verticalMovement == 1 ? -1 : 1;
 
                 // If rope buttons are held for long enough, reduce cooldown between rope pulls

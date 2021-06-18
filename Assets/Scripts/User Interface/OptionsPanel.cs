@@ -59,7 +59,7 @@ public class OptionsPanel : MonoBehaviour
 
     private void SetBtnRopeInvertText()
     {
-        if (PlayerPrefs.GetInt("RopeInvert") == 0)
+        if (PlayerPrefs.GetInt("RopeInvert") == 1)
         {
             _optionRopeInvertText.text = "Rope Invert On";
             _optionRopeInvertClarifyText.text = StrRopeInvertOn;
