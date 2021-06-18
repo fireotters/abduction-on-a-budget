@@ -10,19 +10,13 @@ namespace Player
         private Rigidbody2D rb;
         private Animator _anim;
 
-        [Header("Only enable if textSwingTime is assigned")]
-        public bool enableDebugging = false;
-        [SerializeField] private Text textSwingTime;
-
         [Header("Mid-air Swing")]
         [SerializeField] private float ThrustSwing = 50000;
-        [SerializeField] private float CooldownBetweenSwings = 0.5f, SwingNeutralForgiveness = 5f, SwingTooFast = 7f;
-        private float lastSwingTimer = 0f;
 
         [Header("Rope Pull")]
         [SerializeField] private RopeCrank ropeCrank;
         private const float CooldownBetweenPullsDefault = 0.2f;
-        private float timeSpentHoldingSameDir = 0f, currentCooldownBetweenPulls, lastPullTimer = 0f;
+        private float timeSpentHoldingSameDir = 0f, currentCooldownBetweenPulls = 0f, lastPullTimer = 0f;
 
         [Header("Platforming - Ground & Water Check")]
         public bool isTouchingGround = false;
@@ -53,10 +47,6 @@ namespace Player
 
         private void Update()
         {
-            if (enableDebugging)
-                DebugText();
-
-
             if (!isTouchingGround)
                 SetAnimations(flying: true);
 
@@ -98,7 +88,7 @@ namespace Player
                     PlatformingMovement();
                 else
                     MidairMovement(horizontalInput);
-                OtherMovement(verticalInput);
+                RopeMovement(verticalInput);
             }
         }
 
@@ -183,15 +173,15 @@ namespace Player
         private void MidairMovement(float horizontalAxis)
         {
             // Left swing
-            if (horizontalAxis == -1 && CanSwing("left"))
+            if (horizontalAxis == -1)
                 rb.AddRelativeForce(transform.right * -ThrustSwing);
 
             // Right swing
-            if (horizontalAxis == 1 && CanSwing("right"))
+            if (horizontalAxis == 1)
                 rb.AddRelativeForce(transform.right * ThrustSwing);
         }
 
-        private void OtherMovement(float verticalMovement)
+        private void RopeMovement(float verticalMovement)
         {
             // If rope buttons are held for long enough, reduce cooldown between rope pulls
             if (verticalMovement != 0)
@@ -212,78 +202,20 @@ namespace Player
             {
                 lastPullTimer = Time.time;
 
-                // Climb rope. Disallow when touching ceiling
-                if (verticalMovement == 1 && !isTouchingCeiling)
+                // Pull rope. Disallow when touching ceiling while above water, or when touching ground while below water
+                if (verticalMovement == 1)
                 {
-                    ropeCrank.Rotate(-1);
+                    if (!isSwimmingInWater && !isTouchingCeiling)
+                        ropeCrank.Rotate(-1);
+                    else if (isSwimmingInWater && !isTouchingGround)
+                        ropeCrank.Rotate(-1);
                 }
-                // Descend rope
+                // Release rope. Allow at all times
                 else if (verticalMovement == -1)
                 {
                     ropeCrank.Rotate(1);
                 }
             }
-        }
-
-        // Player is allowed to swing if:
-        // - If player isn't moving too fast.
-        // - If player is swinging in the same direction as an input, or is moving at a forgiveable opposite speed.
-        // - If player has not swung too recently.
-        private bool CanSwing(string direction)
-        {
-            if (rb.velocity[0] > SwingTooFast || rb.velocity[0] < -SwingTooFast)
-                return false;
-            if (rb.velocity[1] > SwingTooFast || rb.velocity[1] < -SwingTooFast)
-                return false;
-
-            //if (direction == "left" && rb.velocity[0] > SwingNeutralForgiveness)
-            //    return false;
-            //if (direction == "right" && rb.velocity[0] < -SwingNeutralForgiveness)
-            //    return false;
-
-            if (Time.time > lastSwingTimer + CooldownBetweenSwings)
-            {
-                {
-                    lastSwingTimer = Time.time;
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        private void DebugText()
-        {
-            string plr2State = "";
-            if (isFloatingOnWater)
-            {
-                plr2State = "Swimming. Can launch <-- or -->";
-            }
-            else if (!isTouchingGround)
-            {
-                if (rb.velocity[0] > SwingTooFast || rb.velocity[0] < -SwingTooFast ||
-                    rb.velocity[1] > SwingTooFast || rb.velocity[1] < -SwingTooFast)
-                    plr2State = "Moving too fast to swing!";
-                else if (rb.velocity[0] > -SwingNeutralForgiveness && rb.velocity[0] < SwingNeutralForgiveness)
-                    plr2State = "May press either <-- or -->";
-                else if (rb.velocity[0] > 0)
-                    plr2State = "Can only press -->";
-                else if (rb.velocity[0] < 0)
-                    plr2State = "Can only press <--";
-            }
-            else
-            {
-                if (rb.velocity[0] < SlowEnoughToPlatformForgiveness && rb.velocity[0] > -SlowEnoughToPlatformForgiveness)
-                    plr2State = "Grounded. Can walk <->";
-                else
-                    plr2State = "Grounded. Pulled too fast to walk.";
-            }
-
-
-            double swingTimeDisplay = Math.Round(lastSwingTimer + CooldownBetweenSwings - Time.time, 2);
-            if (swingTimeDisplay < 0)
-                swingTimeDisplay = 0;
-            textSwingTime.text = "Swing timer: " + swingTimeDisplay.ToString() + "\n" + plr2State;
         }
 
         private void OnCollisionEnter2D(Collision2D other)
