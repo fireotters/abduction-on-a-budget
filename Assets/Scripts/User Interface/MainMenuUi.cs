@@ -1,28 +1,22 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.Audio;
-using TMPro;
-using System;
+using UnityEngine.SceneManagement;
 
 public class MainMenuUi : BaseUi
 {
     [Header("Main Menu UI")]
     [SerializeField] private OptionsPanel optionsPanel;
-    
-    // High Score display
-    [SerializeField] private TextMeshProUGUI highScoreNum, highScoreName;
-
     public Animator _levelTransitionOverlay;
-
+    [SerializeField] private TextMeshProUGUI versionText;
     // Audio
     public AudioMixer mixer;
-
     //Sign anim
     public Animator _animSign;
 
     void Start()
     {
+        SetVersionText();
         // Find SFX Slider & tell MusicManager where it is
         MusicManager.i.sfxDemo = optionsPanel.optionSFXSlider.GetComponent<AudioSource>();
         
@@ -37,6 +31,20 @@ public class MainMenuUi : BaseUi
         // Change music track & set volume. Disable low pass filter.
         MusicManager.i.ChangeMusicTrack(0);
         MusicManager.i.audLowPass.enabled = false;
+    }
+
+    private void SetVersionText()
+    {
+        if (Debug.isDebugBuild)
+        {
+            versionText.text = !string.IsNullOrEmpty(Application.buildGUID)
+                ? $"Version debug-{Application.version}-{Application.buildGUID}"
+                : $"Version debug-{Application.version}-editor";
+        }
+        else
+        {
+            versionText.text = $"Version {Application.version}";
+        }
     }
 
     public void Transition(int b)
