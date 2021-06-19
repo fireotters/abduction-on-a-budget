@@ -1,37 +1,34 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class ComicUI : BaseUi
+namespace User_Interface
 {
-    public Animator _animComic;
-    // Start is called before the first frame update
-    private void Start()
+    public class ComicUI : BaseUi
     {
-        // Change music track
-        MusicManager.i.ChangeMusicTrack(0);
-
-        // Fade in the screen
-        StartCoroutine(UsefulFunctions.FadeScreenBlack("from", fullUiFadeBlack));
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        CheckKeyInputs();
-    }
-    private void CheckKeyInputs()
-    {
-        if (Input.anyKey)
+        public Image fullUiFadeBlack;
+        
+        // Start is called before the first frame update
+        private void Start()
         {
-            ExitComic();
+            // Change music track
+            MusicManager.i.ChangeMusicTrack(0);
+            // Fade in the screen
+            StartCoroutine(UsefulFunctions.FadeScreenBlack("from", fullUiFadeBlack));
         }
 
-    }
+        // Update is called once per frame
+        private void Update()
+        {
+            if (Input.anyKey)
+            {
+                ExitComic();
+            }
+        }
 
-    public void ExitComic()
-    {
-        SceneManager.LoadScene("Level01");
+        private static void ExitComic()
+        {
+            SceneManager.LoadScene("Level01");
+        }
     }
 }

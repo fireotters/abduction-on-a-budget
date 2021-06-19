@@ -1,20 +1,22 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
-public abstract class BaseUi : MonoBehaviour
+namespace User_Interface
 {
-    [Header("Base UI")]
-    public Image fullUiFadeBlack;
-
-    public virtual void SwapFullscreen()
+    public abstract class BaseUi : MonoBehaviour
     {
-        if (Screen.fullScreen)
+        [Header("Base UI")]
+        public Animator levelTransitionOverlay;
+
+        public void SwapFullscreen()
         {
-            Screen.SetResolution(Screen.currentResolution.width / 2, Screen.currentResolution.height / 2, false);
-        }
-        else
-        {
-            Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, true);
+            if (Screen.fullScreen)
+            {
+                Screen.SetResolution(Screen.currentResolution.width / 2, Screen.currentResolution.height / 2, false);
+            }
+            else
+            {
+                Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, true);
+            }
         }
     }
 }
