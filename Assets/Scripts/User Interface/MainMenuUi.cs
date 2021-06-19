@@ -1,5 +1,4 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
@@ -17,7 +16,7 @@ public class MainMenuUi : BaseUi
 
     void Start()
     {
-        versionText.text = $"Version {Application.version}";
+        SetVersionText();
         // Find SFX Slider & tell MusicManager where it is
         MusicManager.i.sfxDemo = optionsPanel.optionSFXSlider.GetComponent<AudioSource>();
         
@@ -32,6 +31,20 @@ public class MainMenuUi : BaseUi
         // Change music track & set volume. Disable low pass filter.
         MusicManager.i.ChangeMusicTrack(0);
         MusicManager.i.audLowPass.enabled = false;
+    }
+
+    private void SetVersionText()
+    {
+        if (Debug.isDebugBuild)
+        {
+            versionText.text = !string.IsNullOrEmpty(Application.buildGUID)
+                ? $"Version debug-{Application.version}-{Application.buildGUID}"
+                : $"Version debug-{Application.version}-editor";
+        }
+        else
+        {
+            versionText.text = $"Version {Application.version}";
+        }
     }
 
     public void Transition(int b)
