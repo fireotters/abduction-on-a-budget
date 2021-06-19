@@ -9,20 +9,17 @@ public class MainMenuUi : BaseUi
 {
     [Header("Main Menu UI")]
     [SerializeField] private OptionsPanel optionsPanel;
-    
-    // High Score display
-    [SerializeField] private TextMeshProUGUI highScoreNum, highScoreName;
-
     public Animator _levelTransitionOverlay;
 
+    [SerializeField] private TextMeshProUGUI versionText;
     // Audio
     public AudioMixer mixer;
-
     //Sign anim
     public Animator _animSign;
 
     void Start()
     {
+        SetVersionNumber();
         // Find SFX Slider & tell MusicManager where it is
         MusicManager.i.sfxDemo = optionsPanel.optionSFXSlider.GetComponent<AudioSource>();
         
@@ -37,6 +34,13 @@ public class MainMenuUi : BaseUi
         // Change music track & set volume. Disable low pass filter.
         MusicManager.i.ChangeMusicTrack(0);
         MusicManager.i.audLowPass.enabled = false;
+    }
+
+    private void SetVersionNumber()
+    {
+        versionText.text = Debug.isDebugBuild 
+            ? $"Version debug.{Application.version}.{DateTimeOffset.Now.ToUnixTimeMilliseconds()}" 
+            : $"Version {Application.version}";
     }
 
     public void Transition(int b)
