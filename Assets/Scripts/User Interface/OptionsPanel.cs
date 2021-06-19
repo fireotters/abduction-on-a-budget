@@ -6,57 +6,68 @@ using UnityEngine.SceneManagement;
 public class OptionsPanel : MonoBehaviour
 {
     [Header("Option Panel")]
-    [SerializeField] private Slider optionMusicSlider;
+    [SerializeField] private Slider _optionMusicSlider;
     public Slider optionSFXSlider;
-    [SerializeField] private Image FullscreenOn;
-    [SerializeField] private Image FullscreenOff;
+    [SerializeField] private TextMeshProUGUI _optionFullscreenText, _optionRopeInvertText, _optionRopeInvertClarifyText;
+    private const string StrRopeInvertOn = "(When UFO is below alien, rope climbing controls are flipped)",
+                         StrRopeInvertOff = "(Rope climbing controls never flip)";
 
     // Functions related to Options menu
     public void OptionsOpen()
     {
         SetBtnFullscreenText();
+        SetBtnRopeInvertText();
 
-        optionMusicSlider.SetValueWithoutNotify(PlayerPrefs.GetFloat("Music"));
+        _optionMusicSlider.SetValueWithoutNotify(PlayerPrefs.GetFloat("Music"));
         optionSFXSlider.SetValueWithoutNotify(PlayerPrefs.GetFloat("SFX"));
     }
 
     public void OptionsClose()
     {
-        optionMusicSlider.SetValueWithoutNotify(PlayerPrefs.GetFloat("Music"));
+        _optionMusicSlider.SetValueWithoutNotify(PlayerPrefs.GetFloat("Music"));
         optionSFXSlider.SetValueWithoutNotify(PlayerPrefs.GetFloat("SFX"));
     }
 
     public void SwapFullscreen()
     {
         if (Screen.fullScreen)
-        {
             Screen.SetResolution(Screen.currentResolution.width / 2, Screen.currentResolution.height / 2, false);
-        }
         else
-        {
             Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, true);
-        }
         Invoke(nameof(SetBtnFullscreenText), 0.1f);
     }
-
-    public void ResetHighScore()
-    {
-        PlayerPrefs.SetInt("HighscoreNum", 0);
-        PlayerPrefs.SetString("HighscoreName", "No Highscore Yet");
-        SceneManager.LoadScene("MainMenu");
-    }
-
-    public void SetBtnFullscreenText()
+    private void SetBtnFullscreenText()
     {
         if (Screen.fullScreen)
+            _optionFullscreenText.text = "Fullscreen On";
+        else
+            _optionFullscreenText.text = "Fullscreen Off";
+    }
+
+    public void SwapRopeInvert()
+    {
+        if (PlayerPrefs.GetInt("RopeInvert") == 0)
         {
-            FullscreenOn.enabled = true;
-            FullscreenOff.enabled = false;
+            PlayerPrefs.SetInt("RopeInvert", 1);
         }
         else
         {
-            FullscreenOn.enabled = false;
-            FullscreenOff.enabled = true;
+            PlayerPrefs.SetInt("RopeInvert", 0);
+        }
+        SetBtnRopeInvertText();
+    }
+
+    private void SetBtnRopeInvertText()
+    {
+        if (PlayerPrefs.GetInt("RopeInvert") == 1)
+        {
+            _optionRopeInvertText.text = "Rope Invert On";
+            _optionRopeInvertClarifyText.text = StrRopeInvertOn;
+        }
+        else
+        {
+            _optionRopeInvertText.text = "Rope Invert Off";
+            _optionRopeInvertClarifyText.text = StrRopeInvertOff;
         }
     }
 

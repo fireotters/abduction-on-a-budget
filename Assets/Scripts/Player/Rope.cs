@@ -13,7 +13,7 @@ public class Rope : MonoBehaviour
     public Rigidbody2D hook;
     public GameObject[] prefabRopeSegs;
     public Player.UfoController plr1;
-    public Plr2Controller plr2;
+    public Player.AlienController plr2;
     public HingeJoint2D top;
 
     private void Start()

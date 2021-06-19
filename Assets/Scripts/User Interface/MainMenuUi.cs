@@ -31,10 +31,12 @@ public class MainMenuUi : BaseUi
         {
             PlayerPrefs.SetFloat("Music", 0.8f);
             PlayerPrefs.SetFloat("SFX", 0.8f);
+            PlayerPrefs.SetInt("RopeInvert", 1);
         }
 
-        // Change music track & set volume
+        // Change music track & set volume. Disable low pass filter.
         MusicManager.i.ChangeMusicTrack(0);
+        MusicManager.i.audLowPass.enabled = false;
     }
 
     public void Transition(int b)
