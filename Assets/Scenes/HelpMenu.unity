@@ -1389,10 +1389,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fullUiFadeBlack: {fileID: 0}
+  levelTransitionOverlay: {fileID: 1997476204}
   toCredits: {fileID: 0}
   toHelp: {fileID: 0}
   credits: {fileID: 2058202701}
-  _levelTransitionOverlay: {fileID: 1997476204}
 --- !u!1 &802668739
 GameObject:
   m_ObjectHideFlags: 0
