@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameUi _gameUi;
     private Player.UfoController _ufo;
     public int levelNo;
+    public Transform EffectsParent;
 
     private static GameManager _i;
     public static GameManager i { get { if (_i == null) _i = FindObjectOfType<GameManager>(); return _i; } }
