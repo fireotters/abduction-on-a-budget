@@ -63,6 +63,11 @@ namespace Player
             {
                 _anim.SetBool("flying", true);
             }
+
+            if (rb.velocity[0] > 0.5f)
+                transform.localScale = new Vector2(1, 1);
+            else if (rb.velocity[0] < -0.5f)
+                transform.localScale = new Vector2(-1, 1);
         }
 
         private void CheckForFirstTimeLandWaterContact()
@@ -160,13 +165,9 @@ namespace Player
 
             }
             // Walking anims
-            else if (horizontalAxis > 0)
+            else if (horizontalAxis != 0)
             {
-                SetAnimations(walkLeft: true);
-            }
-            else if (horizontalAxis < 0)
-            {
-                SetAnimations(walkRight: true);
+                SetAnimations(walk: true);
             }
             else if (horizontalAxis == 0)
             {
@@ -174,12 +175,11 @@ namespace Player
             }
         }
 
-        private void SetAnimations(bool dragAnim = false, bool walkLeft = false, bool walkRight = false,
+        private void SetAnimations(bool dragAnim = false, bool walk = false,
             bool flying = false)
         {
             _anim.SetBool("drag", dragAnim);
-            _anim.SetBool("left", walkLeft);
-            _anim.SetBool("right", walkRight);
+            _anim.SetBool("left", walk);
             _anim.SetBool("flying", flying);
         }
 
