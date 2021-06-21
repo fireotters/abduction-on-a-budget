@@ -11071,7 +11071,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 995724645}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.2892537, y: 1.4035287, z: -10}
+  m_LocalPosition: {x: -6.289255, y: 1.403482, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2082612319}
@@ -15138,14 +15138,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77571434a619cf3409c99ae8684ce989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fullUiFadeBlack: {fileID: 0}
+  levelTransitionOverlay: {fileID: 2076186051}
   gamePausePanel: {fileID: 476100337}
   gameEndPanel: {fileID: 1267874928}
   levelGo: MainMenu
   keyCountText: {fileID: 1914620420}
   humanCountText: {fileID: 1095130095}
   endLevelHumans: {fileID: 3635552380189495416}
-  levelTransitionOverlay: {fileID: 2076186051}
 --- !u!4 &2041734727
 Transform:
   m_ObjectHideFlags: 0
@@ -15322,30 +15321,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5187236914290594181, guid: 79764d5179ae58c4eb0d7c8062dbbf9b, type: 3}
-      propertyPath: ShapeModule.radius.value
-      value: 10.39
-      objectReference: {fileID: 0}
-    - target: {fileID: 5187236914290594181, guid: 79764d5179ae58c4eb0d7c8062dbbf9b, type: 3}
-      propertyPath: EmissionModule.rateOverTime.scalar
-      value: 150
-      objectReference: {fileID: 0}
-    - target: {fileID: 5187236914290594181, guid: 79764d5179ae58c4eb0d7c8062dbbf9b, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.a
-      value: 0.50980395
-      objectReference: {fileID: 0}
-    - target: {fileID: 5187236914290594181, guid: 79764d5179ae58c4eb0d7c8062dbbf9b, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5187236914290594181, guid: 79764d5179ae58c4eb0d7c8062dbbf9b, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.18518782
-      objectReference: {fileID: 0}
-    - target: {fileID: 5187236914290594181, guid: 79764d5179ae58c4eb0d7c8062dbbf9b, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.r
-      value: 0.3679245
-      objectReference: {fileID: 0}
     - target: {fileID: 5187236914290594183, guid: 79764d5179ae58c4eb0d7c8062dbbf9b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.95
@@ -15398,29 +15373,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gas caca
       objectReference: {fileID: 0}
+    - target: {fileID: 5187236915311306117, guid: 79764d5179ae58c4eb0d7c8062dbbf9b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5187236915664022608, guid: 79764d5179ae58c4eb0d7c8062dbbf9b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.13
-      objectReference: {fileID: 0}
-    - target: {fileID: 5187236915664022622, guid: 79764d5179ae58c4eb0d7c8062dbbf9b, type: 3}
-      propertyPath: ShapeModule.radius.value
-      value: 10.46
-      objectReference: {fileID: 0}
-    - target: {fileID: 5187236915664022622, guid: 79764d5179ae58c4eb0d7c8062dbbf9b, type: 3}
-      propertyPath: EmissionModule.rateOverTime.scalar
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 5187236915664022622, guid: 79764d5179ae58c4eb0d7c8062dbbf9b, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5187236915664022622, guid: 79764d5179ae58c4eb0d7c8062dbbf9b, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.18431373
-      objectReference: {fileID: 0}
-    - target: {fileID: 5187236915664022622, guid: 79764d5179ae58c4eb0d7c8062dbbf9b, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.r
-      value: 0.36862746
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79764d5179ae58c4eb0d7c8062dbbf9b, type: 3}
