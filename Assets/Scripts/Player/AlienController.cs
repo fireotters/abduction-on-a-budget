@@ -14,6 +14,10 @@ namespace Player
         [Header("Mid-air Swing")]
         [SerializeField] private float ThrustSwing = 50000;
 
+        [Header("Touching Ceiling Underwater Swing")]
+        [SerializeField] private float swingCeilingUnderwaterMaxSpeed = 2f;
+        [SerializeField] private float currentSwingModifier = 1f, SwingWhenTouchingCeilingUnderwaterModifier = 5f;
+
         [Header("Rope Pull")]
         [SerializeField] private RopeCrank ropeCrank;
         private bool _isRopeInvertOn;
@@ -181,13 +185,21 @@ namespace Player
 
         private void MidairMovement(float horizontalAxis)
         {
+            // If the player is underwater touching ceiling, give them some control of alien's movement, limited to a low speed.
+            currentSwingModifier = 1f;
+            if (isTouchingCeiling && isSwimmingInWater)
+            {
+                if (rb.velocity[0] < swingCeilingUnderwaterMaxSpeed && rb.velocity[0] > -swingCeilingUnderwaterMaxSpeed)
+                    currentSwingModifier = SwingWhenTouchingCeilingUnderwaterModifier;
+            }
+
             // Left swing
             if (horizontalAxis == -1)
-                rb.AddRelativeForce(transform.right * -ThrustSwing);
+                rb.AddRelativeForce(transform.right * -ThrustSwing * currentSwingModifier);
 
             // Right swing
             if (horizontalAxis == 1)
-                rb.AddRelativeForce(transform.right * ThrustSwing);
+                rb.AddRelativeForce(transform.right * ThrustSwing * currentSwingModifier);
         }
 
         private void RopeMovement(float verticalMovement)

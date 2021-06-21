@@ -121,7 +121,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cadd68d7ecbad2f4ebe079b0fa155285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 10
   minLinks: 3
   maxLinks: 15
 --- !u!212 &8443128771672503977
@@ -220,9 +219,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65ada39d435ac1b419823f2b2ed8c35c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialNumOfLinks: 5
+  InitialDistFromUfo: 1.6
+  AddedUfoDistPerSegment: 3
   hook: {fileID: 8443128771282455980}
   prefabRopeSegs:
   - {fileID: 4543251084383294136, guid: d9fa907b3d6e00643850b3c62e8dbb82, type: 3}
   - {fileID: 7393129070127468738, guid: f2364edb148d86e4685f8d6200a2d763, type: 3}
-  numLinks: 8
+  plr1: {fileID: 0}
+  plr2: {fileID: 0}
   top: {fileID: 0}
