@@ -120,17 +120,17 @@ namespace Player
         private void OnCollisionEnter2D(Collision2D other)
         {
             if (_anim.GetBool("water"))
-                Instantiate(underWaterColSoundPrefab);
+                Instantiate(underWaterColSoundPrefab, GameManager.i.EffectsParent);
                 
             else
-                Instantiate(collisionSoundPrefab);
+                Instantiate(collisionSoundPrefab, GameManager.i.EffectsParent);
                 
-            Instantiate(sparkParticles, other.contacts[0].point, Quaternion.identity);
+            Instantiate(sparkParticles, other.contacts[0].point, Quaternion.identity, GameManager.i.EffectsParent);
         }
 
         private void OnCollisionStay2D(Collision2D other)
         {
-            Instantiate(sparkParticles, other.contacts[0].point, Quaternion.identity);
+            Instantiate(sparkParticles, other.contacts[0].point, Quaternion.identity, GameManager.i.EffectsParent);
         }
         
         private static bool IsHorizontalAxisInThresholdForSpeedReduction(float horizontalAxis)

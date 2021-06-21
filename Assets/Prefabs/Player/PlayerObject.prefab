@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 5516460275824200245}
   - component: {fileID: 5516460275824200244}
   m_Layer: 0
-  m_Name: p2_5
+  m_Name: alien_body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -120,7 +120,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5516460276228965344}
-  m_RootOrder: 4
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5516460275824200245
 SpriteRenderer:
@@ -159,9 +159,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 16
+  m_SortingLayerID: -1445394049
+  m_SortingLayer: 7
+  m_SortingOrder: 3
   m_Sprite: {fileID: -3889672887680698622, guid: ddfab1dabe55a534998e5f76433fea09, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -201,7 +201,7 @@ GameObject:
   - component: {fileID: 5516460276122196410}
   - component: {fileID: 5516460276122196411}
   m_Layer: 0
-  m_Name: p2_0
+  m_Name: alien_head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -219,7 +219,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5516460276228965344}
-  m_RootOrder: 7
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5516460276122196411
 SpriteRenderer:
@@ -258,9 +258,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 16
+  m_SortingLayerID: -1445394049
+  m_SortingLayer: 7
+  m_SortingOrder: 4
   m_Sprite: {fileID: 4197860276205774954, guid: ddfab1dabe55a534998e5f76433fea09, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -283,7 +283,7 @@ GameObject:
   - component: {fileID: 5516460276154997494}
   - component: {fileID: 5516460276154997495}
   m_Layer: 0
-  m_Name: p2_8
+  m_Name: alien_foot_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -301,7 +301,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5516460276228965344}
-  m_RootOrder: 9
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5516460276154997495
 SpriteRenderer:
@@ -340,9 +340,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 16
+  m_SortingLayerID: -1445394049
+  m_SortingLayer: 7
+  m_SortingOrder: 4
   m_Sprite: {fileID: -1234388895602119637, guid: ddfab1dabe55a534998e5f76433fea09, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -678,12 +678,12 @@ Transform:
   - {fileID: 5516460275430739017}
   - {fileID: 5516460275350801463}
   - {fileID: 6898750115433199674}
+  - {fileID: 5516460276122196410}
+  - {fileID: 5516460276251882910}
+  - {fileID: 5516460276154997494}
   - {fileID: 5516460275824200251}
   - {fileID: 5516460276710164954}
-  - {fileID: 5516460276251882910}
-  - {fileID: 5516460276122196410}
   - {fileID: 5516460276949402902}
-  - {fileID: 5516460276154997494}
   m_Father: {fileID: 5516460276997025183}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -699,9 +699,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a462aae72dec945806b431936fcde6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThrustSwing: 400
-  SwingNeutralForgiveness: 5
-  SwingTooFast: 7
+  ThrustSwing: 500
+  swingCeilingUnderwaterMaxSpeed: 2
+  currentSwingModifier: 1
+  SwingWhenTouchingCeilingUnderwaterModifier: 5
   ropeCrank: {fileID: 4152991236645354677}
   isTouchingGround: 0
   isFloatingOnWater: 0
@@ -716,9 +717,9 @@ MonoBehaviour:
   whatIsWater:
     serializedVersion: 2
     m_Bits: 1024
-  slowEnoughToPlatform: 0
-  SlowEnoughToPlatformForgiveness: 4
-  MoveSpeed: 100000
+  MoveSpeed: 400000
+  VelocityWalkSpeedLimit: 3
+  VelocityDragThreshold: 3.5
   _sfxLand: {fileID: 5516460276915310079}
   _sfxSplash: {fileID: 5516460276207974895}
   _sfxScream: {fileID: 5516460276885490103}
@@ -911,7 +912,7 @@ GameObject:
   - component: {fileID: 5516460276251882910}
   - component: {fileID: 5516460276251882911}
   m_Layer: 0
-  m_Name: p2_6
+  m_Name: alien_arm_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -929,7 +930,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5516460276228965344}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5516460276251882911
 SpriteRenderer:
@@ -968,9 +969,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 16
+  m_SortingLayerID: -1445394049
+  m_SortingLayer: 7
+  m_SortingOrder: 4
   m_Sprite: {fileID: 8878647547939253488, guid: ddfab1dabe55a534998e5f76433fea09, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1029,7 +1030,7 @@ GameObject:
   - component: {fileID: 5516460276710164948}
   - component: {fileID: 5516460276710164955}
   m_Layer: 0
-  m_Name: p2_4
+  m_Name: alien_arm_l
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1047,7 +1048,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5516460276228965344}
-  m_RootOrder: 5
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5516460276710164948
 SpriteRenderer:
@@ -1086,9 +1087,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 16
+  m_SortingLayerID: -1445394049
+  m_SortingLayer: 7
+  m_SortingOrder: 2
   m_Sprite: {fileID: -5295189297475087019, guid: ddfab1dabe55a534998e5f76433fea09, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1212,9 +1213,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 17
+  m_SortingLayerID: -1445394049
+  m_SortingLayer: 7
+  m_SortingOrder: 1
   m_Sprite: {fileID: 588644908422862187, guid: 3429b624ad25abb4097c32ad42e27cc3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1238,7 +1239,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 800
+  m_Mass: 3000
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -1316,7 +1317,7 @@ DistanceJoint2D:
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 0
-  m_Distance: 1.9
+  m_Distance: 1.5
   m_MaxDistanceOnly: 1
 --- !u!82 &5516460276760476543
 AudioSource:
@@ -1857,7 +1858,7 @@ GameObject:
   - component: {fileID: 5516460276949402902}
   - component: {fileID: 5516460276949402903}
   m_Layer: 0
-  m_Name: p2_7
+  m_Name: alien_foot_l
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1875,7 +1876,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5516460276228965344}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5516460276949402903
 SpriteRenderer:
@@ -1914,9 +1915,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 16
+  m_SortingLayerID: -1445394049
+  m_SortingLayer: 7
+  m_SortingOrder: 2
   m_Sprite: {fileID: 2331481080255810221, guid: ddfab1dabe55a534998e5f76433fea09, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1982,7 +1983,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8443128771672503976, guid: b1a05058f215f984b89b74204f2ecdc3, type: 3}
       propertyPath: maxLinks
-      value: 24
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 8443128771672503976, guid: b1a05058f215f984b89b74204f2ecdc3, type: 3}
       propertyPath: minLinks
@@ -2058,7 +2059,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8443128771901642043, guid: b1a05058f215f984b89b74204f2ecdc3, type: 3}
       propertyPath: AddedUfoDistPerSegment
-      value: 0.28
+      value: 0.22
       objectReference: {fileID: 0}
     - target: {fileID: 8443128771901642043, guid: b1a05058f215f984b89b74204f2ecdc3, type: 3}
       propertyPath: prefabRopeSegs.Array.size

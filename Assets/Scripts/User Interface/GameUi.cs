@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using User_Interface;
 
 public class GameUi : BaseUi
 {
@@ -8,7 +9,6 @@ public class GameUi : BaseUi
     public GameObject gamePausePanel, gameEndPanel;
     public string levelGo;
     [SerializeField] private TextMeshProUGUI keyCountText, humanCountText, endLevelHumans;
-    public Animator levelTransitionOverlay;
     private const int TransitionTime = 2;
     
     private void Start()
@@ -21,7 +21,6 @@ public class GameUi : BaseUi
     private void Update()
     {
         CheckKeyInputs();
-
         keyCountText.text = $"{GameManager.i.keyCount}";
         humanCountText.text = $"{GameManager.i.humanCount} {GameManager.i.totalCountOfHumans}";
     }
@@ -47,8 +46,7 @@ public class GameUi : BaseUi
         {
             // Show or hide pause panel and set timescale
             gamePausePanel.SetActive(intent);
-            Time.timeScale = (intent == true) ? 0 : 1;
-
+            Time.timeScale = intent ? 0 : 1;
             MusicManager.i.FindAllSfxAndPlayPause(gameIsPaused: intent);
         }
     }
@@ -57,12 +55,18 @@ public class GameUi : BaseUi
     public void PlayLevelTransition(int intent)
     {
         levelTransitionOverlay.SetBool("levelEndedOrDead", true);
-        if (intent == 0)
-            Invoke(nameof(ReloadLevel), TransitionTime);
-        else if (intent == 1)
-            Invoker.InvokeDelayed(ExitGameFromPause, TransitionTime);
-        else
-            Invoke(nameof(NextLevel), TransitionTime);
+        switch (intent)
+        {
+            case 0:
+                Invoke(nameof(ReloadLevel), TransitionTime);
+                break;
+            case 1:
+                Invoker.InvokeDelayed(ExitGameFromPause, TransitionTime);
+                break;
+            default:
+                Invoke(nameof(NextLevel), TransitionTime);
+                break;
+        }
     }
 
     public void ReloadLevel()
@@ -72,13 +76,10 @@ public class GameUi : BaseUi
 
     public void NextLevel()
     {
-        int lvlNo = GameManager.i.levelNo;
-        // If lvlNo less than 9, append a 0.
-        string levelStr = lvlNo < 10 ? "0" + lvlNo.ToString() : lvlNo.ToString();
         SceneManager.LoadScene(levelGo);
     }
 
-    public void ExitGameFromPause()
+    private static void ExitGameFromPause()
     {
         SceneManager.LoadScene("MainMenu");
         Time.timeScale = 1;

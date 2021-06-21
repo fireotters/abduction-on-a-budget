@@ -2248,12 +2248,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 999575e97ac2ddd4c8ea55f861d98000, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fullUiFadeBlack: {fileID: 0}
+  levelTransitionOverlay: {fileID: 2088609146}
   optionsPanel: {fileID: 482332012}
-  _levelTransitionOverlay: {fileID: 2088609146}
   versionText: {fileID: 1569605893}
   mixer: {fileID: 24100000, guid: ec709d4542700394598e5a2902a45b20, type: 2}
-  _animSign: {fileID: 1544973990}
+  animSign: {fileID: 1544973990}
 --- !u!4 &897027717
 Transform:
   m_ObjectHideFlags: 0
