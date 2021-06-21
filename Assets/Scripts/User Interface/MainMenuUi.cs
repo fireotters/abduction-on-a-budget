@@ -35,6 +35,8 @@ public class MainMenuUi : BaseUi
         // Change music track & set volume. Disable low pass filter.
         MusicManager.i.ChangeMusicTrack(0);
         MusicManager.i.audLowPass.enabled = false;
+
+        Invoke(nameof(AnimateSign), 2f);
     }
 
     private void SetVersionText()
@@ -85,11 +87,8 @@ public class MainMenuUi : BaseUi
         Application.Quit();
     }
 
-    private void Update()
+    private void AnimateSign()
     {
-        if (Time.timeSinceLevelLoad >= 5)
-        {
-            animSign.SetBool("go", true);
-        }
+        animSign.SetBool("go", true);
     }
 }
