@@ -41,7 +41,6 @@ public class MusicManager : MonoBehaviour
         if (!sfxDemo.isPlaying) {
             sfxDemo.Play();
         }
-        print(PlayerPrefs.GetFloat("SFX"));
     }
 
     // TODO Consider rewriting. Cam has a version that searches for Unity tags instead.

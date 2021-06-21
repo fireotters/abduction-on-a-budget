@@ -29,8 +29,8 @@ namespace Player
         private bool lastFrameWasGrounded = false, lastFrameWasFloating = false;
 
         [Header("Platforming - Movement")]
-        public bool slowEnoughToPlatform = false;
-        [SerializeField] private float SlowEnoughToPlatformForgiveness = 0.5f, MoveSpeed = 1000f;
+        [SerializeField] private float MoveSpeed = 700000f;
+        [SerializeField] private float VelocityWalkSpeedLimit = 3f, VelocityDragThreshold = 4f;
 
         [Header("Sound Effects")]
         [SerializeField] private AttachedSoundEffect _sfxLand;
@@ -44,7 +44,7 @@ namespace Player
             rb = GetComponent<Rigidbody2D>();
             _anim = GetComponent<Animator>();
             _ufoTransform = transform.parent.Find("Ufo").transform;
-            _isRopeInvertOn = PlayerPrefs.GetInt("RopeInvert") == 1 ? true : false;
+            _isRopeInvertOn = PlayerPrefs.GetInt("RopeInvert") == 1;
         }
 
         private void Update()
@@ -76,7 +76,6 @@ namespace Player
             lastFrameWasFloating = isFloatingOnWater;
         }
 
-        // Copied from Hold Space to Play's ground check
         private void FixedUpdate()
         {
             if (!GameManager.i.gameIsOver)
@@ -121,37 +120,31 @@ namespace Player
 
         private void PlatformingMovement()
         {
-            if (rb.velocity[0] < SlowEnoughToPlatformForgiveness && rb.velocity[0] > -SlowEnoughToPlatformForgiveness)
-            {
-                var horizontalAxis = Input.GetAxis("P2 Horizontal");
+            var horizontalAxis = Input.GetAxis("P2 Horizontal");
 
+            // Walking animations
+            WalkAnims(horizontalAxis);
+
+            // Walking sfx
+            if (horizontalAxis != 0 && Time.time > lastWalkSfx + WalkSfxCooldown)
+            {
+                _sfxWalk.PlaySound();
+                lastWalkSfx = Time.time;
+            }
+
+            // Walk player side to side if told to by input, only on frames where their velocity is low enough
+            if (horizontalAxis != 0 && rb.velocity[0] < VelocityWalkSpeedLimit && rb.velocity[0] > -VelocityWalkSpeedLimit)
+            {
                 float xForce = horizontalAxis * MoveSpeed * Time.deltaTime;
                 Vector2 force = new Vector2(xForce, 0);
                 rb.AddForce(force);
-
-                // Walking anims
-                if (horizontalAxis > 0)
-                {
-                    SetAnimations(walkLeft: true);
-                }
-                else if (horizontalAxis < 0)
-                {
-                    SetAnimations(walkRight: true);
-                }
-                else if (horizontalAxis == 0 &&
-                         (xForce < SlowEnoughToPlatformForgiveness && xForce > -SlowEnoughToPlatformForgiveness))
-                {
-                    SetAnimations();
-                }
-
-                // Walking sfx
-                if (horizontalAxis != 0 && Time.time > lastWalkSfx + WalkSfxCooldown)
-                {
-                    _sfxWalk.PlaySound();
-                    lastWalkSfx = Time.time;
-                }
             }
-            else
+        }
+
+        private void WalkAnims(float horizontalAxis)
+        {
+            // Drag player along floor if their velocity is too high
+            if (rb.velocity[0] > VelocityDragThreshold || rb.velocity[0] < -VelocityDragThreshold)
             {
                 SetAnimations(dragAnim: true);
                 // Dragging sfx
@@ -160,6 +153,20 @@ namespace Player
                     _sfxDragged.PlaySound();
                     lastDragSfx = Time.time;
                 }
+
+            }
+            // Walking anims
+            else if (horizontalAxis > 0)
+            {
+                SetAnimations(walkLeft: true);
+            }
+            else if (horizontalAxis < 0)
+            {
+                SetAnimations(walkRight: true);
+            }
+            else if (horizontalAxis == 0)
+            {
+                SetAnimations();
             }
         }
 

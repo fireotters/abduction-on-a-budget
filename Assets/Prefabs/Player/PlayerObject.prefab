@@ -700,8 +700,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThrustSwing: 400
-  SwingNeutralForgiveness: 5
-  SwingTooFast: 7
   ropeCrank: {fileID: 4152991236645354677}
   isTouchingGround: 0
   isFloatingOnWater: 0
@@ -716,9 +714,9 @@ MonoBehaviour:
   whatIsWater:
     serializedVersion: 2
     m_Bits: 1024
-  slowEnoughToPlatform: 0
-  SlowEnoughToPlatformForgiveness: 4
-  MoveSpeed: 100000
+  MoveSpeed: 700000
+  VelocityWalkSpeedLimit: 3
+  VelocityDragThreshold: 4
   _sfxLand: {fileID: 5516460276915310079}
   _sfxSplash: {fileID: 5516460276207974895}
   _sfxScream: {fileID: 5516460276885490103}
