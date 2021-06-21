@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 5516460275824200245}
   - component: {fileID: 5516460275824200244}
   m_Layer: 0
-  m_Name: p2_5
+  m_Name: alien_body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -201,7 +201,7 @@ GameObject:
   - component: {fileID: 5516460276122196410}
   - component: {fileID: 5516460276122196411}
   m_Layer: 0
-  m_Name: p2_0
+  m_Name: alien_head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -283,7 +283,7 @@ GameObject:
   - component: {fileID: 5516460276154997494}
   - component: {fileID: 5516460276154997495}
   m_Layer: 0
-  m_Name: p2_8
+  m_Name: alien_foot_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -912,7 +912,7 @@ GameObject:
   - component: {fileID: 5516460276251882910}
   - component: {fileID: 5516460276251882911}
   m_Layer: 0
-  m_Name: p2_6
+  m_Name: alien_arm_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1030,7 +1030,7 @@ GameObject:
   - component: {fileID: 5516460276710164948}
   - component: {fileID: 5516460276710164955}
   m_Layer: 0
-  m_Name: p2_4
+  m_Name: alien_arm_l
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1858,7 +1858,7 @@ GameObject:
   - component: {fileID: 5516460276949402902}
   - component: {fileID: 5516460276949402903}
   m_Layer: 0
-  m_Name: p2_7
+  m_Name: alien_foot_l
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
