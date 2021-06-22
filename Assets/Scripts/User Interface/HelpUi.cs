@@ -1,56 +1,67 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
-public partial class HelpUi : BaseUi
+namespace User_Interface
 {
-    public Button toCredits;
-    public Button toHelp;
-    public GameObject credits;
-
-    public Animator _levelTransitionOverlay;
-
-    private void Start()
+    public class HelpUi : BaseUi
     {
-        // Change music track
-        MusicManager.i.ChangeMusicTrack(0);
-
-
-    }
-
-    void Update()
-    {
-        CheckKeyInputs();
-    }
-    private void CheckKeyInputs()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        public GameObject credits;
+    
+        private void Start()
         {
-            ExitHelp();
+            // Change music track
+            MusicManager.i.ChangeMusicTrack(0);
         }
 
-    }
-
-    public void ExitHelp()
-    {
-        _levelTransitionOverlay.SetBool("levelEndedOrDead", true);
-        Invoke(nameof(ActuallyExit), 2);
-    }
-
-    private void ActuallyExit()
-    {
-        SceneManager.LoadScene("MainMenu");
-    }
-
-    public void ShowCredits()
-    {
-        if(!credits.activeSelf)
+        private void Update()
         {
-            credits.SetActive(true);
+            CheckKeyInputs();
         }
-        else
+
+        private void CheckKeyInputs()
         {
-            credits.SetActive(false);
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                ExitHelp();
+            }
+        }
+
+        public void VisitSite(string who)
+        {
+            switch (who)
+            {
+                case "Benchi":
+                    Application.OpenURL("https://benchi99.itch.io/");
+                    break;
+                case "Cross":
+                    Application.OpenURL("https://crossfirecam.itch.io/");
+                    break;
+                case "Darelt":
+                    Application.OpenURL("https://darelt.itch.io/");
+                    break;
+                case "Frank":
+                    Application.OpenURL("https://frankbusquets.itch.io/");
+                    break;
+                case "Tesla":
+                    Application.OpenURL("https://teslasp2.itch.io/");
+                    break;
+            }
+        }
+
+        public void ExitHelp()
+        {
+            levelTransitionOverlay.SetBool("levelEndedOrDead", true);
+            Invoke(nameof(ActuallyExit), 2);
+        }
+
+        private void ActuallyExit()
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
+
+        public void ShowCredits()
+        {
+            credits.SetActive(!credits.activeSelf);
         }
     }
 }

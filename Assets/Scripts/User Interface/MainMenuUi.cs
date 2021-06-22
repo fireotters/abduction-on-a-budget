@@ -1,28 +1,26 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Audio;
-using TMPro;
-using System;
+using User_Interface;
 
 public class MainMenuUi : BaseUi
 {
+    private enum SceneNavigationIntent
+    {
+        StartGame = 1,
+        HelpMenu = 0
+    }
+    
     [Header("Main Menu UI")]
     [SerializeField] private OptionsPanel optionsPanel;
-    
-    // High Score display
-    [SerializeField] private TextMeshProUGUI highScoreNum, highScoreName;
-
-    public Animator _levelTransitionOverlay;
-
-    // Audio
-    public AudioMixer mixer;
-
+    [SerializeField] private TextMeshProUGUI versionText;
     //Sign anim
-    public Animator _animSign;
+    public Animator animSign;
 
-    void Start()
+    private void Start()
     {
+        // Set version number
+        SetVersionText();
         // Find SFX Slider & tell MusicManager where it is
         MusicManager.i.sfxDemo = optionsPanel.optionSFXSlider.GetComponent<AudioSource>();
         
@@ -31,22 +29,46 @@ public class MainMenuUi : BaseUi
         {
             PlayerPrefs.SetFloat("Music", 0.8f);
             PlayerPrefs.SetFloat("SFX", 0.8f);
+            PlayerPrefs.SetInt("RopeInvert", 1);
         }
 
-        // Change music track & set volume
+        // Change music track & set volume. Disable low pass filter.
         MusicManager.i.ChangeMusicTrack(0);
+        MusicManager.i.audLowPass.enabled = false;
+
+        Invoke(nameof(AnimateSign), 2f);
+    }
+
+    private void SetVersionText()
+    {
+        if (Debug.isDebugBuild)
+        {
+            versionText.text = !string.IsNullOrEmpty(Application.buildGUID)
+                ? $"Version debug-{Application.version}-{Application.buildGUID}"
+                : $"Version debug-{Application.version}-editor";
+        }
+        else
+        {
+            versionText.text = $"Version {Application.version}";
+        }
     }
 
     public void Transition(int b)
     {
-        _levelTransitionOverlay.SetBool("levelEndedOrDead", true);
-        if (b == 0)
+        var intent = (SceneNavigationIntent) b;
+        levelTransitionOverlay.SetBool("levelEndedOrDead", true);
+        
+        switch (intent)
         {
-            Invoke(nameof(OpenHelp), 2);
-        }
-        else if (b == 1)
-        {
-            Invoke(nameof(ActuallyGame), 2);
+            case SceneNavigationIntent.HelpMenu:
+                Invoke(nameof(OpenHelp), 2);
+                break;
+            case SceneNavigationIntent.StartGame:
+                Invoke(nameof(ActuallyGame), 2);
+                break;
+            default:
+                Debug.LogError("This option is not defined!");
+                break;
         }
     }
     
@@ -65,11 +87,8 @@ public class MainMenuUi : BaseUi
         Application.Quit();
     }
 
-    private void Update()
+    private void AnimateSign()
     {
-        if(Time.timeSinceLevelLoad >= 5)
-        {
-            _animSign.SetBool("go", true);
-        }
+        animSign.SetBool("go", true);
     }
 }

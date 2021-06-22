@@ -11,17 +11,22 @@ namespace Player
         private static Animator _anim;
         private AudioSource _audioSource;
         private Collider2D _col;
+
+        [Header("Movement")]
         [SerializeField] private float velocityFactor = 6f;
-        [SerializeField] private AudioClip moveSound, underwaterMoveSound;
-        [SerializeField] private GameObject collisionSoundPrefab;
-        [SerializeField] private GameObject underWaterColSoundPrefab;
-        [SerializeField] private ParticleSystem sparkParticles;
-        [SerializeField] private AudioLowPassFilter lowPass;
         private const float MultiAxisThreshold = 0.1f;
         private const float SlowdownFactor = 1.5f;
         private Vector2 calculatedForce = new Vector2();
         public bool levelOverFlyRight = false;
-        private bool isLaunchingSound;
+
+        [Header("Effects")]
+        [SerializeField] private ParticleSystem sparkParticles;
+        [SerializeField] private GameObject collisionSoundPrefab, underWaterColSoundPrefab;
+        [SerializeField] private AudioClip moveSound, underwaterMoveSound;
+        [SerializeField] private AudioLowPassFilter lowPass;
+        [SerializeField] private Transform _traSplashSpawn;
+        [SerializeField] private AttachedSoundEffect _sfxSplash;
+        [SerializeField] private GameObject _particleSplash;
 
         private bool lastFrameStartedFlying = false, currentlyFlying = false;
         private Vector2 compareZero = new Vector2(0, 0);
@@ -120,17 +125,17 @@ namespace Player
         private void OnCollisionEnter2D(Collision2D other)
         {
             if (_anim.GetBool("water"))
-                Instantiate(underWaterColSoundPrefab);
+                Instantiate(underWaterColSoundPrefab, GameManager.i.EffectsParent);
                 
             else
-                Instantiate(collisionSoundPrefab);
+                Instantiate(collisionSoundPrefab, GameManager.i.EffectsParent);
                 
-            Instantiate(sparkParticles, other.contacts[0].point, Quaternion.identity);
+            Instantiate(sparkParticles, other.contacts[0].point, Quaternion.identity, GameManager.i.EffectsParent);
         }
 
         private void OnCollisionStay2D(Collision2D other)
         {
-            Instantiate(sparkParticles, other.contacts[0].point, Quaternion.identity);
+            Instantiate(sparkParticles, other.contacts[0].point, Quaternion.identity, GameManager.i.EffectsParent);
         }
         
         private static bool IsHorizontalAxisInThresholdForSpeedReduction(float horizontalAxis)
@@ -165,6 +170,9 @@ namespace Player
                     _audioSource.clip = underwaterMoveSound;
                 }
                 _anim.SetBool("water", true);
+
+                _sfxSplash.PlaySound();
+                Instantiate(_particleSplash, _traSplashSpawn.position, Quaternion.identity, GameManager.i.EffectsParent);
             }
         }
 

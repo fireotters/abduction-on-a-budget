@@ -19,7 +19,11 @@ namespace Editor_Related
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            GameManager.i.LevelFinished();
+            // Make sure only gameObjects tagged as Player can set off LevelFinished
+            if (other.CompareTag("Player"))
+            {
+                GameManager.i.LevelFinished();   
+            }
         }
     }
 }
