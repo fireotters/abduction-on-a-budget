@@ -36,9 +36,10 @@ namespace Player
         [SerializeField] private float MoveSpeed = 700000f;
         [SerializeField] private float VelocityWalkSpeedLimit = 3f, VelocityDragThreshold = 4f;
 
-        [Header("Sound Effects")]
+        [Header("Effects")]
         [SerializeField] private AttachedSoundEffect _sfxLand;
         [SerializeField] private AttachedSoundEffect _sfxSplash, _sfxScream, _sfxWalk, _sfxDragged;
+        [SerializeField] private GameObject _particleSplash;
         private float lastWalkSfx, lastDragSfx;
         private const float WalkSfxCooldown = 0.5f, DragSfxCooldown = 0.15f;
 
@@ -81,6 +82,7 @@ namespace Player
             if (isFloatingOnWater && !lastFrameWasFloating)
             {
                 _sfxSplash.PlaySound();
+                Instantiate(_particleSplash, transform.position, Quaternion.identity, GameManager.i.EffectsParent);
             }
             lastFrameWasFloating = isFloatingOnWater;
         }
