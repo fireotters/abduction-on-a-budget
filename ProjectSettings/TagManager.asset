@@ -48,19 +48,19 @@ TagManager:
   - name: Background Tiles n' Text
     uniqueID: 3121737753
     locked: 0
-  - name: Hideable Behind Water
+  - name: Hides Behind Water
     uniqueID: 908325805
     locked: 0
   - name: Water Tiles
     uniqueID: 1926874529
     locked: 0
-  - name: Show In Front Of Water
+  - name: Shows In Front Of Water
     uniqueID: 3182464699
     locked: 0
   - name: World Tiles
     uniqueID: 2884742923
     locked: 0
-  - name: Show In Front Of Water n' World
+  - name: Shows In Front Of Water n' World
     uniqueID: 2006010633
     locked: 0
   - name: Player
