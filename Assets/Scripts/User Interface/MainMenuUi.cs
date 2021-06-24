@@ -62,6 +62,13 @@ public class MainMenuUi : BaseUi
         Invoke(nameof(OpenHelp), 2);
     }
 
+    public void ResetGameProgressConfirmed()
+    {
+        // TODO Implement when progress system is developed
+        levelTransitionOverlay.SetBool("levelEndedOrDead", true);
+        Invoke(nameof(OpenMain), 2);
+    }
+
     private void OpenLevelSelect()
     {
         SceneManager.LoadScene("LevelSelectMenu");
@@ -69,6 +76,11 @@ public class MainMenuUi : BaseUi
     private void OpenHelp()
     {
         SceneManager.LoadScene("HelpMenu");
+    }
+
+    private void OpenMain()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void QuitGame()
