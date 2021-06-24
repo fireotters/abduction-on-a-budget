@@ -8,10 +8,15 @@ public class LevelSelectUi : BaseUi
 {
     private void Start()
     {
-
+        MusicManager.i.ChangeMusicTrack(0);
     }
     public void BackToMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void PlayTransition()
+    {
+        levelTransitionOverlay.SetBool("levelEndedOrDead", true);
     }
 }

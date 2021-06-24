@@ -9,7 +9,6 @@ namespace User_Interface
     
         private void Start()
         {
-            // Change music track
             MusicManager.i.ChangeMusicTrack(0);
         }
 
