@@ -5,9 +5,8 @@ using User_Interface;
 
 public class MainMenuUi : BaseUi
 {
-    private enum SceneNavigationIntent
+    public enum SceneNavigationIntent
     {
-        StartGame = 1,
         HelpMenu = 0
     }
     
@@ -35,8 +34,6 @@ public class MainMenuUi : BaseUi
         // Change music track & set volume. Disable low pass filter.
         MusicManager.i.ChangeMusicTrack(0);
         MusicManager.i.audLowPass.enabled = false;
-
-        Invoke(nameof(AnimateSign), 2f);
     }
 
     private void SetVersionText()
@@ -53,31 +50,23 @@ public class MainMenuUi : BaseUi
         }
     }
 
-    public void Transition(int b)
+    public void TransitionToLevelSelect()
     {
-        var intent = (SceneNavigationIntent) b;
         levelTransitionOverlay.SetBool("levelEndedOrDead", true);
-        
-        switch (intent)
-        {
-            case SceneNavigationIntent.HelpMenu:
-                Invoke(nameof(OpenHelp), 2);
-                break;
-            case SceneNavigationIntent.StartGame:
-                Invoke(nameof(ActuallyGame), 2);
-                break;
-            default:
-                Debug.LogError("This option is not defined!");
-                break;
-        }
-    }
-    
-    public void ActuallyGame()
-    {
-        SceneManager.LoadScene("ComicAnim");
+        Invoke(nameof(OpenLevelSelect), 2);
     }
 
-    public void OpenHelp()
+    public void TransitionToHelpMenu()
+    {
+        levelTransitionOverlay.SetBool("levelEndedOrDead", true);
+        Invoke(nameof(OpenHelp), 2);
+    }
+
+    private void OpenLevelSelect()
+    {
+        SceneManager.LoadScene("LevelSelectMenu");
+    }
+    private void OpenHelp()
     {
         SceneManager.LoadScene("HelpMenu");
     }
