@@ -14,11 +14,20 @@ public class MainMenuUi : BaseUi
     [Header("Main Menu UI")]
     [SerializeField] private OptionsPanel optionsPanel;
     [SerializeField] private TextMeshProUGUI versionText;
+    [SerializeField] private GameObject desktopButtonRow, webButtonRow;
     //Sign anim
     public Animator animSign;
 
     private void Start()
     {
+        #if UNITY_WEBGL
+            desktopButtonRow.SetActive(false);
+            webButtonRow.SetActive(true);
+        #else
+            desktopButtonRow.SetActive(true);
+            webButtonRow.SetActive(false);
+        #endif
+        
         // Set version number
         SetVersionText();
         // Find SFX Slider & tell MusicManager where it is
