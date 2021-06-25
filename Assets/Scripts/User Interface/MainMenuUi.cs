@@ -89,7 +89,7 @@ public class MainMenuUi : BaseUi
 
     private void OpenMain()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("MainMenu CrossEdit");
     }
 
     public void QuitGame()

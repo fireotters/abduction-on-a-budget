@@ -14,6 +14,22 @@ public static class LevelHandling
             new Level(world: 0, level: 3, humans: 0, "Blank"),
             new Level(world: 0, level: 4, humans: 0, "Blank"),
         }),
+        new World(world: 1, name: "World 2", levels: new List<Level>()
+        {
+            new Level(world: 1, level: 0, humans: 0, "Blank"),
+            new Level(world: 1, level: 1, humans: 0, "Blank"),
+            new Level(world: 1, level: 2, humans: 0, "Blank"),
+            new Level(world: 1, level: 3, humans: 0, "Blank"),
+            new Level(world: 1, level: 4, humans: 0, "Blank"),
+        }),
+        new World(world: 2, name: "World 3", levels: new List<Level>()
+        {
+            new Level(world: 2, level: 0, humans: 0, "Blank"),
+            new Level(world: 2, level: 1, humans: 0, "Blank"),
+            new Level(world: 2, level: 2, humans: 0, "Blank"),
+            new Level(world: 2, level: 3, humans: 0, "Blank"),
+            new Level(world: 2, level: 4, humans: 0, "Blank"),
+        }),
     };
 }
 
@@ -57,7 +73,7 @@ public class Level
 
         // Add zeroes to LevelString if necessary
         string worldStr = (world < 10 ? "0" : "") + world.ToString();
-        string levelStr = (level < 10 ? "0" : "") + world.ToString();
+        string levelStr = (level < 10 ? "0" : "") + level.ToString();
         LevelString = $"Level-W{worldStr}-L{levelStr}";
     }
 }

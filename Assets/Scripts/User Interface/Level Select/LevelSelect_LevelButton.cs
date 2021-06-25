@@ -7,12 +7,12 @@ using UnityEngine.SceneManagement;
 public class LevelSelect_LevelButton : MonoBehaviour
 {
     private Button _button;
-    [SerializeField] private string _attachedScene;
+    [SerializeField] public string attachedScene;
 
     private void Start()
     {
         _button = GetComponent<Button>();
-        if (_attachedScene != "")
+        if (attachedScene != "")
         {
             _button.onClick.AddListener(PlayLeaveAnimation);
         }
@@ -26,6 +26,6 @@ public class LevelSelect_LevelButton : MonoBehaviour
 
     private void GoToLevel()
     {
-        SceneManager.LoadScene(_attachedScene);
+        SceneManager.LoadScene(attachedScene);
     }
 }

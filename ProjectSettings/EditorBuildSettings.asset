@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level03.unity
     guid: d536aa36a35ca2d4dbfcf480c3a2abd7
+  - enabled: 1
+    path: Assets/Scenes/MainMenu CrossEdit.unity
+    guid: 28e9661badbc1f14285eaab621d4eb9b
   m_configObjects: {}
