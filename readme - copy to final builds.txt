@@ -15,7 +15,7 @@ OS Specific Instructions
 ------------------
 Windows 10 - Smartscreen may block the game from opening. Click 'More info' and 'Run anyway'.
 
-Linux - Game may not work immediately. Go to the executable's 'Properties, Permissions' and check the box for 'Allow executing file as program'.
+Linux - Game may not work immediately. Go to the executable's 'Properties, Permissions' and check the box for 'Allow executing file as program'. Or you could run "chmod +x" on the executable to mark it as an executable.
 
 macOS - Game will not work on macOS without manually approving it. Follow instructions here: https://support.apple.com/en-gb/guide/mac-help/mh40616/mac (Stay tuned, we may consider signing the game with an Apple Developer ID at a later date)
 
