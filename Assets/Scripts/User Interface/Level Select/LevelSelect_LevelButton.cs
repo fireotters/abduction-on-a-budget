@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class LevelSelect_LevelButton : MonoBehaviour
+public class LevelSelect_LevelButton : LevelSelect_Button
 {
     private Button _button;
     [SerializeField] public string attachedScene;

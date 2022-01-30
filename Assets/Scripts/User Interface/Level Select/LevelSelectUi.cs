@@ -43,6 +43,7 @@ public partial class LevelSelectUi : BaseUi
         {
             Vector2 newPos = new Vector2(levelContainer.localPosition.x + moveAmount, levelContainer.localPosition.y);
             levelContainer.localPosition = newPos;
+            
         }
         RefreshBackForwardButtons();
     }
@@ -60,6 +61,23 @@ public partial class LevelSelectUi : BaseUi
         if (currentSelectedButton == numOfActiveButtons - 3)
             forwardButton.SetActive(false);
 
+        // Fade unselectable buttons, unfade selectable buttons.
+        foreach (Transform button in levelContainer)
+        {
+            // Turn button's name into its index.
+            int buttonIndex = int.Parse(button.name.Split(' ')[1]) - 1;
+
+            if (buttonIndex < currentSelectedButton || buttonIndex > currentSelectedButton + 2)
+            {
+                button.GetComponent<LevelSelect_Button>().ChangeButtonFade("fade");
+            }
+            else
+            {
+                button.GetComponent<LevelSelect_Button>().ChangeButtonFade("unfade");
+            }
+        }
+
+
         print(currentSelectedButton + " " + numOfActiveButtons);
     }
 
@@ -69,15 +87,16 @@ public partial class LevelSelectUi : BaseUi
         float baseEntryX = 0f, offsetEntryX = 200f;
         foreach (World world in LevelHandling.worlds)
         {
+            numOfActiveButtons += 1;
+
             Transform worldEntry = Instantiate(worldButton, worldContainer);
+            worldEntry.name = "World " + numOfActiveButtons.ToString();
             RectTransform worldEntryRect = worldEntry.GetComponent<RectTransform>();
             worldEntryRect.anchoredPosition = new Vector2(baseEntryX + offsetEntryX * world.WorldNum, 0);
 
             worldEntry.Find("WorldText").GetComponent<TextMeshProUGUI>().text = world.WorldName;
             worldEntry.Find("HumansText").GetComponent<TextMeshProUGUI>().text = "0/" + world.TotalHumansInWorld;
             worldEntry.GetComponent<Button>().onClick.AddListener(() => RenderLevelSelect(world));
-
-            numOfActiveButtons += 1;
         }
         numOfWorldButtons = numOfActiveButtons;
         RefreshBackForwardButtons();
@@ -95,15 +114,16 @@ public partial class LevelSelectUi : BaseUi
         float baseEntryX = 0f, offsetEntryX = 200f;
         foreach (Level level in worldChosen.LevelsInWorld)
         {
+            numOfActiveButtons += 1;
+
             Transform levelEntry = Instantiate(levelButton, levelContainer);
-            RectTransform worldEntryRect = levelEntry.GetComponent<RectTransform>();
-            worldEntryRect.anchoredPosition = new Vector2(baseEntryX + offsetEntryX * level.LevelNum, 0);
+            levelEntry.name = "Level " + numOfActiveButtons.ToString();
+            RectTransform levelEntryRect = levelEntry.GetComponent<RectTransform>();
+            levelEntryRect.anchoredPosition = new Vector2(baseEntryX + offsetEntryX * level.LevelNum, 0);
 
             levelEntry.Find("WorldText").GetComponent<TextMeshProUGUI>().text = level.LevelName;
             levelEntry.Find("HumansText").GetComponent<TextMeshProUGUI>().text = "0/" + level.HumansPresent;
             levelEntry.GetComponent<LevelSelect_LevelButton>().attachedScene = level.LevelString;
-
-            numOfActiveButtons += 1;
         }
         RefreshBackForwardButtons();
     }

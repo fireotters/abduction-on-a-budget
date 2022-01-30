@@ -187,7 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c7aae835637cff469b33227019bd85f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attachedScene: ComicAnim
+  attachedScene: 
 --- !u!222 &1439407343844012728
 CanvasRenderer:
   m_ObjectHideFlags: 0
