@@ -171,7 +171,7 @@ public partial class LevelSelectUi : BaseUi
 
     public void BackToMainMenu()
     {
-        SceneManager.LoadScene("MainMenu CrossEdit");
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void PlayTransition()

@@ -5,11 +5,6 @@ using User_Interface;
 
 public class MainMenuUi : BaseUi
 {
-    public enum SceneNavigationIntent
-    {
-        HelpMenu = 0
-    }
-    
     [Header("Main Menu UI")]
     [SerializeField] private OptionsPanel optionsPanel;
     [SerializeField] private TextMeshProUGUI versionText;
@@ -82,6 +77,7 @@ public class MainMenuUi : BaseUi
     {
         SceneManager.LoadScene("LevelSelectMenu");
     }
+
     private void OpenHelp()
     {
         SceneManager.LoadScene("HelpMenu");
