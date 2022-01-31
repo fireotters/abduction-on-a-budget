@@ -6,29 +6,29 @@ public static class LevelHandling
 {
     public static List<World> worlds = new List<World>()
     {
-        new World(world: 0, name: "World 1", levels: new List<Level>()
+        new World(world: 1, name: "World 1", levels: new List<Level>()
         {
-            new Level(world: 0, level: 0, humans: 3, "Welcome to Earth"),
-            new Level(world: 0, level: 1, humans: 2, "The Reservoir"),
-            new Level(world: 0, level: 2, humans: 2, "Abandonned Sewer"),
-            new Level(world: 0, level: 3, humans: 0, "Blank"),
-            new Level(world: 0, level: 4, humans: 0, "Blank"),
-        }),
-        new World(world: 1, name: "World 2", levels: new List<Level>()
-        {
-            new Level(world: 1, level: 0, humans: 0, "Blank"),
-            new Level(world: 1, level: 1, humans: 0, "Blank"),
-            new Level(world: 1, level: 2, humans: 0, "Blank"),
-            new Level(world: 1, level: 3, humans: 0, "Blank"),
+            new Level(world: 1, level: 1, humans: 3, "Welcome to Earth"),
+            new Level(world: 1, level: 2, humans: 2, "The Reservoir"),
+            new Level(world: 1, level: 3, humans: 2, "Abandonned Sewer"),
             new Level(world: 1, level: 4, humans: 0, "Blank"),
+            new Level(world: 1, level: 5, humans: 0, "Blank"),
         }),
-        new World(world: 2, name: "World 3", levels: new List<Level>()
+        new World(world: 2, name: "World 2", levels: new List<Level>()
         {
-            new Level(world: 2, level: 0, humans: 0, "Blank"),
             new Level(world: 2, level: 1, humans: 0, "Blank"),
             new Level(world: 2, level: 2, humans: 0, "Blank"),
             new Level(world: 2, level: 3, humans: 0, "Blank"),
             new Level(world: 2, level: 4, humans: 0, "Blank"),
+            new Level(world: 2, level: 5, humans: 0, "Blank"),
+        }),
+        new World(world: 3, name: "World 3", levels: new List<Level>()
+        {
+            new Level(world: 3, level: 1, humans: 0, "Blank"),
+            new Level(world: 3, level: 2, humans: 0, "Blank"),
+            new Level(world: 3, level: 3, humans: 0, "Blank"),
+            new Level(world: 3, level: 4, humans: 0, "Blank"),
+            new Level(world: 3, level: 5, humans: 0, "Blank"),
         }),
     };
 }
@@ -37,6 +37,7 @@ public class World
 {
     public int WorldNum;
     public string WorldName;
+    public string WorldString;
     public List<Level> LevelsInWorld;
     public int TotalHumansInWorld;
 
@@ -53,6 +54,10 @@ public class World
             totalHumans += level.HumansPresent;
         }
         TotalHumansInWorld = totalHumans;
+
+        // Add zeroes to WorldString if necessary
+        string worldStr = (world < 10 ? "0" : "") + world.ToString();
+        WorldString = $"World-{worldStr}";
     }
 }
 

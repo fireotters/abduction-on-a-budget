@@ -18441,7 +18441,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 995724645}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.6319976, y: 2.9959369, z: -10}
+  m_LocalPosition: {x: -4.632018, y: 2.9959369, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2082612319}
@@ -35975,7 +35975,7 @@ MonoBehaviour:
   levelTransitionOverlay: {fileID: 51845893}
   gamePausePanel: {fileID: 989515929}
   gameEndPanel: {fileID: 832197098}
-  levelGo: Level03
+  levelGo: Level-W01-L03
   keyCountText: {fileID: 1569241245}
   humanCountText: {fileID: 878973814}
   endLevelHumans: {fileID: 1850793578}

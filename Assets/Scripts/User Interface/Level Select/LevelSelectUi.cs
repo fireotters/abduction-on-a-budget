@@ -89,14 +89,24 @@ public partial class LevelSelectUi : BaseUi
         {
             numOfActiveButtons += 1;
 
+            // Create a button and place it
             Transform worldEntry = Instantiate(worldButton, worldContainer);
             worldEntry.name = "World " + numOfActiveButtons.ToString();
             RectTransform worldEntryRect = worldEntry.GetComponent<RectTransform>();
-            worldEntryRect.anchoredPosition = new Vector2(baseEntryX + offsetEntryX * world.WorldNum, 0);
+            worldEntryRect.anchoredPosition = new Vector2(baseEntryX + offsetEntryX * (world.WorldNum - 1), 0);
 
+            // Assign button attributes
             worldEntry.Find("WorldText").GetComponent<TextMeshProUGUI>().text = world.WorldName;
             worldEntry.Find("HumansText").GetComponent<TextMeshProUGUI>().text = "0/" + world.TotalHumansInWorld;
             worldEntry.GetComponent<Button>().onClick.AddListener(() => RenderLevelSelect(world));
+
+            // Assign button sprite
+            string spritePath = "Level Icons/" + world.WorldString;
+            Sprite worldEntrySprite = Resources.Load<Sprite>(spritePath);
+            if (worldEntrySprite != null)
+            {
+                worldEntry.GetComponent<Image>().sprite = worldEntrySprite;
+            }
         }
         numOfWorldButtons = numOfActiveButtons;
         RefreshBackForwardButtons();
@@ -116,14 +126,25 @@ public partial class LevelSelectUi : BaseUi
         {
             numOfActiveButtons += 1;
 
+            // Create a button and place it
             Transform levelEntry = Instantiate(levelButton, levelContainer);
             levelEntry.name = "Level " + numOfActiveButtons.ToString();
             RectTransform levelEntryRect = levelEntry.GetComponent<RectTransform>();
-            levelEntryRect.anchoredPosition = new Vector2(baseEntryX + offsetEntryX * level.LevelNum, 0);
+            levelEntryRect.anchoredPosition = new Vector2(baseEntryX + offsetEntryX * (level.LevelNum - 1), 0);
 
+            // Assign button attributes
             levelEntry.Find("WorldText").GetComponent<TextMeshProUGUI>().text = level.LevelName;
             levelEntry.Find("HumansText").GetComponent<TextMeshProUGUI>().text = "0/" + level.HumansPresent;
             levelEntry.GetComponent<LevelSelect_LevelButton>().attachedScene = level.LevelString;
+
+            // Assign button sprite
+            string spritePath = "Level Icons/" + level.LevelString;
+            Sprite levelEntrySprite = Resources.Load<Sprite>(spritePath);
+            if (levelEntrySprite != null)
+            {
+                levelEntry.GetComponent<Image>().sprite = levelEntrySprite;
+            }
+            print(spritePath);
         }
         RefreshBackForwardButtons();
     }

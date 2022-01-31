@@ -26,6 +26,10 @@ public class LevelSelect_LevelButton : LevelSelect_Button
 
     private void GoToLevel()
     {
+        if (attachedScene == "Level-W01-L01")
+        {
+            attachedScene = "ComicAnim";
+        }
         SceneManager.LoadScene(attachedScene);
     }
 }
