@@ -5,20 +5,23 @@ using User_Interface;
 
 public class MainMenuUi : BaseUi
 {
-    private enum SceneNavigationIntent
-    {
-        StartGame = 1,
-        HelpMenu = 0
-    }
-    
     [Header("Main Menu UI")]
     [SerializeField] private OptionsPanel optionsPanel;
     [SerializeField] private TextMeshProUGUI versionText;
+    [SerializeField] private GameObject desktopButtonRow, webButtonRow;
     //Sign anim
     public Animator animSign;
 
     private void Start()
     {
+        #if UNITY_WEBGL
+            desktopButtonRow.SetActive(false);
+            webButtonRow.SetActive(true);
+        #else
+            desktopButtonRow.SetActive(true);
+            webButtonRow.SetActive(false);
+        #endif
+        
         // Set version number
         SetVersionText();
         // Find SFX Slider & tell MusicManager where it is
@@ -35,8 +38,6 @@ public class MainMenuUi : BaseUi
         // Change music track & set volume. Disable low pass filter.
         MusicManager.i.ChangeMusicTrack(0);
         MusicManager.i.audLowPass.enabled = false;
-
-        Invoke(nameof(AnimateSign), 2f);
     }
 
     private void SetVersionText()
@@ -53,33 +54,38 @@ public class MainMenuUi : BaseUi
         }
     }
 
-    public void Transition(int b)
+    public void TransitionToLevelSelect()
     {
-        var intent = (SceneNavigationIntent) b;
         levelTransitionOverlay.SetBool("levelEndedOrDead", true);
-        
-        switch (intent)
-        {
-            case SceneNavigationIntent.HelpMenu:
-                Invoke(nameof(OpenHelp), 2);
-                break;
-            case SceneNavigationIntent.StartGame:
-                Invoke(nameof(ActuallyGame), 2);
-                break;
-            default:
-                Debug.LogError("This option is not defined!");
-                break;
-        }
-    }
-    
-    public void ActuallyGame()
-    {
-        SceneManager.LoadScene("ComicAnim");
+        Invoke(nameof(OpenLevelSelect), 2);
     }
 
-    public void OpenHelp()
+    public void TransitionToHelpMenu()
+    {
+        levelTransitionOverlay.SetBool("levelEndedOrDead", true);
+        Invoke(nameof(OpenHelp), 2);
+    }
+
+    public void ResetGameProgressConfirmed()
+    {
+        // TODO Implement when progress system is developed
+        levelTransitionOverlay.SetBool("levelEndedOrDead", true);
+        Invoke(nameof(OpenMain), 2);
+    }
+
+    private void OpenLevelSelect()
+    {
+        SceneManager.LoadScene("LevelSelectMenu");
+    }
+
+    private void OpenHelp()
     {
         SceneManager.LoadScene("HelpMenu");
+    }
+
+    private void OpenMain()
+    {
+        SceneManager.LoadScene("MainMenu CrossEdit");
     }
 
     public void QuitGame()

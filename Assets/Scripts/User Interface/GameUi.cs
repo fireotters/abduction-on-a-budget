@@ -22,7 +22,7 @@ public class GameUi : BaseUi
     {
         CheckKeyInputs();
         keyCountText.text = $"{GameManager.i.keyCount}";
-        humanCountText.text = $"{GameManager.i.humanCount} {GameManager.i.totalCountOfHumans}";
+        humanCountText.text = $"{GameManager.i.humanCount}/{GameManager.i.totalCountOfHumans}";
     }
 
     private void CheckKeyInputs()

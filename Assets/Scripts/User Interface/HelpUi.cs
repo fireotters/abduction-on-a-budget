@@ -1,14 +1,21 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace User_Interface
 {
     public class HelpUi : BaseUi
     {
+        private readonly string WEB_ATTRIBUTIONS = "Check further down in the page for the changelog (and code attributions)";
+
         public GameObject credits;
-    
+        [SerializeField] private TextMeshProUGUI attributionsText;
+
         private void Start()
         {
+            #if UNITY_WEBGL
+                attributionsText.SetText(WEB_ATTRIBUTIONS);
+            #endif
             // Change music track
             MusicManager.i.ChangeMusicTrack(0);
         }

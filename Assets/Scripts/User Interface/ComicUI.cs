@@ -28,7 +28,7 @@ namespace User_Interface
 
         private static void ExitComic()
         {
-            SceneManager.LoadScene("Level01");
+            SceneManager.LoadScene("Level-W01-L01");
         }
     }
 }
