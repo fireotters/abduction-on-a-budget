@@ -1,4 +1,4 @@
-Abduction on a Budget v1.0.1
+Abduction on a Budget v1.0.2
 
 Developed by: benchi99, CrossfireCam, Darelt, Frank Busquets, TeslaSP2
 Full credits and itch.io links are in the game's Help menu
@@ -6,22 +6,27 @@ Full credits and itch.io links are in the game's Help menu
 ------------------
 How To Start Game
 ------------------
-Launch 'Abduction on a Budget.exe'. By default, the game starts in fullscreen. To change this, visit 'Options'. You'll also find volume and control options here.
+Launch the 'Abduction on a Budget' executable (File ending in .exe, .x86_64).
+By default, the game starts in fullscreen. To change this, visit 'Options'. You'll also find volume options there, among other settings.
 
-To uninstall this game, delete the entire 'Abduction on a Budget v1.0.1' folder.
+To uninstall this game, delete the entire 'Abduction on a Budget v1.0.2' folder.
 
 ------------------
 OS Specific Instructions
 ------------------
-Windows 10 - Smartscreen may block the game from opening. Click 'More info' and 'Run anyway'.
+Windows - Smartscreen may block the game from opening. Click 'More info' and 'Run anyway'.
 
-Linux - Game may not work immediately. Go to the executable's 'Properties, Permissions' and check the box for 'Allow executing file as program'. Or you could run "chmod +x" on the executable to mark it as an executable.
-
-macOS - Game will not work on macOS without manually approving it. Follow instructions here: https://support.apple.com/en-gb/guide/mac-help/mh40616/mac (Stay tuned, we may consider signing the game with an Apple Developer ID at a later date)
+Linux - The game may not run as an executable.
+• For Ubuntu, go to the executable's 'Properties, Permissions' and check the box for 'Allow executing file as program'.
+• For other distros, you could run "chmod +x" on the executable to mark it as an executable.
+• If the game crashes immediately, check "~/.config/unity3d/FireOtters/Abduction on a Budget" for an error log
 
 ------------------
 Changelog
 ------------------
+v1.0.2 - Patch for CVE-2025-59489 (5 October 2025)
+• Patched a Unity vulnerability (https://unity.com/security/sept-2025-01)
+
 v1.0.1
 • Alien's movement improved. Walking is faster, alien can swing while touching ceiling underwater, and rope controls are inverted while UFO is below alien (can be disabled in settings).
 • Level layouts improved. Out-of-bounds areas patched up.
