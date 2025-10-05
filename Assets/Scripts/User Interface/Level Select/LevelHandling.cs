@@ -2,34 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// TODO: This feature is incomplete. We had plans to add more levels, so world & level select handling was worked on
+// - As of v1.0.2 it has been over 4 years since the GMTK Game Jam this game was made for
+// - It's unlikely we'll ever return. I changed code to skip world selection, and hid the human-count per-level from level select. -Crossy
+
 public static class LevelHandling
 {
     public static List<World> worlds = new List<World>()
     {
-        new World(world: 1, name: "World 1", levels: new List<Level>()
+        new World(world: 1, name: "Green Grove", levels: new List<Level>()
         {
             new Level(world: 1, level: 1, humans: 3, "Welcome to Earth"),
             new Level(world: 1, level: 2, humans: 2, "The Reservoir"),
             new Level(world: 1, level: 3, humans: 2, "Abandonned Sewer"),
-            new Level(world: 1, level: 4, humans: 0, "Blank"),
-            new Level(world: 1, level: 5, humans: 0, "Blank"),
+            //new Level(world: 1, level: 4, humans: 0, "Blank"),
+            //new Level(world: 1, level: 5, humans: 0, "Blank"),
         }),
-        new World(world: 2, name: "World 2", levels: new List<Level>()
-        {
-            new Level(world: 2, level: 1, humans: 0, "Blank"),
-            new Level(world: 2, level: 2, humans: 0, "Blank"),
-            new Level(world: 2, level: 3, humans: 0, "Blank"),
-            new Level(world: 2, level: 4, humans: 0, "Blank"),
-            new Level(world: 2, level: 5, humans: 0, "Blank"),
-        }),
-        new World(world: 3, name: "World 3", levels: new List<Level>()
-        {
-            new Level(world: 3, level: 1, humans: 0, "Blank"),
-            new Level(world: 3, level: 2, humans: 0, "Blank"),
-            new Level(world: 3, level: 3, humans: 0, "Blank"),
-            new Level(world: 3, level: 4, humans: 0, "Blank"),
-            new Level(world: 3, level: 5, humans: 0, "Blank"),
-        }),
+        //new World(world: 2, name: "World 2", levels: new List<Level>()
+        //{
+        //    new Level(world: 2, level: 1, humans: 0, "Blank"),
+        //    new Level(world: 2, level: 2, humans: 0, "Blank"),
+        //    new Level(world: 2, level: 3, humans: 0, "Blank"),
+        //    new Level(world: 2, level: 4, humans: 0, "Blank"),
+        //    new Level(world: 2, level: 5, humans: 0, "Blank"),
+        //}),
+        //new World(world: 3, name: "World 3", levels: new List<Level>()
+        //{
+        //    new Level(world: 3, level: 1, humans: 0, "Blank"),
+        //    new Level(world: 3, level: 2, humans: 0, "Blank"),
+        //    new Level(world: 3, level: 3, humans: 0, "Blank"),
+        //    new Level(world: 3, level: 4, humans: 0, "Blank"),
+        //    new Level(world: 3, level: 5, humans: 0, "Blank"),
+        //}),
     };
 }
 

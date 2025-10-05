@@ -22,7 +22,8 @@ public partial class LevelSelectUi : BaseUi
     {
         MusicManager.i.ChangeMusicTrack(0);
 
-        RenderWorldSelect();
+        //RenderWorldSelect(); // TODO: World selection skipped, due to only ever implementing one world
+        RenderLevelSelect(LevelHandling.worlds[0]);
     }
 
     /// <summary>
@@ -60,6 +61,13 @@ public partial class LevelSelectUi : BaseUi
             backButton.SetActive(false);
         if (currentSelectedButton == numOfActiveButtons - 3)
             forwardButton.SetActive(false);
+        if (numOfActiveButtons <= 3)
+        {
+            // B/F buttons don't need to exist if only 3 levels on screen
+            backButton.SetActive(false);
+            forwardButton.SetActive(false);
+        }
+
 
         // Fade unselectable buttons, unfade selectable buttons.
         foreach (Transform button in levelContainer)
@@ -78,7 +86,7 @@ public partial class LevelSelectUi : BaseUi
         }
 
 
-        print(currentSelectedButton + " " + numOfActiveButtons);
+        //print(currentSelectedButton + " " + numOfActiveButtons);
     }
 
     public void RenderWorldSelect()
@@ -117,8 +125,8 @@ public partial class LevelSelectUi : BaseUi
         title.text = worldChosen.WorldName;
         worldContainer.gameObject.SetActive(false);
         levelContainer.gameObject.SetActive(true);
-        worldExitButton.SetActive(false);
-        levelExitButton.SetActive(true);
+        worldExitButton.SetActive(true);  // Intended to be 'false'. World selection is skipped due to only ever implementing one world
+        levelExitButton.SetActive(false); // Intended to be 'true'
 
         numOfActiveButtons = 0; currentSelectedButton = 0;
         float baseEntryX = 0f, offsetEntryX = 200f;
@@ -144,7 +152,7 @@ public partial class LevelSelectUi : BaseUi
             {
                 levelEntry.GetComponent<Image>().sprite = levelEntrySprite;
             }
-            print(spritePath);
+            //print(spritePath);
         }
         RefreshBackForwardButtons();
     }
